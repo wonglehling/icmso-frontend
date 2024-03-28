@@ -1,0 +1,47 @@
+import React, { useState } from "react";
+import SideBar from "../../components/Sidebar";
+
+import Code from "./Code"
+import Dataset from "./Dataset";
+import EBook from "./EBook";
+import ResearchPaper from "./ResearchPaper";
+import Article from "./Article";
+import Report from "./Report";
+import Presentation from "./Presentation";
+
+import Tab from "@mui/material/Tab";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+
+export default function UploadResource() {
+  const [tabValue, setTabValue] = useState("1");
+
+  const handleTabChange = (event, newTabValue) => {
+    setTabValue(newTabValue);
+  };
+
+  return (
+    <>
+      <SideBar />
+      <TabContext value={tabValue}>
+        <TabList onChange={handleTabChange} aria-label="lab API tabs example">
+          <Tab label="Article" value="1" />
+          <Tab label="Code" value="2" />
+          <Tab label="Dataset" value="3" />
+          <Tab label="eBook" value="4" />
+          <Tab label="Presentation" value="5" />
+          <Tab label="Report" value="6" />
+          <Tab label="Research Paper" value="7" />
+        </TabList>
+        <TabPanel value="1"><Article /></TabPanel>
+        <TabPanel value="2"><Code /></TabPanel>
+        <TabPanel value="3"><Dataset /></TabPanel>
+        <TabPanel value="4"><EBook /></TabPanel>
+        <TabPanel value="5"><Presentation /></TabPanel>
+        <TabPanel value="6"><Report /></TabPanel>
+        <TabPanel value="7"><ResearchPaper /></TabPanel>
+      </TabContext>
+    </>
+  );
+}

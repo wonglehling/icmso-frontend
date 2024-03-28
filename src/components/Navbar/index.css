@@ -1,0 +1,23 @@
+.navbar-title {
+  font-weight: 600;
+  font-size: 1.5rem;
+  text-align: left;
+}
+
+.bd-searchbar, .bd-searchbar:focus {
+  border: none !important;
+  background-color: grey !important;
+}
+
+.bd-container {
+  border-radius: 2rem;
+  border: solid 1px grey;
+  background-color: grey;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.mg-icon {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}

@@ -2,11 +2,11 @@ import React from "react";
 
 import SideBar from "../components/Sidebar";
 
-export default function Home() {
+export default function Setting() {
   return (
-    <>
+    <div>
       <SideBar />
-      Home page is coming soon
-    </>
+      Setting Page Coming Soon
+    </div>
   );
 }

@@ -1,31 +1,75 @@
 import { useState } from "react";
-import axios from 'axios';
+import axios from "axios";
+
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+
+import "../styles/login.css";
 
 export default function Login() {
   const [data, setData] = useState({
-    email:'',
-    password:'',
+    email: "",
+    password: "",
   });
 
   const loginUser = async (e) => {
     e.preventDefault();
-    const {email, password} = data
+    const { email, password } = data;
     try {
-      const {data} = await axios.post('/login', {email, password})
-    } catch (error) {
-      
-    }
-  }
+      const { data } = await axios.post("/login", { email, password });
+    } catch (error) {}
+  };
 
   return (
     <div>
-      <form onSubmit={loginUser}>
-        <label>Email</label>
-        <input type='email' placeholder='enter email...' value={data.email} onChange={(e) => setData({...data, email: e.target.value})} />
-        <label>Password</label>
-        <input type='password' placeholder='enter password...' value={data.password} onChange={(e) => setData({...data, password: e.target.value})} />
-        <button type='submit'>Login</button>
-      </form>
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          "& > :not(style)": {
+            m: 1,
+            width: 400,
+            height: 400,
+          },
+        }}
+      >
+        <Paper elevation={3} className="px-5">
+          <div className="login-title">Login</div>
+          <form onSubmit={loginUser}>
+            <TextField
+              required
+              id="email"
+              label="Email"
+              sx={{ width: "100%" }}
+              defaultValue=""
+              value={data.email}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
+            />
+            <TextField
+              required
+              id="password"
+              label="Password"
+              sx={{ width: "100%" }}
+              defaultValue=""
+              value={data.password}
+              onChange={(e) => setData({ ...data, password: e.target.value })}
+              className="my-3"
+            />
+            <Stack spacing={2} direction="row">
+              <Button
+                variant="contained"
+                type="submit"
+                className="mx-auto my-4"
+              >
+                Login
+              </Button>
+            </Stack>
+          </form>
+        </Paper>
+      </Box>
     </div>
-  )
+  );
 }
