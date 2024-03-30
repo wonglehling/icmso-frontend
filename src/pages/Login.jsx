@@ -6,22 +6,49 @@ import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import { useAuth } from "../../context/userContext";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 import "../styles/login.css";
 
 export default function Login() {
-  const [data, setData] = useState({
+  const navigate = useNavigate()
+    const { cookies, setCookies, setUser } = useAuth();
+    const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
 
   const loginUser = async (e) => {
-    e.preventDefault();
-    const { email, password } = data;
+    e.preventDefault()
+    const { email, password } = userData
     try {
-      const { data } = await axios.post("/login", { email, password });
-    } catch (error) {}
-  };
+      const { data } = await axios.post('/auth/login', {
+        user_email: email, user_password: password
+      })
+      if (data) {
+        setUser(data.userdata)
+        setCookies('icms_access_token', data.token);
+        toast.success("Login Successful")
+        navigate('/home')
+      } else {
+        throw Error("Server internal error. Please contact system admin.")
+      }
+    } catch (error) {
+      let toastErrMsg = ""
+      if (error.code === "ERR_NETWORK" && error.name === "AxiosError") {
+        toastErrMsg = "Cannot connect to server"
+      } else if (error.response) {
+        if (error.response.status === 401 && error.response.data.error === "UnauthorizedAccessError")
+          toastErrMsg = error.response.data.message
+      } else {
+        console.log(error);
+        toastErrMsg = "Server internal error. Please contact system admin."
+      }
+      toast.error(toastErrMsg)
+    }
+  }
 
   return (
     <div>
@@ -45,8 +72,8 @@ export default function Login() {
               label="Email"
               sx={{ width: "100%" }}
               defaultValue=""
-              value={data.email}
-              onChange={(e) => setData({ ...data, email: e.target.value })}
+              value={userData.email}
+              onChange={(e) => setUserData({ ...userData, email: e.target.value })}
             />
             <TextField
               required
@@ -54,8 +81,8 @@ export default function Login() {
               label="Password"
               sx={{ width: "100%" }}
               defaultValue=""
-              value={data.password}
-              onChange={(e) => setData({ ...data, password: e.target.value })}
+              value={userData.password}
+              onChange={(e) => setUserData({ ...userData, password: e.target.value })}
               className="my-3"
             />
             <Stack spacing={2} direction="row">

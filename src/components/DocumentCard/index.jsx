@@ -13,11 +13,12 @@ import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import {formatDate} from "../../utils/stringFormatter"
 
 import testImg from "../../assets/test.jpeg";
 import "./index.css";
 
-export default function DocumentCard({handleClickDoc}) {
+export default function DocumentCard({ handleClickDoc, doc_info }) {
   return (
     <Card sx={{ maxWidth: 345 }} className="mb-4">
       <div onClick={handleClickDoc}>
@@ -32,8 +33,8 @@ export default function DocumentCard({handleClickDoc}) {
                 R
               </Avatar>
             }
-            title="Shrimp and Chorizo Paella"
-            subheader="September 14, 2016"
+            title={doc_info.resource_file_info.resource_file_name}
+            subheader={formatDate(doc_info.resource_file_info.resource_uploaded_at)}
           />
         </div>
         <div

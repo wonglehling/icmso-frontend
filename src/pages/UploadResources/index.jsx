@@ -14,8 +14,26 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 
+const RESOURCE_BODY = {
+  resource_info:{
+    resource_file_name: "",
+    resource_file_type: "",
+  },
+  resource_title: "",
+  resource_description: "",
+  resource_type: "",
+  resource_props: {},
+  resource_group_id: [],
+  resource_versions: {
+    resource_version_title: "Upload Resource",
+    resource_version_description: "User has uploaded new resource",
+    resource_update_details: [],
+  }
+}
+
 export default function UploadResource() {
   const [tabValue, setTabValue] = useState("1");
+  const [formBody, setFormBody] = useState(RESOURCE_BODY);
 
   const handleTabChange = (event, newTabValue) => {
     setTabValue(newTabValue);
