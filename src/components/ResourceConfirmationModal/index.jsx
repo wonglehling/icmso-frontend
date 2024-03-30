@@ -9,14 +9,14 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 
-function ConfirmationModal({ show, handleClose, handleDelete }) {
+function ResourceConfirmationModal({ show, handleClose, handleDelete }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Confirmation Required</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Are you sure you want to delete the member "John Doe" from the system?
+        Are you sure you want to delete this document from the system?
         This action cannot be undone and will permanently remove all associated
         data and permissions.
       </Modal.Body>
@@ -24,7 +24,7 @@ function ConfirmationModal({ show, handleClose, handleDelete }) {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleDelete} >
+        <Button variant="primary" onClick={handleDelete}>
           Delete
         </Button>
       </Modal.Footer>
@@ -32,4 +32,4 @@ function ConfirmationModal({ show, handleClose, handleDelete }) {
   );
 }
 
-export default ConfirmationModal;
+export default ResourceConfirmationModal;

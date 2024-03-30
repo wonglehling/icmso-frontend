@@ -142,7 +142,7 @@ const top100Films = [
   { title: "Monty Python and the Holy Grail", year: 1975 },
 ];
 
-function ModalProfile({ show, handleClose }) {
+function ModalProfile({ show, handleClose, handleUpdate }) {
   const [researchInterests, setResearchInterests] = useState("");
   const [profileGender, setprofileGender] = useState();
 
@@ -258,8 +258,8 @@ function ModalProfile({ show, handleClose }) {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleClose}>
-          Add
+        <Button variant="primary" onClick={handleUpdate}>
+          Save Changes
         </Button>
       </Modal.Footer>
     </Modal>

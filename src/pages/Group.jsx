@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SideBar from "../components/Sidebar";
 import ModalMember from "../components/ModalMember";
 import ConfirmationModal from "../components/ComfirmationModal";
+import ModalEditMember from "../components/ModalEditMember";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -58,15 +59,32 @@ export default function Group() {
   const navigate = useNavigate();
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   const handleModalClose = () => setShowAddModal(false);
   const handleModalShow = () => {
     setShowAddModal(true);
   };
+  const handleAddMember = () => {
+    console.log("member added successful");
+  };
+
   const handleDeleteModalClose = () => setShowDeleteModal(false);
   const handleDeleteModalShow = () => {
     setShowDeleteModal(true);
   };
+  const handleDeleteMember = () => {
+    console.log("member delete successful");
+  };
+
+  const handleEditModalClose = () => setShowEditModal(false);
+  const handleEditModalShow = () => {
+    setShowEditModal(true);
+  };
+  const handleEditMember = () => {
+    console.log("member update successful");
+  };
+
   const handleClickGroupMember = (id) => {
     navigate("/group-member-detail");
   };
@@ -161,7 +179,7 @@ export default function Group() {
                   <img
                     src={EditIcon}
                     className="mx-2"
-                    onClick={handleModalShow}
+                    onClick={handleEditModalShow}
                   />
                   <img
                     src={DeleteIcon}
@@ -174,10 +192,20 @@ export default function Group() {
           </TableBody>
         </Table>
       </TableContainer>
-      <ModalMember show={showAddModal} handleClose={handleModalClose} />
+      <ModalMember
+        show={showAddModal}
+        handleClose={handleModalClose}
+        handleAdd={handleAddMember}
+      />
       <ConfirmationModal
         show={showDeleteModal}
         handleClose={handleDeleteModalClose}
+        handleDelete={handleDeleteMember}
+      />
+      <ModalEditMember
+        show={showEditModal}
+        handleClose={handleEditModalClose}
+        handleEdit={handleEditMember}
       />
     </div>
   );

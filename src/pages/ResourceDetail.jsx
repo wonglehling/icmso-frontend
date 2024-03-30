@@ -1,18 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 
 import SideBar from "../components/Sidebar";
+import ResourceConfirmationModal from "../components/ResourceConfirmationModal";
+import ModalResource from "../components/ModalResource";
 
 import CardMedia from "@mui/material/CardMedia";
 import { Row, Col } from "react-bootstrap";
 
 import testImg from "../assets/test.jpeg";
-import "../styles/resourceDetail.css"
+import EditIcon from "../assets/icons/pen.svg";
+import DeleteIcon from "../assets/icons/trash3.svg";
+import "../styles/resourceDetail.css";
 
 function ResourceDetail() {
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleModalClose = () => setShowEditModal(false);
+  const handleModalShow = () => {
+    setShowEditModal(true);
+  };
+  const handleDeleteModalClose = () => setShowDeleteModal(false);
+  const handleDeleteModalShow = () => {
+    setShowDeleteModal(true);
+  };
+  const handleDeleteResource = () => {
+    console.log("Document delete successful");
+  };
+  const handleUpdateResource = () => {
+    console.log("Document update successful");
+  }
+
   return (
     <>
       <SideBar />
-      <div className="resource-detail-title">Document Title</div>
+      <Row>
+        <Col>
+          <div className="resource-detail-title">Document Title</div>
+        </Col>
+        <Col className="pd-icon">
+          <img src={EditIcon} className="me-3" onClick={handleModalShow} />
+          <img src={DeleteIcon} onClick={handleDeleteModalShow} />
+        </Col>
+      </Row>
       <div className="flex-container">
         <div style={{ flexGrow: 1 }}>
           <div
@@ -157,6 +187,12 @@ function ResourceDetail() {
             </div>
           </Col>
         </Row>
+        <ResourceConfirmationModal
+          show={showDeleteModal}
+          handleClose={handleDeleteModalClose}
+          handleDelete={handleDeleteResource}
+        />
+        <ModalResource show={showEditModal} handleClose={handleModalClose} handleSave={handleUpdateResource} />
       </div>
       <div style={{ borderTop: "solid 1px #D3D3D3", marginTop: "10px" }} />
       <div className="description-style mt-5">Version History</div>

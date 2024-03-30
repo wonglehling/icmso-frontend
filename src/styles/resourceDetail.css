@@ -25,3 +25,10 @@
 .detail-font {
   font-size: 12px;
 }
+
+.pd-icon {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+  text-align: right;
+}

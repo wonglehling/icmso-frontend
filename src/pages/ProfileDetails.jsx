@@ -17,6 +17,9 @@ function ProfileDetails() {
   const handleModalShow = () => {
     setShowEditModal(true);
   };
+  const handleUpdateProfile = () => {
+    console.log("profile update successful");
+  }
 
   return (
     <>
@@ -29,7 +32,7 @@ function ProfileDetails() {
           <img src={EditIcon} onClick={handleModalShow} />
         </Col>
       </Row>
-      <ModalProfile show={showEditModal} handleClose={handleModalClose} />
+      <ModalProfile show={showEditModal} handleClose={handleModalClose} handleUpdate={handleUpdateProfile}/>
       <div className="flex-container">
         <div style={{ flexGrow: 1 }}>
           <div

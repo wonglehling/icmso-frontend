@@ -139,7 +139,7 @@ const top100Films = [
   { title: "Monty Python and the Holy Grail", year: 1975 },
 ];
 
-function ModalMember({ show, handleClose, handleAdd }) {
+function ModalEditMember({ show, handleClose, handleEdit }) {
   const [researchInterests, setResearchInterests] = useState("");
   const [memberRole, setMemberRole] = useState();
 
@@ -154,7 +154,7 @@ function ModalMember({ show, handleClose, handleAdd }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Add Member</Modal.Title>
+        <Modal.Title>Edit Member</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <TextField
@@ -206,12 +206,12 @@ function ModalMember({ show, handleClose, handleAdd }) {
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleAdd}>
-          Add
+        <Button variant="primary" onClick={handleEdit}>
+          Save Changes
         </Button>
       </Modal.Footer>
     </Modal>
   );
 }
 
-export default ModalMember;
+export default ModalEditMember;
