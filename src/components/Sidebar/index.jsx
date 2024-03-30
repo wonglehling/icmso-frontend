@@ -13,6 +13,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
+import Collapse from "@mui/material/Collapse";
 
 import PlusIcon from "../../assets/icons/plus.svg";
 import HomeIcon from "../../assets/icons/house.svg";
@@ -20,12 +21,24 @@ import ResourcesIcon from "../../assets/icons/folder2.svg";
 import GroupIcon from "../../assets/icons/people.svg";
 import LoveIcon from "../../assets/icons/heart.svg";
 import SettingIcon from "../../assets/icons/gear.svg";
+import useApiCall from "../../hooks/useApiCall";
 
 const drawerWidth = 240;
 
 export default function SideBar() {
+  const { data, loading, error, fetchData } = useApiCall("get", '/group');
+
+  React.useEffect(() => {
+    fetchData();
+  }, []);
+
   const navigate = useNavigate();
-  function handleClickNav(item) {
+  const [openGroupCollapse, setOpenGroupCollapse] = React.useState(false);
+
+  function handleOpenSettings() {
+    setOpenGroupCollapse(!openGroupCollapse);
+  }
+  function handleClickNav(item, id="") {
     switch (item) {
       case "Home":
         navigate("/home");
@@ -45,6 +58,9 @@ export default function SideBar() {
       case "Upload":
         navigate("/upload");
         break;
+      case "GroupDetail":
+        navigate(`/group/${id}`)
+        break
       default:
         break;
     }
@@ -111,18 +127,62 @@ export default function SideBar() {
         </Button>
         <List>
           {["Home", "Resources", "Group", "Favourite", "Setting"].map(
-            (text, index) => (
-              <ListItem
-                key={text}
-                disablePadding
-                onClick={() => handleClickNav(text)}
-              >
-                <ListItemButton>
-                  <ListItemIcon>{showCorrectIcon(text)}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            )
+            (text, index) => {
+              return text === "Group" ?
+                <>
+                  {/* <ListItem
+                    key={text}
+                    disablePadding
+                    onClick={() => handleClickNav(text)}
+                  >
+                    <ListItemButton>
+                      <ListItemIcon>{showCorrectIcon(text)}</ListItemIcon>
+                      <ListItemText primary={text} />
+                    </ListItemButton>
+                  </ListItem> */}
+                  <ListItem
+                    key={text}
+                    disablePadding
+                    onClick={handleOpenSettings}>
+                    <ListItemButton>
+                      <ListItemIcon>{showCorrectIcon(text)}</ListItemIcon>
+                      <ListItemText primary={text} />
+                    </ListItemButton>
+                    {/* {openGroupCollapse ? <ExpandLess /> : <ExpandMore />} */}
+                  </ListItem>
+                  <Collapse in={openGroupCollapse} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {data && data.map(group => {
+
+                        return (
+                          <ListItem
+                            key={text + "1"}
+                            disablePadding
+                            onClick={() => handleClickNav("GroupDetail", group._id)}
+                          >
+                            <ListItemButton>
+                              <ListItemIcon>{showCorrectIcon(text)}</ListItemIcon>
+                              <ListItemText primary={group.group_name} />
+                            </ListItemButton>
+                          </ListItem>
+                        )
+                      })}
+
+                    </List>
+                  </Collapse>
+                </> : (
+                  <ListItem
+                    key={text}
+                    disablePadding
+                    onClick={() => handleClickNav(text)}
+                  >
+                    <ListItemButton>
+                      <ListItemIcon>{showCorrectIcon(text)}</ListItemIcon>
+                      <ListItemText primary={text} />
+                    </ListItemButton>
+                  </ListItem>
+                )
+            }
           )}
         </List>
       </Drawer>

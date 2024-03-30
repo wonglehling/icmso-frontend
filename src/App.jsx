@@ -13,6 +13,8 @@ import UploadResource from "./pages/UploadResources";
 import GroupMemberDetail from "./pages/GroupMemberDetail";
 import ResourceDetail from "./pages/ResourceDetail";
 import ProfileDetails from "./pages/ProfileDetails";
+import { UserContextProvider } from '../context/userContext';
+import { ProtectRoutes, UnprotectRoutes } from './hooks/protectRoutes';
 
 import axios from "axios";
 import { Toaster } from "react-hot-toast";
@@ -26,24 +28,33 @@ axios.defaults.withCredentials = true;
 function App() {
   return (
     <>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <Navbar />
-        <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
-        <Routes>
-          {/* <Route path='/register' element={<RegisterUser />} /> */}
-          <Route path="/login" element={<Login />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/resources" element={<Resources />} />
-          <Route path="/group" element={<Group />} />
-          <Route path="/favourite" element={<Favourite />} />
-          <Route path="/setting" element={<Setting />} />
-          <Route path="/upload" element={<UploadResource />} />
-          <Route path="/group-member-detail" element={<GroupMemberDetail />} />
-          <Route path="/profile-detail" element={<ProfileDetails />} />
-          <Route path="/resource-detail" element={<ResourceDetail />} />
-        </Routes>
-      </LocalizationProvider>
+      <UserContextProvider>
+
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <Navbar />
+          <Toaster position="bottom-right" toastOptions={{ duration: 2000 }} />
+          <Routes>
+            {/* <Route path='/register' element={<RegisterUser />} /> */}
+            <Route element={<ProtectRoutes />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/resources" element={<Resources />} />
+              <Route path="/group/:id" element={<Group />} />
+              <Route path="/favourite" element={<Favourite />} />
+              <Route path="/setting" element={<Setting />} />
+              <Route path="/upload" element={<UploadResource />} />
+              <Route path="/group-member-detail/:id" element={<GroupMemberDetail />} />
+              <Route path="/profile-detail" element={<ProfileDetails />} />
+              <Route path="/resource-detail/:id" element={<ResourceDetail />} />
+            </Route>
+
+            <Route element={<UnprotectRoutes />}>
+              <Route path="/login" element={<Login />} />
+            </Route>
+
+          </Routes>
+        </LocalizationProvider>
+      </UserContextProvider>
     </>
   );
 }
