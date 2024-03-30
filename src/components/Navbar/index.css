@@ -6,13 +6,13 @@
 
 .bd-searchbar, .bd-searchbar:focus {
   border: none !important;
-  background-color: grey !important;
+  background-color: #eee !important;
 }
 
 .bd-container {
   border-radius: 2rem;
-  border: solid 1px grey;
-  background-color: grey;
+  border: solid 1px #eee;
+  background-color: #eee;
   padding-left: 1rem;
   padding-right: 1rem;
 }

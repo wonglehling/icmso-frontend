@@ -1,0 +1,27 @@
+.member-name {
+  font-family: 'Montserrat';
+  font-weight: 600;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+  text-align: left;
+  font-size: 1rem !important;
+}
+
+.member-detail-title {
+  font-family: 'Montserrat';
+  font-weight: 600;
+  font-size: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-left: 1rem;
+  text-align: left;
+}
+
+.bold-text {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.detail-font {
+  font-size: 12px;
+}

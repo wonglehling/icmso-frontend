@@ -15,11 +15,11 @@ import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
 
 import PlusIcon from "../../assets/icons/plus.svg";
-import HomeIcon from "../../assets/icons/house.svg"
-import ResourcesIcon from "../../assets/icons/folder2.svg"
-import GroupIcon from "../../assets/icons/people.svg"
-import LoveIcon from "../../assets/icons/heart.svg"
-import SettingIcon from "../../assets/icons/gear.svg"
+import HomeIcon from "../../assets/icons/house.svg";
+import ResourcesIcon from "../../assets/icons/folder2.svg";
+import GroupIcon from "../../assets/icons/people.svg";
+import LoveIcon from "../../assets/icons/heart.svg";
+import SettingIcon from "../../assets/icons/gear.svg";
 
 const drawerWidth = 240;
 
@@ -53,7 +53,7 @@ export default function SideBar() {
   const showCorrectIcon = (item) => {
     switch (item) {
       case "Home":
-        return <img src={HomeIcon} className="ms-2"/>;
+        return <img src={HomeIcon} className="ms-2" />;
         break;
       case "Resources":
         return <img src={ResourcesIcon} className="ms-2" />;
@@ -70,7 +70,7 @@ export default function SideBar() {
       default:
         break;
     }
-  }
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -93,6 +93,7 @@ export default function SideBar() {
             width: drawerWidth,
             boxSizing: "border-box",
           },
+          zIndex: 900,
         }}
         variant="permanent"
         anchor="left"
@@ -105,7 +106,7 @@ export default function SideBar() {
           className="mx-auto my-4"
           onClick={() => handleClickNav("Upload")}
         >
-          <img src={`${PlusIcon}`} className="me-2"/>
+          <img src={`${PlusIcon}`} className="me-2" />
           Upload
         </Button>
         <List>
@@ -117,9 +118,7 @@ export default function SideBar() {
                 onClick={() => handleClickNav(text)}
               >
                 <ListItemButton>
-                  <ListItemIcon>
-                    {showCorrectIcon(text)}
-                  </ListItemIcon>
+                  <ListItemIcon>{showCorrectIcon(text)}</ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>
               </ListItem>

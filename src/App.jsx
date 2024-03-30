@@ -10,6 +10,9 @@ import Group from "./pages/Group";
 import Favourite from "./pages/Favourite";
 import Setting from "./pages/Setting";
 import UploadResource from "./pages/UploadResources";
+import GroupMemberDetail from "./pages/GroupMemberDetail";
+import ResourceDetail from "./pages/ResourceDetail";
+import ProfileDetails from "./pages/ProfileDetails";
 
 import axios from "axios";
 import { Toaster } from "react-hot-toast";
@@ -36,6 +39,9 @@ function App() {
           <Route path="/favourite" element={<Favourite />} />
           <Route path="/setting" element={<Setting />} />
           <Route path="/upload" element={<UploadResource />} />
+          <Route path="/group-member-detail" element={<GroupMemberDetail />} />
+          <Route path="/profile-detail" element={<ProfileDetails />} />
+          <Route path="/resource-detail" element={<ResourceDetail />} />
         </Routes>
       </LocalizationProvider>
     </>

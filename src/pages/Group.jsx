@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import SideBar from "../components/Sidebar";
+import ModalMember from "../components/ModalMember";
+import ConfirmationModal from "../components/ComfirmationModal";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -15,6 +18,9 @@ import Button from "@mui/material/Button";
 import { Row, Col } from "react-bootstrap";
 
 import PlusIcon from "../assets/icons/plus.svg";
+import EditIcon from "../assets/icons/pen.svg";
+import DeleteIcon from "../assets/icons/trash3.svg";
+import ViewIcon from "../assets/icons/eye.svg";
 import testImg from "../assets/test.jpeg";
 import "../styles/group.css";
 
@@ -49,6 +55,22 @@ const rows = [
 ];
 
 export default function Group() {
+  const navigate = useNavigate();
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+  const handleModalClose = () => setShowAddModal(false);
+  const handleModalShow = () => {
+    setShowAddModal(true);
+  };
+  const handleDeleteModalClose = () => setShowDeleteModal(false);
+  const handleDeleteModalShow = () => {
+    setShowDeleteModal(true);
+  };
+  const handleClickGroupMember = (id) => {
+    navigate("/group-member-detail");
+  };
+
   return (
     <div>
       <SideBar />
@@ -66,6 +88,7 @@ export default function Group() {
                 width: "auto",
                 height: "auto",
                 marginRight: "auto",
+                marginLeft: "1rem",
                 textAlign: "left",
               }}
               component="img"
@@ -76,8 +99,9 @@ export default function Group() {
         </div>
         <div
           style={{ flexGrow: 2, fontSize: "12px", textAlign: "justify" }}
-          className="ms-4"
+          className="ms-5"
         >
+          <div className="group-name">Group Name</div>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
           eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus
           scelerisque eleifend donec pretium. Lectus sit amet est placerat in
@@ -95,7 +119,12 @@ export default function Group() {
             <div className="group-title">Group Members</div>
           </Col>
           <Col className="btn-add">
-            <Button variant="contained" type="submit" className="mx-auto mt-2">
+            <Button
+              variant="contained"
+              type="submit"
+              className="mx-auto mt-2"
+              onClick={handleModalShow}
+            >
               <img src={`${PlusIcon}`} className="me-2" />
               Add
             </Button>
@@ -123,12 +152,33 @@ export default function Group() {
                 <TableCell align="right">{row.joinDate}</TableCell>
                 <TableCell align="right">{row.role}</TableCell>
                 <TableCell align="right">{row.researchInterests}</TableCell>
-                <TableCell align="right">{row.Action}</TableCell>
+                <TableCell align="right">
+                  <img
+                    src={ViewIcon}
+                    className="mx-2"
+                    onClick={() => handleClickGroupMember(1)}
+                  />
+                  <img
+                    src={EditIcon}
+                    className="mx-2"
+                    onClick={handleModalShow}
+                  />
+                  <img
+                    src={DeleteIcon}
+                    className="mx-2"
+                    onClick={handleDeleteModalShow}
+                  />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      <ModalMember show={showAddModal} handleClose={handleModalClose} />
+      <ConfirmationModal
+        show={showDeleteModal}
+        handleClose={handleDeleteModalClose}
+      />
     </div>
   );
 }

@@ -5,8 +5,8 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
 
 import "./index.css";
 
@@ -86,7 +86,7 @@ function Article() {
             <input type="file" id="images" accept="image/*" required />
           </label>
         </div>
-      </div>{" "}
+      </div>
       <Button variant="contained" type="submit" className="mx-auto my-4">
         Upload
       </Button>
