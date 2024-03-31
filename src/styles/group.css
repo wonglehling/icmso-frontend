@@ -24,3 +24,10 @@
   text-align: left;
   font-size: 1rem !important;
 }
+
+.pd-icon-group {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  padding-right: 1rem;
+  text-align: right;
+}

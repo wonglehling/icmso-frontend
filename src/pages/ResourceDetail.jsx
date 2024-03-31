@@ -7,7 +7,8 @@ import ModalResource from "../components/ModalResource";
 import CardMedia from "@mui/material/CardMedia";
 import { Row, Col } from "react-bootstrap";
 import useApiCall from "../hooks/useApiCall";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 import testImg from "../assets/test.jpeg";
 import EditIcon from "../assets/icons/pen.svg";
@@ -15,12 +16,35 @@ import DeleteIcon from "../assets/icons/trash3.svg";
 import "../styles/resourceDetail.css";
 
 function ResourceDetail() {
+  const navigate = useNavigate();
   let { id } = useParams();
 
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const { data, loading, error, fetchData } = useApiCall(
     "get",
     "/resource/" + id
   );
+
+  const deleteApi = useApiCall("delete", "/resource/" + id);
+  const handleModalClose = () => setShowEditModal(false);
+  const handleModalShow = () => {
+    setShowEditModal(true);
+  };
+  const handleDeleteModalClose = () => setShowDeleteModal(false);
+  const handleDeleteModalShow = () => {
+    setShowDeleteModal(true);
+  };
+  const handleDeleteResource = () => {
+    deleteApi.fetchData();
+    if(!deleteApi.error) {
+        toast.success("Resource Deleted Successful")
+        navigate('/resources')
+    }
+  };
+  const handleUpdateResource = () => {
+    console.log("Document update successful");
+  };
 
   useEffect(() => {
     fetchData();
@@ -31,9 +55,17 @@ function ResourceDetail() {
       <SideBar />
       {data && (
         <div>
-          <div className="resource-detail-title">
-            Document Title: {data.resource_title}
-          </div>
+          <Row>
+            <Col>
+              <div className="resource-detail-title">
+                Document Title: {data.resource_title}
+              </div>
+            </Col>
+            <Col className="pd-icon">
+              <img src={EditIcon} className="me-3" onClick={handleModalShow} />
+              <img src={DeleteIcon} onClick={handleDeleteModalShow} />
+            </Col>
+          </Row>
           <div className="flex-container">
             <div style={{ flexGrow: 1 }}>
               <div

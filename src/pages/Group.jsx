@@ -5,6 +5,8 @@ import SideBar from "../components/Sidebar";
 import ModalMember from "../components/ModalMember";
 import ConfirmationModal from "../components/ComfirmationModal";
 import ModalEditMember from "../components/ModalEditMember";
+import GroupConfirmationModal from "../components/GroupConfirmationModal";
+import ModalEditGroup from "../components/ModalEditGroup";
 
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -63,7 +65,9 @@ export default function Group() {
 
   const [showAddModal, setShowAddModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDeleteGroupModal, setShowDeleteGroupModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showEditGroupModal, setShowEditGroupModal] = useState(false);
   const [rows, setRows] = useState([]);
 
   const { data, loading, error, fetchData } = useApiCall("get", "/group/" + id);
@@ -118,6 +122,22 @@ export default function Group() {
     console.log("member update successful");
   };
 
+  const handleDeleteGroupModalClose = () => setShowDeleteGroupModal(false);
+  const handleDeleteGroupModalShow = () => {
+    setShowDeleteGroupModal(true);
+  };
+  const handleDeleteGroup = () => {
+    console.log("group delete successful");
+  };
+
+  const handleEditGroupModalClose = () => setShowEditGroupModal(false);
+  const handleEditGroupModalShow = () => {
+    setShowEditGroupModal(true);
+  };
+  const handleEditGroup = () => {
+    console.log("group update successful");
+  };
+
   const handleClickGroupMember = (id) => {
     navigate("/group-member-detail/" + id);
   };
@@ -127,7 +147,19 @@ export default function Group() {
       <SideBar />
       {data && (
         <>
-          <div className="group-title">Group Details</div>
+          <Row>
+            <Col>
+              <div className="group-title">Group Details</div>
+            </Col>
+            <Col className="pd-icon">
+              <img
+                src={EditIcon}
+                className="me-3"
+                onClick={handleEditGroupModalShow}
+              />
+              <img src={DeleteIcon} onClick={handleDeleteGroupModalShow} />
+            </Col>
+          </Row>
           <div className="flex-container">
             <div style={{ flexGrow: 1 }}>
               <div
@@ -172,7 +204,7 @@ export default function Group() {
               vitae justo eget magna fermentum iaculis eu non.
             </div>
           </div>
-          <TableContainer component={Paper} className="mt-3">
+          <TableContainer component={Paper} className="mt-3" sx={{ overflowX: "hidden" }}>
             <Row>
               <Col>
                 <div className="group-title">Group Members</div>
@@ -189,7 +221,7 @@ export default function Group() {
                 </Button>
               </Col>
             </Row>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell>Name</TableCell>
@@ -247,6 +279,16 @@ export default function Group() {
             show={showEditModal}
             handleClose={handleEditModalClose}
             handleEdit={handleEditMember}
+          />
+          <GroupConfirmationModal
+            show={showDeleteGroupModal}
+            handleClose={handleDeleteGroupModalClose}
+            handleDelete={handleDeleteGroup}
+          />
+          <ModalEditGroup
+            show={showEditGroupModal}
+            handleClose={handleEditGroupModalClose}
+            handleSave={handleEditGroup}
           />
         </>
       )}
