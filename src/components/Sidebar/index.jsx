@@ -14,6 +14,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Button from "@mui/material/Button";
 import Collapse from "@mui/material/Collapse";
+import ExpandLess from "@mui/icons-material/ExpandLess";
+import ExpandMore from "@mui/icons-material/ExpandMore";
 
 import PlusIcon from "../../assets/icons/plus.svg";
 import HomeIcon from "../../assets/icons/house.svg";
@@ -26,7 +28,7 @@ import useApiCall from "../../hooks/useApiCall";
 const drawerWidth = 240;
 
 export default function SideBar() {
-  const { data, loading, error, fetchData } = useApiCall("get", '/group');
+  const { data, loading, error, fetchData } = useApiCall("get", "/group");
 
   React.useEffect(() => {
     fetchData();
@@ -38,7 +40,7 @@ export default function SideBar() {
   function handleOpenSettings() {
     setOpenGroupCollapse(!openGroupCollapse);
   }
-  function handleClickNav(item, id="") {
+  function handleClickNav(item, id = "") {
     switch (item) {
       case "Home":
         navigate("/home");
@@ -59,8 +61,8 @@ export default function SideBar() {
         navigate("/upload");
         break;
       case "GroupDetail":
-        navigate(`/group/${id}`)
-        break
+        navigate(`/group/${id}`);
+        break;
       default:
         break;
     }
@@ -108,9 +110,12 @@ export default function SideBar() {
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
+            overflowX: 'hidden',
+            border: 'none'
           },
           zIndex: 900,
         }}
+        className="bar"
         variant="permanent"
         anchor="left"
       >
@@ -128,7 +133,7 @@ export default function SideBar() {
         <List>
           {["Home", "Resources", "Group", "Favourite", "Setting"].map(
             (text, index) => {
-              return text === "Group" ?
+              return text === "Group" ? (
                 <>
                   {/* <ListItem
                     key={text}
@@ -143,45 +148,55 @@ export default function SideBar() {
                   <ListItem
                     key={text}
                     disablePadding
-                    onClick={handleOpenSettings}>
-                    <ListItemButton>
-                      <ListItemIcon>{showCorrectIcon(text)}</ListItemIcon>
-                      <ListItemText primary={text} />
-                    </ListItemButton>
-                    {/* {openGroupCollapse ? <ExpandLess /> : <ExpandMore />} */}
-                  </ListItem>
-                  <Collapse in={openGroupCollapse} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                      {data && data.map(group => {
-
-                        return (
-                          <ListItem
-                            key={text + "1"}
-                            disablePadding
-                            onClick={() => handleClickNav("GroupDetail", group._id)}
-                          >
-                            <ListItemButton>
-                              <ListItemIcon>{showCorrectIcon(text)}</ListItemIcon>
-                              <ListItemText primary={group.group_name} />
-                            </ListItemButton>
-                          </ListItem>
-                        )
-                      })}
-
-                    </List>
-                  </Collapse>
-                </> : (
-                  <ListItem
-                    key={text}
-                    disablePadding
-                    onClick={() => handleClickNav(text)}
+                    onClick={handleOpenSettings}
                   >
                     <ListItemButton>
                       <ListItemIcon>{showCorrectIcon(text)}</ListItemIcon>
                       <ListItemText primary={text} />
                     </ListItemButton>
+                    {openGroupCollapse ? (
+                      <ExpandLess sx={{ marginRight: "0.75rem" }} />
+                    ) : (
+                      <ExpandMore sx={{ marginRight: "0.75rem" }} />
+                    )}
                   </ListItem>
-                )
+                  <Collapse in={openGroupCollapse} timeout="auto" unmountOnExit>
+                    <List component="div" disablePadding>
+                      {data &&
+                        data.map((group) => {
+                          return (
+                            <ListItem
+                              key={text + "1"}
+                              disablePadding
+                              onClick={() =>
+                                handleClickNav("GroupDetail", group._id)
+                              }
+                              className="ms-2"
+                            >
+                              <ListItemButton>
+                                <ListItemIcon>
+                                  {showCorrectIcon(text)}
+                                </ListItemIcon>
+                                <ListItemText primary={group.group_name} />
+                              </ListItemButton>
+                            </ListItem>
+                          );
+                        })}
+                    </List>
+                  </Collapse>
+                </>
+              ) : (
+                <ListItem
+                  key={text}
+                  disablePadding
+                  onClick={() => handleClickNav(text)}
+                >
+                  <ListItemButton>
+                    <ListItemIcon>{showCorrectIcon(text)}</ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+              );
             }
           )}
         </List>

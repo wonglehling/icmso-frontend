@@ -19,6 +19,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 
 import { Row, Col } from "react-bootstrap";
+import { toast } from "react-hot-toast";
+import useApiCall from "../hooks/useApiCall";
 
 import PlusIcon from "../assets/icons/plus.svg";
 import EditIcon from "../assets/icons/pen.svg";
@@ -26,7 +28,6 @@ import DeleteIcon from "../assets/icons/trash3.svg";
 import ViewIcon from "../assets/icons/eye.svg";
 import testImg from "../assets/test.jpeg";
 import "../styles/group.css";
-import useApiCall from "../hooks/useApiCall";
 import { formatDate } from "../utils/stringFormatter";
 
 function createData(name, joinDate, role, researchInterests, Action, id) {
@@ -71,6 +72,7 @@ export default function Group() {
   const [rows, setRows] = useState([]);
 
   const { data, loading, error, fetchData } = useApiCall("get", "/group/" + id);
+  const deleteApi = useApiCall("delete", "/group/" + id)
 
   useEffect(() => {
     fetchData();
@@ -127,7 +129,11 @@ export default function Group() {
     setShowDeleteGroupModal(true);
   };
   const handleDeleteGroup = () => {
-    console.log("group delete successful");
+    deleteApi.fetchData()
+    if(!deleteApi.error) {
+      toast.success("Group Deleted Successful")
+      navigate('/home')
+    }
   };
 
   const handleEditGroupModalClose = () => setShowEditGroupModal(false);

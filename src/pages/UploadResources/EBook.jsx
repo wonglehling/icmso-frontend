@@ -11,10 +11,15 @@ import Select from "@mui/material/Select";
 import "./index.css";
 
 function EBook() {
-  const [fileType, setFileType] = useState("");
+  const [accessibility, setAccessibility] = useState("");
+  const [accessGroup, setAccessGroup] = useState("");
 
-  const handleFileTypeChange = (event) => {
-    setFileType(event.target.value);
+  const handleAccessibilityChange = (event) => {
+    setAccessibility(event.target.value);
+  };
+
+  const handleAccessGroupChange = (event) => {
+    setAccessGroup(event.target.value);
   };
 
   return (
@@ -35,15 +40,23 @@ function EBook() {
               id="ebook-authors"
               label="Author(s)"
               variant="outlined"
-              className="mx-2 my-4"
+              className="ms-2 my-4"
               sx={{ flexGrow: 1 }}
             />
-            <TextField
-              id="ebook-keywords"
-              label="Keywords"
-              variant="outlined"
+          </div>
+          <div className="flex-container">
+            <DatePicker
+              id="ebook-publication-date"
+              label="Publication Date"
               sx={{ flexGrow: 1 }}
-              className="my-4"
+              className="mb-4 me-2"
+            />
+            <TextField
+              id="ebook-publisher"
+              label="Publisher"
+              variant="outlined"
+              className="mb-4"
+              sx={{ flexGrow: 1, width: "50%" }}
             />
           </div>
           <TextField
@@ -56,24 +69,37 @@ function EBook() {
             variant="outlined"
           />
           <div className="flex-container my-4">
-            <DatePicker
-              id="ebook-publication-date"
-              label="Publication Date"
-              sx={{ flexGrow: 1 }}
-              className="me-2"
-            />
-            <div style={{ flexGrow: 6 }}>
+            <div style={{ flexGrow: 1, marginRight: "0.5rem" }}>
               <FormControl fullWidth>
-                <InputLabel id="ebook-file-type-label">File Type</InputLabel>
+                <InputLabel id="ebook-accessibility-label">
+                  Accessibility
+                </InputLabel>
                 <Select
-                  labelId="ebook-file-type-label"
-                  id="ebook-file-type"
-                  value={fileType}
-                  label="File Type"
-                  onChange={handleFileTypeChange}
+                  labelId="ebook-accessibility-label"
+                  id="ebook-accessibility"
+                  value={accessibility}
+                  label="Accessibility"
+                  onChange={handleAccessibilityChange}
                 >
-                  <MenuItem value={"PDF"}>PDF</MenuItem>
-                  <MenuItem value={"EPUB"}>EPUB</MenuItem>
+                  <MenuItem value={"Public"}>Public</MenuItem>
+                  <MenuItem value={"Private"}>Private</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+            <div style={{ flexGrow: 1 }}>
+              <FormControl fullWidth>
+                <InputLabel id="ebook-access-group-label">
+                  Access Group
+                </InputLabel>
+                <Select
+                  labelId="ebook-access-group-label"
+                  id="ebook-access-group"
+                  value={accessGroup}
+                  label="Access Group"
+                  onChange={handleAccessGroupChange}
+                >
+                  <MenuItem value={"Group 2"}>Group 2</MenuItem>
+                  <MenuItem value={"Group 3"}>Group 3</MenuItem>
                 </Select>
               </FormControl>
             </div>

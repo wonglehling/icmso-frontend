@@ -10,10 +10,15 @@ import Select from "@mui/material/Select";
 import "./index.css";
 
 function Dataset() {
-  const [fileType, setFileType] = useState("");
+  const [accessibility, setAccessibility] = useState("");
+  const [accessGroup, setAccessGroup] = useState("");
 
-  const handleFileTypeChange = (event) => {
-    setFileType(event.target.value);
+  const handleAccessibilityChange = (event) => {
+    setAccessibility(event.target.value);
+  };
+
+  const handleAccessGroupChange = (event) => {
+    setAccessGroup(event.target.value);
   };
 
   return (
@@ -31,18 +36,11 @@ function Dataset() {
             />
             <TextField
               required
-              id="dataset-authors"
-              label="Author(s)"
+              id="dataset-source"
+              label="Data Source or Origin"
               variant="outlined"
               className="mx-2 my-4"
               sx={{ flexGrow: 1 }}
-            />
-            <TextField
-              id="dataset-keywords"
-              label="Keywords"
-              variant="outlined"
-              sx={{ flexGrow: 1 }}
-              className="my-4"
             />
           </div>
           <TextField
@@ -55,20 +53,40 @@ function Dataset() {
             variant="outlined"
           />
           <div className="flex-container my-4">
-            <FormControl sx={{ width: "33%" }}>
-              <InputLabel id="dataset-file-type-label">File Type</InputLabel>
-              <Select
-                labelId="dataset-file-type-label"
-                id="dataset-file-type"
-                value={fileType}
-                label="File Type"
-                onChange={handleFileTypeChange}
-              >
-                <MenuItem value={"CSV"}>CSV</MenuItem>
-                <MenuItem value={"JSON"}>JSON</MenuItem>
-                <MenuItem value={"XML"}>XML</MenuItem>
-              </Select>
-            </FormControl>
+            <div style={{ flexGrow: 1, marginRight: "0.5rem" }}>
+              <FormControl fullWidth>
+                <InputLabel id="dataset-accessibility-label">
+                  Accessibility
+                </InputLabel>
+                <Select
+                  labelId="dataset-accessibility-label"
+                  id="dataset-accessibility"
+                  value={accessibility}
+                  label="Accessibility"
+                  onChange={handleAccessibilityChange}
+                >
+                  <MenuItem value={"Public"}>Public</MenuItem>
+                  <MenuItem value={"Private"}>Private</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+            <div style={{ flexGrow: 1 }}>
+              <FormControl fullWidth>
+                <InputLabel id="dataset-access-group-label">
+                  Access Group
+                </InputLabel>
+                <Select
+                  labelId="dataset-access-group-label"
+                  id="dataset-access-group"
+                  value={accessGroup}
+                  label="Access Group"
+                  onChange={handleAccessGroupChange}
+                >
+                  <MenuItem value={"Group 2"}>Group 2</MenuItem>
+                  <MenuItem value={"Group 3"}>Group 3</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
           </div>
         </div>
         <div style={{ flexGrow: 1 }} className="mx-2 mt-4">

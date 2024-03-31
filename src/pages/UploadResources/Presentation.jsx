@@ -6,14 +6,20 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import "./index.css";
 
 function Presentation() {
-  const [fileType, setFileType] = useState("");
+  const [accessibility, setAccessibility] = useState("");
+  const [accessGroup, setAccessGroup] = useState("");
 
-  const handleFileTypeChange = (event) => {
-    setFileType(event.target.value);
+  const handleAccessibilityChange = (event) => {
+    setAccessibility(event.target.value);
+  };
+
+  const handleAccessGroupChange = (event) => {
+    setAccessGroup(event.target.value);
   };
 
   return (
@@ -31,16 +37,15 @@ function Presentation() {
             />
             <TextField
               required
-              id="presentation-authors"
-              label="Author(s)"
+              id="presentation-presenter"
+              label="Presenter(s)"
               variant="outlined"
               className="mx-2 my-4"
               sx={{ flexGrow: 1 }}
             />
-            <TextField
-              id="presentation-keywords"
-              label="Keywords"
-              variant="outlined"
+            <DatePicker
+              id="presentation-date"
+              label="Presentation Date"
               sx={{ flexGrow: 1 }}
               className="my-4"
             />
@@ -55,21 +60,40 @@ function Presentation() {
             variant="outlined"
           />
           <div className="flex-container my-4">
-            <FormControl sx={{ width: "33%" }}>
-              <InputLabel id="presentation-file-type-label">
-                File Type
-              </InputLabel>
-              <Select
-                labelId="presentation-file-type-label"
-                id="presentation-file-type"
-                value={fileType}
-                label="File Type"
-                onChange={handleFileTypeChange}
-              >
-                <MenuItem value={"PPTX"}>PPTX</MenuItem>
-                <MenuItem value={"PDF"}>PDF</MenuItem>
-              </Select>
-            </FormControl>
+            <div style={{ flexGrow: 1, marginRight: "0.5rem" }}>
+              <FormControl fullWidth>
+                <InputLabel id="presentation-accessibility-label">
+                  Accessibility
+                </InputLabel>
+                <Select
+                  labelId="presentation-accessibility-label"
+                  id="presentation-accessibility"
+                  value={accessibility}
+                  label="Accessibility"
+                  onChange={handleAccessibilityChange}
+                >
+                  <MenuItem value={"Public"}>Public</MenuItem>
+                  <MenuItem value={"Private"}>Private</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+            <div style={{ flexGrow: 1 }}>
+              <FormControl fullWidth>
+                <InputLabel id="presentation-access-group-label">
+                  Access Group
+                </InputLabel>
+                <Select
+                  labelId="presentation-access-group-label"
+                  id="presentation-access-group"
+                  value={accessGroup}
+                  label="Access Group"
+                  onChange={handleAccessGroupChange}
+                >
+                  <MenuItem value={"Group 2"}>Group 2</MenuItem>
+                  <MenuItem value={"Group 3"}>Group 3</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
           </div>
         </div>
         <div style={{ flexGrow: 1 }} className="mx-2 mt-4">

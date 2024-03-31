@@ -1,0 +1,14 @@
+.bar {
+  overflow-y: scroll !important; /* Add the ability to scroll */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.bar::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.bar {
+-ms-overflow-style: none !important;  /* IE and Edge */
+scrollbar-width: none !important;  /* Firefox */
+}

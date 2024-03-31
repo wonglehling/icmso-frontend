@@ -10,10 +10,15 @@ import Select from "@mui/material/Select";
 import "./index.css";
 
 function Code() {
-  const [fileType, setFileType] = useState("");
+  const [accessibility, setAccessibility] = useState("");
+  const [accessGroup, setAccessGroup] = useState("");
 
-  const handleFileTypeChange = (event) => {
-    setFileType(event.target.value);
+  const handleAccessibilityChange = (event) => {
+    setAccessibility(event.target.value);
+  };
+
+  const handleAccessGroupChange = (event) => {
+    setAccessGroup(event.target.value);
   };
 
   return (
@@ -37,13 +42,6 @@ function Code() {
               className="mx-2 my-4"
               sx={{ flexGrow: 1 }}
             />
-            <TextField
-              id="code-keywords"
-              label="Keywords"
-              variant="outlined"
-              sx={{ flexGrow: 1 }}
-              className="my-4"
-            />
           </div>
           <TextField
             required
@@ -55,19 +53,40 @@ function Code() {
             variant="outlined"
           />
           <div className="flex-container my-4">
-            <FormControl sx={{ width: "33%" }}>
-              <InputLabel id="code-file-type-label">File Type</InputLabel>
-              <Select
-                labelId="code-file-type-label"
-                id="code-file-type"
-                value={fileType}
-                label="File Type"
-                onChange={handleFileTypeChange}
-              >
-                <MenuItem value={"ZIP"}>ZIP</MenuItem>
-                <MenuItem value={"RAR"}>RAR</MenuItem>
-              </Select>
-            </FormControl>
+            <div style={{ flexGrow: 1, marginRight: "0.5rem" }}>
+              <FormControl fullWidth>
+                <InputLabel id="code-accessibility-label">
+                  Accessibility
+                </InputLabel>
+                <Select
+                  labelId="code-accessibility-label"
+                  id="code-accessibility"
+                  value={accessibility}
+                  label="Accessibility"
+                  onChange={handleAccessibilityChange}
+                >
+                  <MenuItem value={"Public"}>Public</MenuItem>
+                  <MenuItem value={"Private"}>Private</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+            <div style={{ flexGrow: 1 }}>
+              <FormControl fullWidth>
+                <InputLabel id="code-access-group-label">
+                  Access Group
+                </InputLabel>
+                <Select
+                  labelId="code-access-group-label"
+                  id="code-access-group"
+                  value={accessGroup}
+                  label="Access Group"
+                  onChange={handleAccessGroupChange}
+                >
+                  <MenuItem value={"Group 2"}>Group 2</MenuItem>
+                  <MenuItem value={"Group 3"}>Group 3</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
           </div>
         </div>
         <div style={{ flexGrow: 1 }} className="mx-2 mt-4">
