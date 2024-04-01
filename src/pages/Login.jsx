@@ -13,42 +13,46 @@ import { useNavigate } from "react-router-dom";
 import "../styles/login.css";
 
 export default function Login() {
-  const navigate = useNavigate()
-    const { cookies, setCookies, setUser } = useAuth();
-    const [userData, setUserData] = useState({
+  const navigate = useNavigate();
+  const { cookies, setCookies, setUser } = useAuth();
+  const [userData, setUserData] = useState({
     email: "",
     password: "",
   });
 
   const loginUser = async (e) => {
-    e.preventDefault()
-    const { email, password } = userData
+    e.preventDefault();
+    const { email, password } = userData;
     try {
-      const { data } = await axios.post('/auth/login', {
-        user_email: email, user_password: password
-      })
+      const { data } = await axios.post("/auth/login", {
+        user_email: email,
+        user_password: password,
+      });
       if (data) {
-        setUser(data.userdata)
-        setCookies('icms_access_token', data.token);
-        toast.success("Login Successful")
-        navigate('/home')
+        setUser(data.userdata);
+        setCookies("icms_access_token", data.token);
+        toast.success("Login Successful");
+        navigate("/home");
       } else {
-        throw Error("Server internal error. Please contact system admin.")
+        throw Error("Server internal error. Please contact system admin.");
       }
     } catch (error) {
-      let toastErrMsg = ""
+      let toastErrMsg = "";
       if (error.code === "ERR_NETWORK" && error.name === "AxiosError") {
-        toastErrMsg = "Cannot connect to server"
+        toastErrMsg = "Cannot connect to server";
       } else if (error.response) {
-        if (error.response.status === 401 && error.response.data.error === "UnauthorizedAccessError")
-          toastErrMsg = error.response.data.message
+        if (
+          error.response.status === 401 &&
+          error.response.data.error === "UnauthorizedAccessError"
+        )
+          toastErrMsg = error.response.data.message;
       } else {
         console.log(error);
-        toastErrMsg = "Server internal error. Please contact system admin."
+        toastErrMsg = "Server internal error. Please contact system admin.";
       }
-      toast.error(toastErrMsg)
+      toast.error(toastErrMsg);
     }
-  }
+  };
 
   return (
     <div>
@@ -63,7 +67,10 @@ export default function Login() {
           },
         }}
       >
-        <Paper elevation={3} className="px-5">
+        <Paper
+          elevation={3}
+          className="px-5 mg-paper"
+        >
           <div className="login-title">Login</div>
           <form onSubmit={loginUser}>
             <TextField
@@ -73,7 +80,9 @@ export default function Login() {
               sx={{ width: "100%" }}
               defaultValue=""
               value={userData.email}
-              onChange={(e) => setUserData({ ...userData, email: e.target.value })}
+              onChange={(e) =>
+                setUserData({ ...userData, email: e.target.value })
+              }
             />
             <TextField
               required
@@ -82,7 +91,9 @@ export default function Login() {
               sx={{ width: "100%" }}
               defaultValue=""
               value={userData.password}
-              onChange={(e) => setUserData({ ...userData, password: e.target.value })}
+              onChange={(e) =>
+                setUserData({ ...userData, password: e.target.value })
+              }
               className="my-3"
             />
             <Stack spacing={2} direction="row">

@@ -5,3 +5,9 @@
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
 }
+
+.mg-paper {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-top: 100px !important;
+}
