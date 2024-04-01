@@ -4,9 +4,8 @@
   padding: 2rem;
   padding-top: 0.5rem;
   text-align: center;
-  padding-left: 260px;
   height: 100vh;
-  font-family: 'Lato';
+  font-family: "Lato";
 }
 
 .logo {
@@ -20,6 +19,24 @@
 }
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+.btn-primary {
+  background-color: #013e7b !important;
+  border: none !important;
+}
+
+.btn-primary:hover {
+  background-color: #052c65 !important;
+  border: none !important;
+}
+
+.btn-secondary {
+  border: none !important;
+}
+
+.btn-secondary:hover {
+  border: none !important;
 }
 
 @keyframes logo-spin {

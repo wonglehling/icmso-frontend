@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import useApiCall from "../../hooks/useApiCall";
 
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
@@ -7,12 +8,18 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import Autocomplete from "@mui/material/Autocomplete";
 
 import "./index.css";
 
 function Presentation() {
   const [accessibility, setAccessibility] = useState("");
   const [accessGroup, setAccessGroup] = useState("");
+  const groupApi = useApiCall("get", "/group");
+
+  useEffect(() => {
+    groupApi.fetchData();
+  }, []);
 
   const handleAccessibilityChange = (event) => {
     setAccessibility(event.target.value);
@@ -59,42 +66,35 @@ function Presentation() {
             label="Description"
             variant="outlined"
           />
-          <div className="flex-container my-4">
-            <div style={{ flexGrow: 1, marginRight: "0.5rem" }}>
-              <FormControl fullWidth>
-                <InputLabel id="presentation-accessibility-label">
-                  Accessibility
-                </InputLabel>
-                <Select
-                  labelId="presentation-accessibility-label"
-                  id="presentation-accessibility"
-                  value={accessibility}
-                  label="Accessibility"
-                  onChange={handleAccessibilityChange}
-                >
-                  <MenuItem value={"Public"}>Public</MenuItem>
-                  <MenuItem value={"Private"}>Private</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-            <div style={{ flexGrow: 1 }}>
-              <FormControl fullWidth>
-                <InputLabel id="presentation-access-group-label">
-                  Access Group
-                </InputLabel>
-                <Select
-                  labelId="presentation-access-group-label"
-                  id="presentation-access-group"
-                  value={accessGroup}
-                  label="Access Group"
-                  onChange={handleAccessGroupChange}
-                >
-                  <MenuItem value={"Group 2"}>Group 2</MenuItem>
-                  <MenuItem value={"Group 3"}>Group 3</MenuItem>
-                </Select>
-              </FormControl>
-            </div>
-          </div>
+          <FormControl fullWidth className="my-4">
+            <InputLabel id="presentation-accessibility-label">
+              Accessibility
+            </InputLabel>
+            <Select
+              labelId="presentation-accessibility-label"
+              id="presentation-accessibility"
+              value={accessibility}
+              label="Accessibility"
+              onChange={handleAccessibilityChange}
+            >
+              <MenuItem value={"Public"}>Public</MenuItem>
+              <MenuItem value={"Private"}>Private</MenuItem>
+            </Select>
+          </FormControl>
+          {groupApi.data && (
+            <Autocomplete
+              multiple
+              fullWidth
+              limitTags={3}
+              id="multiple-group"
+              options={groupApi.data}
+              getOptionLabel={(option) => option.group_name}
+              defaultValue={[]}
+              renderInput={(params) => (
+                <TextField {...params} label="Access Group" />
+              )}
+            />
+          )}
         </div>
         <div style={{ flexGrow: 1 }} className="mx-2 mt-4">
           <label for="images" class="drop-container" id="dropcontainer">
@@ -104,7 +104,12 @@ function Presentation() {
           </label>
         </div>
       </div>
-      <Button variant="contained" type="submit" className="mx-auto my-4">
+      <Button
+        variant="contained"
+        type="submit"
+        className="mx-auto my-4"
+        sx={{ width: "10rem", height: "2.5rem" }}
+      >
         Upload
       </Button>
     </>

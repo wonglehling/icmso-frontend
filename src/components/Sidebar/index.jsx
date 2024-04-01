@@ -110,8 +110,8 @@ export default function SideBar() {
           "& .MuiDrawer-paper": {
             width: drawerWidth,
             boxSizing: "border-box",
-            overflowX: 'hidden',
-            border: 'none'
+            overflowX: "hidden",
+            border: "none",
           },
           zIndex: 900,
         }}
@@ -126,6 +126,7 @@ export default function SideBar() {
           type="submit"
           className="mx-auto my-4"
           onClick={() => handleClickNav("Upload")}
+          sx={{ width: "10rem", height: "2.5rem" }}
         >
           <img src={`${PlusIcon}`} className="me-2" />
           Upload

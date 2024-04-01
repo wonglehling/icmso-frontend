@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -15,6 +15,8 @@ export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const openProfile = Boolean(anchorEl);
   const navigate = useNavigate();
+  const location = useLocation();
+  const [currentPath, setCurrentPath] = useState('');
 
   const handleProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -27,10 +29,14 @@ export default function Navbar() {
     handleProfileClose();
   };
 
+  useEffect(() => {
+    setCurrentPath(location.pathname.split('/')[1])
+  }, [location]);
+
   return (
     <Container className="mt-2 mb-4">
       <Row>
-        <Col className="navbar-title">Navbar</Col>
+        <Col className="navbar-title">{currentPath.split('-').map( word => word.charAt(0).toUpperCase() + word.slice(1) + " ")}</Col>
         <Col sm={5} style={{ display: "flex" }}>
           <div className="bd-container" style={{ width: "100%" }}>
             <Form className="d-flex">

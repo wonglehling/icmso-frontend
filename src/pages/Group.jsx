@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import SideBar from "../components/Sidebar";
+import Navbar from "../components/Navbar";
 import ModalMember from "../components/ModalMember";
 import ConfirmationModal from "../components/ComfirmationModal";
 import ModalEditMember from "../components/ModalEditMember";
@@ -72,7 +73,7 @@ export default function Group() {
   const [rows, setRows] = useState([]);
 
   const { data, loading, error, fetchData } = useApiCall("get", "/group/" + id);
-  const deleteApi = useApiCall("delete", "/group/" + id)
+  const deleteApi = useApiCall("delete", "/group/" + id);
 
   useEffect(() => {
     fetchData();
@@ -129,10 +130,10 @@ export default function Group() {
     setShowDeleteGroupModal(true);
   };
   const handleDeleteGroup = () => {
-    deleteApi.fetchData()
-    if(!deleteApi.error) {
-      toast.success("Group Deleted Successful")
-      navigate('/home')
+    deleteApi.fetchData();
+    if (!deleteApi.error) {
+      toast.success("Group Deleted Successful");
+      navigate("/home");
     }
   };
 
@@ -151,153 +152,162 @@ export default function Group() {
   return (
     <div>
       <SideBar />
-      {data && (
-        <>
-          <Row>
-            <Col>
-              <div className="group-title">Group Details</div>
-            </Col>
-            <Col className="pd-icon">
-              <img
-                src={EditIcon}
-                className="me-3"
-                onClick={handleEditGroupModalShow}
-              />
-              <img src={DeleteIcon} onClick={handleDeleteGroupModalShow} />
-            </Col>
-          </Row>
-          <div className="flex-container">
-            <div style={{ flexGrow: 1 }}>
-              <div
-                style={{
-                  height: "160px",
-                  justifyContent: "left",
-                  display: "flex",
-                }}
-              >
-                <CardMedia
-                  sx={{
-                    display: "block",
-                    maxWidth: "194px",
-                    maxHeight: "160px",
-                    width: "auto",
-                    height: "auto",
-                    marginRight: "auto",
-                    marginLeft: "1rem",
-                    textAlign: "left",
-                  }}
-                  component="img"
-                  height="194"
-                  image={testImg}
-                />
-              </div>
-            </div>
-            <div
-              style={{ flexGrow: 2, fontSize: "12px", textAlign: "justify" }}
-              className="ms-5"
-            >
-              <div className="group-name">Group Name: {data.group_name}</div>
-              {data.group_description}
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
-              Faucibus scelerisque eleifend donec pretium. Lectus sit amet est
-              placerat in egestas erat. Interdum velit laoreet id donec.
-              Scelerisque fermentum dui faucibus in ornare quam viverra orci.
-              Amet commodo nulla facilisi nullam vehicula ipsum a. Ultrices mi
-              tempus imperdiet nulla. Lorem dolor sed viverra ipsum nunc aliquet
-              bibendum. Sit amet risus nullam eget felis eget nunc lobortis
-              mattis. Sed vulputate mi sit amet mauris commodo. Sem integer
-              vitae justo eget magna fermentum iaculis eu non.
-            </div>
-          </div>
-          <TableContainer component={Paper} className="mt-3" sx={{ overflowX: "hidden" }}>
+      <div style={{ paddingLeft: "210px" }}>
+        <Navbar />
+        {data && (
+          <>
             <Row>
               <Col>
-                <div className="group-title">Group Members</div>
+                <div className="group-title">Group Details</div>
               </Col>
-              <Col className="btn-add">
-                <Button
-                  variant="contained"
-                  type="submit"
-                  className="mx-auto mt-2"
-                  onClick={handleModalShow}
-                >
-                  <img src={`${PlusIcon}`} className="me-2" />
-                  Add
-                </Button>
+              <Col className="pd-icon">
+                <img
+                  src={EditIcon}
+                  className="me-3"
+                  onClick={handleEditGroupModalShow}
+                />
+                <img src={DeleteIcon} onClick={handleDeleteGroupModalShow} />
               </Col>
             </Row>
-            <Table aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell align="right">Join Date</TableCell>
-                  <TableCell align="right">Role</TableCell>
-                  <TableCell align="right">Research Interests</TableCell>
-                  <TableCell align="right">Action</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow
-                    key={row.name}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+            <div className="flex-container">
+              <div style={{ flexGrow: 1 }}>
+                <div
+                  style={{
+                    height: "160px",
+                    justifyContent: "left",
+                    display: "flex",
+                  }}
+                >
+                  <CardMedia
+                    sx={{
+                      display: "block",
+                      maxWidth: "194px",
+                      maxHeight: "160px",
+                      width: "auto",
+                      height: "auto",
+                      marginRight: "auto",
+                      marginLeft: "1rem",
+                      textAlign: "left",
+                    }}
+                    component="img"
+                    height="194"
+                    image={testImg}
+                  />
+                </div>
+              </div>
+              <div
+                style={{ flexGrow: 2, fontSize: "12px", textAlign: "justify" }}
+                className="ms-5"
+              >
+                <div className="group-name">Group Name: {data.group_name}</div>
+                {data.group_description}
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Faucibus scelerisque eleifend donec pretium. Lectus sit amet est
+                placerat in egestas erat. Interdum velit laoreet id donec.
+                Scelerisque fermentum dui faucibus in ornare quam viverra orci.
+                Amet commodo nulla facilisi nullam vehicula ipsum a. Ultrices mi
+                tempus imperdiet nulla. Lorem dolor sed viverra ipsum nunc
+                aliquet bibendum. Sit amet risus nullam eget felis eget nunc
+                lobortis mattis. Sed vulputate mi sit amet mauris commodo. Sem
+                integer vitae justo eget magna fermentum iaculis eu non.
+              </div>
+            </div>
+            <TableContainer
+              component={Paper}
+              className="mt-3"
+              sx={{ overflowX: "hidden" }}
+            >
+              <Row>
+                <Col>
+                  <div className="group-title">Group Members</div>
+                </Col>
+                <Col className="btn-add">
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    className="mx-auto mt-2"
+                    onClick={handleModalShow}
                   >
-                    <TableCell component="th" scope="row">
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.joinDate}</TableCell>
-                    <TableCell align="right">{row.role}</TableCell>
-                    <TableCell align="right">{row.researchInterests}</TableCell>
-                    <TableCell align="right">
-                      <img
-                        src={ViewIcon}
-                        className="mx-2"
-                        onClick={() => handleClickGroupMember(row.id)}
-                      />
-                      <img
-                        src={EditIcon}
-                        className="mx-2"
-                        onClick={handleEditModalShow}
-                      />
-                      <img
-                        src={DeleteIcon}
-                        className="mx-2"
-                        onClick={handleDeleteModalShow}
-                      />
-                    </TableCell>
+                    <img src={`${PlusIcon}`} className="me-2" />
+                    Add
+                  </Button>
+                </Col>
+              </Row>
+              <Table aria-label="simple table">
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Name</TableCell>
+                    <TableCell align="right">Join Date</TableCell>
+                    <TableCell align="right">Role</TableCell>
+                    <TableCell align="right">Research Interests</TableCell>
+                    <TableCell align="right">Action</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <ModalMember
-            show={showAddModal}
-            handleClose={handleModalClose}
-            handleAdd={handleAddMember}
-          />
-          <ConfirmationModal
-            show={showDeleteModal}
-            handleClose={handleDeleteModalClose}
-            handleDelete={handleDeleteMember}
-          />
-          <ModalEditMember
-            show={showEditModal}
-            handleClose={handleEditModalClose}
-            handleEdit={handleEditMember}
-          />
-          <GroupConfirmationModal
-            show={showDeleteGroupModal}
-            handleClose={handleDeleteGroupModalClose}
-            handleDelete={handleDeleteGroup}
-          />
-          <ModalEditGroup
-            show={showEditGroupModal}
-            handleClose={handleEditGroupModalClose}
-            handleSave={handleEditGroup}
-          />
-        </>
-      )}
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <TableRow
+                      key={row.name}
+                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.name}
+                      </TableCell>
+                      <TableCell align="right">{row.joinDate}</TableCell>
+                      <TableCell align="right">{row.role}</TableCell>
+                      <TableCell align="right">
+                        {row.researchInterests}
+                      </TableCell>
+                      <TableCell align="right">
+                        <img
+                          src={ViewIcon}
+                          className="mx-2"
+                          onClick={() => handleClickGroupMember(row.id)}
+                        />
+                        <img
+                          src={EditIcon}
+                          className="mx-2"
+                          onClick={handleEditModalShow}
+                        />
+                        <img
+                          src={DeleteIcon}
+                          className="mx-2"
+                          onClick={handleDeleteModalShow}
+                        />
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <ModalMember
+              show={showAddModal}
+              handleClose={handleModalClose}
+              handleAdd={handleAddMember}
+            />
+            <ConfirmationModal
+              show={showDeleteModal}
+              handleClose={handleDeleteModalClose}
+              handleDelete={handleDeleteMember}
+            />
+            <ModalEditMember
+              show={showEditModal}
+              handleClose={handleEditModalClose}
+              handleEdit={handleEditMember}
+            />
+            <GroupConfirmationModal
+              show={showDeleteGroupModal}
+              handleClose={handleDeleteGroupModalClose}
+              handleDelete={handleDeleteGroup}
+            />
+            <ModalEditGroup
+              show={showEditGroupModal}
+              handleClose={handleEditGroupModalClose}
+              handleSave={handleEditGroup}
+            />
+          </>
+        )}
+      </div>
     </div>
   );
 }
