@@ -192,7 +192,7 @@ function ModalMember({ show, handleClose, handleAdd }) {
           id="multiple-research-interest"
           options={top100Films}
           getOptionLabel={(option) => option.title}
-          defaultValue={[top100Films[13], top100Films[12], top100Films[11]]}
+          defaultValue={[]}
           renderInput={(params) => (
             <TextField
               {...params}
