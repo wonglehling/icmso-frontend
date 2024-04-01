@@ -16,6 +16,24 @@ import EditIcon from "../assets/icons/pen.svg";
 import DeleteIcon from "../assets/icons/trash3.svg";
 import "../styles/resourceDetail.css";
 
+const RESOURCE_BODY = {
+  // resource_info: {
+  //   resource_file_name: "",
+  //   resource_file_type: "",
+  // },
+  resource_file: null,
+  resource_title: "",
+  resource_description: "",
+  // resource_type: "",
+  // resource_props: {},
+  // resource_group_id: [],
+  // resource_versions: {
+  //   resource_version_title: "Upload Resource",
+  //   resource_version_description: "User has uploaded new resource",
+  //   resource_update_details: [],
+  // },
+};
+
 function ResourceDetail() {
   const navigate = useNavigate();
   let { id } = useParams();
@@ -26,8 +44,10 @@ function ResourceDetail() {
     "get",
     "/resource/" + id
   );
-
+  const [formBody, setFormBody] = useState(RESOURCE_BODY);
+  const updateApi = useApiCall("put", "/resource/"+id, {}, formBody)
   const deleteApi = useApiCall("delete", "/resource/" + id);
+
   const handleModalClose = () => setShowEditModal(false);
   const handleModalShow = () => {
     setShowEditModal(true);
@@ -44,12 +64,27 @@ function ResourceDetail() {
     }
   };
   const handleUpdateResource = () => {
-    console.log("Document update successful");
+    updateApi.fetchData()
+    toast.success("Resource Updated Successful");
+    navigate("/resources");
   };
+
+  const handleOnChangeFormBody = (e) => {
+    const { name, value } = e.target
+    if (name === "resource_file") {
+      setFormBody({ ...formBody, [name]: e.target.files[0] })
+    } else
+      setFormBody({ ...formBody, [name]: value })
+  }
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  useEffect(() => {
+    setFormBody(data)
+    console.log(data);
+  }, [data]);
 
   return (
     <>
@@ -242,6 +277,8 @@ function ResourceDetail() {
             />
             <ModalResource
               show={showEditModal}
+              formBody={formBody} 
+              handleOnChangeFormBody={handleOnChangeFormBody} 
               handleClose={handleModalClose}
               handleSave={handleUpdateResource}
             />

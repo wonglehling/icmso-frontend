@@ -9,7 +9,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "./index.css";
 
 
-function ModalResource({ show, handleClose, handleSave }) {
+function ModalResource({ show, handleClose, handleSave, formBody, handleOnChangeFormBody }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -33,6 +33,9 @@ function ModalResource({ show, handleClose, handleSave }) {
           required
           id="resource-title"
           label="Title"
+          value={formBody ? formBody.resource_title : ''}
+          onChange={handleOnChangeFormBody}
+          name="resource_title"
           variant="outlined"
           className="my-3 me-3"
           sx={{ flexGrow: 1, width: "50%" }}

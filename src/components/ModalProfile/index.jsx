@@ -11,7 +11,11 @@ import FormControl from "@mui/material/FormControl";
 import Autocomplete from "@mui/material/Autocomplete";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
+
+
 import "./index.css";
+
+
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const top100Films = [
@@ -142,7 +146,7 @@ const top100Films = [
   { title: "Monty Python and the Holy Grail", year: 1975 },
 ];
 
-function ModalProfile({ show, handleClose, handleUpdate }) {
+function ModalProfile({ show, handleClose, handleUpdate , handleOnChangeFormBody, formBody}) {
   const [researchInterests, setResearchInterests] = useState("");
   const [profileGender, setprofileGender] = useState();
 
@@ -151,6 +155,13 @@ function ModalProfile({ show, handleClose, handleUpdate }) {
   };
 
   const handleprofileGenderChange = (event) => {
+    const e = {
+      target: {
+        name: "user_gender",
+        value: event.target.value
+      }
+    }
+    handleOnChangeFormBody(e)
     setprofileGender(event.target.value);
   };
 
@@ -178,6 +189,10 @@ function ModalProfile({ show, handleClose, handleUpdate }) {
           id="profile-name"
           label="Name"
           variant="outlined"
+          value={formBody ? formBody.user_first_name : ''}
+          onChange={handleOnChangeFormBody}
+          name="user_first_name"
+
           className="my-3 me-3"
           sx={{ flexGrow: 1, width: "50%" }}
         />
@@ -198,7 +213,7 @@ function ModalProfile({ show, handleClose, handleUpdate }) {
             <MenuItem value={"Female"}>Female</MenuItem>
           </Select>
         </FormControl>
-        <DatePicker
+        {/* <DatePicker
           id="profile-join-date"
           label="Join Date"
           sx={{ flexGrow: 1, width: "50%" }}
@@ -211,19 +226,27 @@ function ModalProfile({ show, handleClose, handleUpdate }) {
           variant="outlined"
           className="mb-3"
           sx={{ flexGrow: 1, width: "46%" }}
-        />
+        /> */}
         <TextField
           required
           fullWidth
           id="profile-phone-number"
           label="Phone Number"
           variant="outlined"
+          value={formBody ? formBody.user_phone_number : ''}
+          onChange={handleOnChangeFormBody}
+          name="user_phone_number"
+
           className="mb-3"
         />
         <TextField
           required
           fullWidth
           id="profile-address"
+          value={formBody ? formBody.user_address : ''}
+          onChange={handleOnChangeFormBody}
+          name="user_address"
+
           label="Address"
           variant="outlined"
           className="mb-3"
@@ -232,13 +255,17 @@ function ModalProfile({ show, handleClose, handleUpdate }) {
           required
           fullWidth
           multiline
+          value={formBody ? formBody.user_description : ''}
+          onChange={handleOnChangeFormBody}
+          name="user_description"
+
           rows={2}
           id="profile-description"
           label="Description"
           variant="outlined"
           className="mb-3"
         />
-        <Autocomplete
+        {/* <Autocomplete
           multiple
           limitTags={2}
           id="multiple-research-interest"
@@ -251,7 +278,7 @@ function ModalProfile({ show, handleClose, handleUpdate }) {
               label="Research Interests"
             />
           )}
-        />
+        /> */}
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
