@@ -249,7 +249,6 @@ function ModalProfile({ show, handleClose, handleUpdate }) {
             <TextField
               {...params}
               label="Research Interests"
-              placeholder="Favorites"
             />
           )}
         />

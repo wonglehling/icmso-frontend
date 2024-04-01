@@ -197,7 +197,6 @@ function ModalEditMember({ show, handleClose, handleEdit }) {
             <TextField
               {...params}
               label="Research Interests"
-              placeholder="Favorites"
             />
           )}
         />

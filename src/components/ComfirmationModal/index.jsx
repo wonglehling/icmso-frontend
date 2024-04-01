@@ -16,7 +16,7 @@ function ConfirmationModal({ show, handleClose, handleDelete }) {
         <Modal.Title>Confirmation Required</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Are you sure you want to delete the member "John Doe" from the system?
+        Are you sure you want to delete the member from the system?
         This action cannot be undone and will permanently remove all associated
         data and permissions.
       </Modal.Body>
