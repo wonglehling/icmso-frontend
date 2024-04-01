@@ -61,6 +61,16 @@ function createData(name, joinDate, role, researchInterests, Action, id) {
 //   createData("Ali", "12/10/2022", "Member", "Image Processing", "Edit Delete"),
 // ];
 
+const GROUP_BODY = {
+  group_name: '',
+  group_description: ''
+}
+
+const GROUP_MEMBER_BODY = {
+  group_member_email: '',
+  group_member_type: ''
+}
+
 export default function Group() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -71,6 +81,13 @@ export default function Group() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showEditGroupModal, setShowEditGroupModal] = useState(false);
   const [rows, setRows] = useState([]);
+  const [selectedMember, setSelectedMember] = useState(GROUP_MEMBER_BODY);
+  const [selectedMemberIndex, setSelectedMemberIndex] = useState(-1);
+  const [formBody, setFormBody] = useState(GROUP_BODY);
+  const updateApi = useApiCall("put", "/group/" + id, {}, formBody)
+  const getUserApi = useApiCall("get", "/user")
+  const [allUser, setAllUser] = useState([]);
+
 
   const { data, loading, error, fetchData } = useApiCall("get", "/group/" + id);
   const deleteApi = useApiCall("delete", "/group/" + id);
@@ -79,6 +96,22 @@ export default function Group() {
     fetchData();
   }, [id]);
 
+  const handleOnChangeFormBody = (e) => {
+    const { name, value } = e.target
+    if (name === "resource_file") {
+      setFormBody({ ...formBody, [name]: e.target.files[0] })
+    } else
+      setFormBody({ ...formBody, [name]: value })
+  }
+
+  const handleOnAddMember = () => {
+    
+  }
+
+  const handleOnDeleteMember = () => {
+    
+  }
+
   useEffect(() => {
     const newRows = [];
     data &&
@@ -86,8 +119,8 @@ export default function Group() {
         newRows.push(
           createData(
             member.group_member_id.user_first_name +
-              " " +
-              member.group_member_id.user_last_name,
+            " " +
+            member.group_member_id.user_last_name,
             formatDate(member.group_member_join_date),
             member.group_member_type,
             member.group_member_research_interests.map(
@@ -99,6 +132,7 @@ export default function Group() {
         );
       });
     setRows(newRows);
+    setFormBody(data)
   }, [data]);
 
   const handleModalClose = () => setShowAddModal(false);
@@ -110,12 +144,22 @@ export default function Group() {
   };
 
   const handleDeleteModalClose = () => setShowDeleteModal(false);
-  const handleDeleteModalShow = () => {
+  const handleDeleteModalShow = (index) => {
+    setSelectedMemberIndex(index)
     setShowDeleteModal(true);
   };
   const handleDeleteMember = () => {
+    const newData=data;
+    newData.group_members.splice(selectedMemberIndex, 1)
+    console.log(newData);
+
     console.log("member delete successful");
   };
+
+  const handleEditNewMemberDetails = (e) => {
+    const {name, value} = e.target
+    setSelectedMember({...selectedMember, [name]: value})
+  }
 
   const handleEditModalClose = () => setShowEditModal(false);
   const handleEditModalShow = () => {
@@ -142,7 +186,9 @@ export default function Group() {
     setShowEditGroupModal(true);
   };
   const handleEditGroup = () => {
-    console.log("group update successful");
+    updateApi.fetchData()
+    toast.success("Group Updated Successful");
+    navigate("/home");
   };
 
   const handleClickGroupMember = (id) => {
@@ -191,7 +237,8 @@ export default function Group() {
                     }}
                     component="img"
                     height="194"
-                    image={testImg}
+                    // image={testImg}
+                    src="https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3JvdXB8ZW58MHx8MHx8fDA%3D"
                   />
                 </div>
               </div>
@@ -245,7 +292,7 @@ export default function Group() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
+                  {rows.map((row, index) => (
                     <TableRow
                       key={row.name}
                       sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -272,7 +319,7 @@ export default function Group() {
                         <img
                           src={DeleteIcon}
                           className="mx-2"
-                          onClick={handleDeleteModalShow}
+                          onClick={()=>handleDeleteModalShow(index)}
                         />
                       </TableCell>
                     </TableRow>
@@ -282,6 +329,8 @@ export default function Group() {
             </TableContainer>
             <ModalMember
               show={showAddModal}
+              memberData={selectedMember}
+              handleOnChange={handleEditNewMemberDetails}
               handleClose={handleModalClose}
               handleAdd={handleAddMember}
             />
@@ -302,6 +351,8 @@ export default function Group() {
             />
             <ModalEditGroup
               show={showEditGroupModal}
+              formBody={formBody}
+              handleOnChangeFormBody={handleOnChangeFormBody}
               handleClose={handleEditGroupModalClose}
               handleSave={handleEditGroup}
             />

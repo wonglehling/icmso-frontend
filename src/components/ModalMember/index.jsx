@@ -139,7 +139,7 @@ const top100Films = [
   { title: "Monty Python and the Holy Grail", year: 1975 },
 ];
 
-function ModalMember({ show, handleClose, handleAdd }) {
+function ModalMember({ show, handleClose, handleAdd, handleOnChange, memberData }) {
   const [researchInterests, setResearchInterests] = useState("");
   const [memberRole, setMemberRole] = useState();
 
@@ -181,6 +181,9 @@ function ModalMember({ show, handleClose, handleAdd }) {
         <TextField
           required
           fullWidth
+          value={memberData ? memberData.group_member_email : ''}
+          onChange={handleOnChange}
+          name="resource_title"
           id="member-email"
           label="Email"
           variant="outlined"
@@ -197,7 +200,6 @@ function ModalMember({ show, handleClose, handleAdd }) {
             <TextField
               {...params}
               label="Research Interests"
-              placeholder="Favorites"
             />
           )}
         />

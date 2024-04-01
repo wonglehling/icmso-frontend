@@ -12,7 +12,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 import "./index.css";
 
-function Article() {
+function Article({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
   const [accessibility, setAccessibility] = useState("");
   const [accessGroup, setAccessGroup] = useState("");
   const groupApi = useApiCall("get", "/group");
@@ -40,6 +40,9 @@ function Article() {
               label="Title"
               variant="outlined"
               className="my-4"
+              value={formBody.resource_title}
+              onChange={handleOnChangeFormBody}
+              name="resource_title"
               sx={{ flexGrow: 1 }}
             />
             <TextField
@@ -64,6 +67,9 @@ function Article() {
             rows={4}
             id="article-abstract"
             label="Abstract"
+            value={formBody.resource_description}
+            onChange={handleOnChangeFormBody}
+            name="resource_description"
             variant="outlined"
           />
           <FormControl fullWidth className="my-4">
@@ -100,7 +106,7 @@ function Article() {
           <label for="images" class="drop-container" id="dropcontainer">
             <span className="drop-title ">Drop files here</span>
             or
-            <input type="file" id="images" accept="image/*" required />
+            <input type="file" id="files" name="resource_file" onChange={handleOnChangeFormBody} required />
           </label>
         </div>
       </div>
@@ -109,6 +115,7 @@ function Article() {
         type="submit"
         className="mx-auto my-4"
         sx={{ width: "10rem", height: "2.5rem" }}
+        onClick={handleOnCreateFormBody}
       >
         Upload
       </Button>

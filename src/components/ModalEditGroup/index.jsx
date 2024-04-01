@@ -7,7 +7,7 @@ import TextField from "@mui/material/TextField";
 
 import "./index.css"
 
-function ModalEditGroup({ show, handleClose, handleSave }) {
+function ModalEditGroup({ show, handleClose, handleSave, formBody, handleOnChangeFormBody }) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
@@ -31,6 +31,9 @@ function ModalEditGroup({ show, handleClose, handleSave }) {
           required
           fullWidth
           id="group-name"
+          value={formBody ? formBody.group_name : ''}
+          onChange={handleOnChangeFormBody}
+          name="group_name"
           label="Group Name"
           variant="outlined"
           className="my-3 me-3"
@@ -41,6 +44,9 @@ function ModalEditGroup({ show, handleClose, handleSave }) {
           multiline
           rows={2}
           id="group-description"
+          value={formBody ? formBody.group_description : ''}
+          onChange={handleOnChangeFormBody}
+          name="group_description"
           label="Description"
           variant="outlined"
           className="mb-3"
