@@ -104,16 +104,17 @@ function ResourceDetail() {
                 className="ms-5"
               >
                 <div className="description-style">Description</div>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Faucibus scelerisque eleifend donec pretium. Lectus sit amet est
-                placerat in egestas erat. Interdum velit laoreet id donec.
-                Scelerisque fermentum dui faucibus in ornare quam viverra orci.
-                Amet commodo nulla facilisi nullam vehicula ipsum a. Ultrices mi
-                tempus imperdiet nulla. Lorem dolor sed viverra ipsum nunc
-                aliquet bibendum. Sit amet risus nullam eget felis eget nunc
-                lobortis mattis. Sed vulputate mi sit amet mauris commodo. Sem
-                integer vitae justo eget magna fermentum iaculis eu non.
+                {data.resource_title} Lorem ipsum dolor sit amet, consectetur
+                adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Faucibus scelerisque eleifend donec
+                pretium. Lectus sit amet est placerat in egestas erat. Interdum
+                velit laoreet id donec. Scelerisque fermentum dui faucibus in
+                ornare quam viverra orci. Amet commodo nulla facilisi nullam
+                vehicula ipsum a. Ultrices mi tempus imperdiet nulla. Lorem
+                dolor sed viverra ipsum nunc aliquet bibendum. Sit amet risus
+                nullam eget felis eget nunc lobortis mattis. Sed vulputate mi
+                sit amet mauris commodo. Sem integer vitae justo eget magna
+                fermentum iaculis eu non.
               </div>
             </div>
             <div style={{ borderTop: "solid 1px #D3D3D3", marginTop: "55px" }}>

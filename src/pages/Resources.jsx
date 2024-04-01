@@ -26,6 +26,8 @@ export default function Resources() {
       <div style={{ paddingLeft: "210px" }}>
         <Navbar />
         <div className="resource-title">Recommendation</div>
+        <Row lg={4} md={3} xs={2}></Row>
+        <div className="resource-title">Recent Resources</div>
         <Row lg={4} md={3} xs={2}>
           {data &&
             data.map((doc, index) => {
@@ -39,8 +41,6 @@ export default function Resources() {
               );
             })}
         </Row>
-        <div className="resource-title">Recent Resources</div>
-        <Row lg={4} md={3} xs={2}></Row>
       </div>
     </div>
   );
