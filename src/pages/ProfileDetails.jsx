@@ -41,6 +41,7 @@ function ProfileDetails() {
   const handleUpdateProfile = () => {
     updateApi.fetchData()
     console.log("profile update successful");
+    window.location.reload()
   };
 
   useEffect(() => {

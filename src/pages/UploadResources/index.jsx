@@ -17,6 +17,7 @@ import TabPanel from "@mui/lab/TabPanel";
 import useApiCall from "../../hooks/useApiCall";
 import axios from 'axios'; // Import Axios library
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-hot-toast";
 
 const RESOURCE_BODY = {
   // resource_info: {
@@ -65,6 +66,7 @@ export default function UploadResource() {
       }
     })
       .then((response) => {
+        toast.success("Resource uploaded");
       })
       .catch((error) => {
         if (error.response.status === 401) navigate('/login')

@@ -188,7 +188,7 @@ export default function Group() {
   const handleEditGroup = () => {
     updateApi.fetchData()
     toast.success("Group Updated Successful");
-    navigate("/home");
+    window.location.reload()
   };
 
   const handleClickGroupMember = (id) => {
