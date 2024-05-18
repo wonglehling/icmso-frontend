@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SideBar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import DocumentCard from "../components/DocumentCard";
+import Chat from "../components/RealTimeChat";
 import { Row, Col } from "react-bootstrap";
 import useApiCall from "../hooks/useApiCall";
 
@@ -41,7 +42,9 @@ export default function Resources() {
               );
             })}
         </Row>
+      <Chat />
       </div>
+
     </div>
   );
 }

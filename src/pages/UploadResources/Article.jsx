@@ -72,6 +72,16 @@ function Article({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
             name="resource_description"
             variant="outlined"
           />
+          <TextField
+            required
+            fullWidth
+            id="article-keyword"
+            label="Keywords"
+            onChange={handleOnChangeFormBody}
+            name="resource_keyword"
+            variant="outlined"
+            className="mt-4"
+          />
           <FormControl fullWidth className="my-4">
             <InputLabel id="article-accessibility-label">
               Accessibility
@@ -106,7 +116,13 @@ function Article({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
           <label for="images" class="drop-container" id="dropcontainer">
             <span className="drop-title ">Drop files here</span>
             or
-            <input type="file" id="files" name="resource_file" onChange={handleOnChangeFormBody} required />
+            <input
+              type="file"
+              id="files"
+              name="resource_file"
+              onChange={handleOnChangeFormBody}
+              required
+            />
           </label>
         </div>
       </div>

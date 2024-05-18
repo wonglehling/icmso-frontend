@@ -1,0 +1,11 @@
+a.MuiLink-root:hover {
+  color: #013e7b !important;
+}
+
+.resource-item:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.resource-item {
+  cursor: pointer;
+}

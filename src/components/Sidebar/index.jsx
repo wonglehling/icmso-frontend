@@ -60,6 +60,9 @@ export default function SideBar() {
       case "Upload":
         navigate("/upload");
         break;
+      case "Projects":
+        navigate("/project");
+        break;
       case "GroupDetail":
         navigate(`/group/${id}`);
         break;
@@ -132,11 +135,17 @@ export default function SideBar() {
           Upload
         </Button>
         <List>
-          {["Home", "Resources", "Group", "Favourite", "Setting"].map(
-            (text, index) => {
-              return text === "Group" ? (
-                <>
-                  {/* <ListItem
+          {[
+            "Home",
+            "Resources",
+            "Group",
+            "Favourite",
+            "Setting",
+            "Projects",
+          ].map((text, index) => {
+            return text === "Group" ? (
+              <>
+                {/* <ListItem
                     key={text}
                     disablePadding
                     onClick={() => handleClickNav(text)}
@@ -146,60 +155,59 @@ export default function SideBar() {
                       <ListItemText primary={text} />
                     </ListItemButton>
                   </ListItem> */}
-                  <ListItem
-                    key={text}
-                    disablePadding
-                    onClick={handleOpenSettings}
-                  >
-                    <ListItemButton>
-                      <ListItemIcon>{showCorrectIcon(text)}</ListItemIcon>
-                      <ListItemText primary={text} />
-                    </ListItemButton>
-                    {openGroupCollapse ? (
-                      <ExpandLess sx={{ marginRight: "0.75rem" }} />
-                    ) : (
-                      <ExpandMore sx={{ marginRight: "0.75rem" }} />
-                    )}
-                  </ListItem>
-                  <Collapse in={openGroupCollapse} timeout="auto" unmountOnExit>
-                    <List component="div" disablePadding>
-                      {data &&
-                        data.map((group) => {
-                          return (
-                            <ListItem
-                              key={text + "1"}
-                              disablePadding
-                              onClick={() =>
-                                handleClickNav("GroupDetail", group._id)
-                              }
-                              className="ms-2"
-                            >
-                              <ListItemButton>
-                                <ListItemIcon>
-                                  {showCorrectIcon(text)}
-                                </ListItemIcon>
-                                <ListItemText primary={group.group_name} />
-                              </ListItemButton>
-                            </ListItem>
-                          );
-                        })}
-                    </List>
-                  </Collapse>
-                </>
-              ) : (
                 <ListItem
                   key={text}
                   disablePadding
-                  onClick={() => handleClickNav(text)}
+                  onClick={handleOpenSettings}
                 >
                   <ListItemButton>
                     <ListItemIcon>{showCorrectIcon(text)}</ListItemIcon>
                     <ListItemText primary={text} />
                   </ListItemButton>
+                  {openGroupCollapse ? (
+                    <ExpandLess sx={{ marginRight: "0.75rem" }} />
+                  ) : (
+                    <ExpandMore sx={{ marginRight: "0.75rem" }} />
+                  )}
                 </ListItem>
-              );
-            }
-          )}
+                <Collapse in={openGroupCollapse} timeout="auto" unmountOnExit>
+                  <List component="div" disablePadding>
+                    {data &&
+                      data.map((group) => {
+                        return (
+                          <ListItem
+                            key={text + "1"}
+                            disablePadding
+                            onClick={() =>
+                              handleClickNav("GroupDetail", group._id)
+                            }
+                            className="ms-2"
+                          >
+                            <ListItemButton>
+                              <ListItemIcon>
+                                {showCorrectIcon(text)}
+                              </ListItemIcon>
+                              <ListItemText primary={group.group_name} />
+                            </ListItemButton>
+                          </ListItem>
+                        );
+                      })}
+                  </List>
+                </Collapse>
+              </>
+            ) : (
+              <ListItem
+                key={text}
+                disablePadding
+                onClick={() => handleClickNav(text)}
+              >
+                <ListItemButton>
+                  <ListItemIcon>{showCorrectIcon(text)}</ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            );
+          })}
         </List>
       </Drawer>
     </Box>

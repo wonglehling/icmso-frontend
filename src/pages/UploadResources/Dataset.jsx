@@ -59,6 +59,14 @@ function Dataset() {
             label="Description"
             variant="outlined"
           />
+          <TextField
+            required
+            fullWidth
+            id="dataset-keyword"
+            label="Keywords"
+            variant="outlined"
+            className="mt-4"
+          />
           <FormControl fullWidth className="my-4">
             <InputLabel id="dataset-accessibility-label">
               Accessibility

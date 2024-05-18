@@ -75,6 +75,14 @@ function EBook() {
             label="Abstract"
             variant="outlined"
           />
+          <TextField
+            required
+            fullWidth
+            id="ebook-keyword"
+            label="Keywords"
+            variant="outlined"
+            className="mt-4"
+          />
           <FormControl fullWidth className="my-4">
             <InputLabel id="ebook-accessibility-label">
               Accessibility

@@ -59,6 +59,14 @@ function Code() {
             label="Description"
             variant="outlined"
           />
+          <TextField
+            required
+            fullWidth
+            id="code-keyword"
+            label="Keywords"
+            variant="outlined"
+            className="mt-4"
+          />
           <FormControl fullWidth className="my-4">
             <InputLabel id="code-accessibility-label">Accessibility</InputLabel>
             <Select

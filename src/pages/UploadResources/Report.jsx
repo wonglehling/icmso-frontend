@@ -75,6 +75,14 @@ function Report() {
             label="Abstract"
             variant="outlined"
           />
+          <TextField
+            required
+            fullWidth
+            id="report-keyword"
+            label="Keywords"
+            variant="outlined"
+            className="mt-4"
+          />
           <FormControl fullWidth className="my-4">
             <InputLabel id="research-paper-accessibility-label">
               Accessibility

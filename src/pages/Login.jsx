@@ -6,6 +6,13 @@ import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import InputLabel from "@mui/material/InputLabel";
+import InputAdornment from "@mui/material/InputAdornment";
+import FormControl from "@mui/material/FormControl";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useAuth } from "../../context/userContext";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +26,14 @@ export default function Login() {
     email: "",
     password: "",
   });
+  const [errors, setErrors] = useState([]);
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   const loginUser = async (e) => {
     e.preventDefault();
@@ -67,10 +82,7 @@ export default function Login() {
           },
         }}
       >
-        <Paper
-          elevation={3}
-          className="px-5 mg-paper"
-        >
+        <Paper elevation={3} className="px-5 mg-paper">
           <div className="login-title">Login</div>
           <form onSubmit={loginUser}>
             <TextField
@@ -84,18 +96,36 @@ export default function Login() {
                 setUserData({ ...userData, email: e.target.value })
               }
             />
-            <TextField
-              required
-              id="password"
-              label="Password"
+            <FormControl
               sx={{ width: "100%" }}
-              defaultValue=""
-              value={userData.password}
-              onChange={(e) =>
-                setUserData({ ...userData, password: e.target.value })
-              }
+              variant="outlined"
               className="my-3"
-            />
+            >
+              <InputLabel htmlFor="outlined-adornment-password">
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? "text" : "password"}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+                value={userData.password}
+                onChange={(e) =>
+                  setUserData({ ...userData, password: e.target.value })
+                }
+              />
+            </FormControl>
             <Stack spacing={2} direction="row">
               <Button
                 variant="contained"

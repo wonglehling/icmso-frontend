@@ -66,6 +66,14 @@ function Presentation() {
             label="Description"
             variant="outlined"
           />
+          <TextField
+            required
+            fullWidth
+            id="presentation-keyword"
+            label="Keywords"
+            variant="outlined"
+            className="mt-4"
+          />
           <FormControl fullWidth className="my-4">
             <InputLabel id="presentation-accessibility-label">
               Accessibility

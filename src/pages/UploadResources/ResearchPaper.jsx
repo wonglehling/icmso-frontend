@@ -66,6 +66,14 @@ function ResearchPaper() {
             label="Abstract"
             variant="outlined"
           />
+          <TextField
+            required
+            fullWidth
+            id="research-paper-keyword"
+            label="Keywords"
+            variant="outlined"
+            className="mt-4"
+          />
           <FormControl fullWidth className="my-4">
             <InputLabel id="research-paper-accessibility-label">
               Accessibility
