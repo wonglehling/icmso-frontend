@@ -14,10 +14,10 @@ import { formatDate } from "../utils/stringFormatter";
 
 function GroupMemberDetail() {
   const { id } = useParams();
-  const { data, loading, error, fetchData } = useApiCall("get", "/user/" + id);
+  const { data, loading, error, executeApi } = useApiCall("get", "/user/" + id);
   // const groupApiRes = useApiCall("get", "/group", {})
   useEffect(() => {
-    fetchData();
+    executeApi();
   }, []);
   return (
     <>
@@ -61,17 +61,7 @@ function GroupMemberDetail() {
                 <div className="member-name">
                   {data.user_first_name} {data.user_last_name}
                 </div>
-                {data.user_description}Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Faucibus scelerisque eleifend donec
-                pretium. Lectus sit amet est placerat in egestas erat. Interdum
-                velit laoreet id donec. Scelerisque fermentum dui faucibus in
-                ornare quam viverra orci. Amet commodo nulla facilisi nullam
-                vehicula ipsum a. Ultrices mi tempus imperdiet nulla. Lorem
-                dolor sed viverra ipsum nunc aliquet bibendum. Sit amet risus
-                nullam eget felis eget nunc lobortis mattis. Sed vulputate mi
-                sit amet mauris commodo. Sem integer vitae justo eget magna
-                fermentum iaculis eu non.
+                {data.user_description}
               </div>
             </div>
             <div

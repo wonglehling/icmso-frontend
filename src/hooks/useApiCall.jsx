@@ -5,7 +5,7 @@
 //   const [loading, setLoading] = useState(false);
 //   const [error, setError] = useState(null);
 //   console.log(type, url);
-//   const fetchData = () => {
+//   const executeApi = () => {
 //     console.log("tets");
 //     try {
 //       setLoading(true);
@@ -62,10 +62,10 @@
 //   // useEffect(() => {
 
 
-//   //   fetchData();
+//   //   executeApi();
 //   // }, []);
 
-//   return { data, loading, error, fetchData };
+//   return { data, loading, error, executeApi };
 // }
 
 import React, { useState, useEffect } from 'react';
@@ -78,13 +78,15 @@ export default function useApiCall(type = "get", url, query = {}, body = {}) {
   const [error, setError] = useState(null);
   const navigate = useNavigate()
 
-  const fetchData = () => {
+  const executeApi = () => {
     setLoading(true);
+    const requestBody = body.current ? body.current : body; // Use body.current if body is a ref
+
     axios({
       method: type,
       url: url,
       params: query,
-      data: body
+      data: requestBody
     })
       .then((response) => {
         setData(response.data);
@@ -100,12 +102,12 @@ export default function useApiCall(type = "get", url, query = {}, body = {}) {
   };
 
   // useEffect(() => {
-  //   fetchData();
-  // }, [fetchData]); // Add dependencies to useEffect
+  //   executeApi();
+  // }, [executeApi]); // Add dependencies to useEffect
 
   useEffect(() => {
     console.log(data);
   }, [data]);
 
-  return { data, loading, error, fetchData };
+  return { data, loading, error, executeApi };
 }

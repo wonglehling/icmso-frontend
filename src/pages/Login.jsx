@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-import Box from "@mui/material/Box";
+import { Box } from '@mui/material';
 import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";

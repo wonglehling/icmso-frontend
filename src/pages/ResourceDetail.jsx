@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import SideBar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
@@ -10,6 +10,8 @@ import { Row, Col } from "react-bootstrap";
 import useApiCall from "../hooks/useApiCall";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import IconButton from "@mui/material/IconButton";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 import testImg from "../assets/test.jpeg";
 import EditIcon from "../assets/icons/pen.svg";
@@ -37,15 +39,31 @@ const RESOURCE_BODY = {
 function ResourceDetail() {
   const navigate = useNavigate();
   let { id } = useParams();
-
+  let reqBody = {}
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const { data, loading, error, fetchData } = useApiCall(
+  const [startTime, setStartTime] = useState(null);
+  const [secondsOpen, setSecondsOpen] = useState(0);
+  const [selectedDocId, setSelectedDocId] = useState(0);
+  const [clickFavAction, setClickFavAction] = useState('');
+  const [activityReqBody, setActivityReqBody] = useState({
+    duration: 0,
+    "activity_to_resource_id": "",
+    "activity_to_resource_category": "",
+    "activity_to_project_id": ""
+  });
+  const activityReqBodyRef = useRef(activityReqBody);
+
+  const favApi = useApiCall("get", `/user/recommendation/${clickFavAction}/${selectedDocId}`);
+  const activityApi = useApiCall("post", `/activity`, {}, activityReqBodyRef);
+
+
+  const { data, loading, error, executeApi } = useApiCall(
     "get",
     "/resource/" + id
   );
   const [formBody, setFormBody] = useState(RESOURCE_BODY);
-  const updateApi = useApiCall("put", "/resource/"+id, {}, formBody)
+  const updateApi = useApiCall("put", "/resource/" + id, {}, formBody)
   const deleteApi = useApiCall("delete", "/resource/" + id);
 
   const handleModalClose = () => setShowEditModal(false);
@@ -57,14 +75,14 @@ function ResourceDetail() {
     setShowDeleteModal(true);
   };
   const handleDeleteResource = () => {
-    deleteApi.fetchData();
+    deleteApi.executeApi();
     if (!deleteApi.error) {
       toast.success("Resource Deleted Successful");
       navigate("/resources");
     }
   };
   const handleUpdateResource = () => {
-    updateApi.fetchData()
+    updateApi.executeApi()
     toast.success("Resource Updated Successful");
     navigate("/resources");
   };
@@ -78,13 +96,58 @@ function ResourceDetail() {
   }
 
   useEffect(() => {
-    fetchData();
+    if (selectedDocId !== 0 && clickFavAction !== '') favApi.executeApi()
+  }, [clickFavAction, selectedDocId]);
+
+  const handleClickFavIcon = () => {
+    setSelectedDocId(data._id)
+    setClickFavAction(data.is_favourite ? "remove" : "add")
+    data.is_favourite = !data.is_favourite
+  }
+
+  useEffect(() => {
+    executeApi();
+    const start = Date.now();
+    setStartTime(start);
+
+    return () => {
+      // Component unmounted
+      const end = Date.now();
+      const duration = (end - start) / 1000; // Convert milliseconds to seconds
+      setSecondsOpen(duration);
+      if (duration > 0.5) {
+        activityReqBodyRef.current = {...activityReqBodyRef.current, duration: duration}
+        console.log(`Component was open for ${duration} seconds, ${activityReqBody}`);
+        activityApi.executeApi()
+      }
+    };
+
   }, []);
+
 
   useEffect(() => {
     setFormBody(data)
-    console.log(data);
+    if (data) {
+      setClickFavAction(data.is_favourite ? "remove" : "add")
+      reqBody = {
+        "activity_to_resource_id": data._id,
+        "activity_to_resource_category": data.resource_props.category,
+        "activity_to_project_id": data.resource_project_id
+      }
+      setActivityReqBody(
+        { ...activityReqBody, 
+          "activity_to_resource_id": data._id,
+          "activity_to_resource_category": data.resource_props.category,
+          "activity_to_project_id": data.resource_project_id,
+          is_fav: data.is_favourite
+        }
+      )
+    }
   }, [data]);
+
+  useEffect(() => {
+    activityReqBodyRef.current = activityReqBody;
+  }, [activityReqBody]);
 
   return (
     <>
@@ -100,6 +163,9 @@ function ResourceDetail() {
                 </div>
               </Col>
               <Col className="pd-icon">
+                <IconButton onClick={() => handleClickFavIcon(data._id, data.is_favourite)} aria-label="add to favorites" sx={data.is_favourite ? { backgroundColor: 'rgba(0, 0, 0, 0.04)', color: 'red', } : {}}>
+                  <FavoriteIcon sx={{ width: 16, height: 16 }} />
+                </IconButton>
                 <img
                   src={EditIcon}
                   className="me-3"
@@ -139,17 +205,7 @@ function ResourceDetail() {
                 className="ms-5"
               >
                 <div className="description-style">Description</div>
-                {data.resource_title} Lorem ipsum dolor sit amet, consectetur
-                adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-                dolore magna aliqua. Faucibus scelerisque eleifend donec
-                pretium. Lectus sit amet est placerat in egestas erat. Interdum
-                velit laoreet id donec. Scelerisque fermentum dui faucibus in
-                ornare quam viverra orci. Amet commodo nulla facilisi nullam
-                vehicula ipsum a. Ultrices mi tempus imperdiet nulla. Lorem
-                dolor sed viverra ipsum nunc aliquet bibendum. Sit amet risus
-                nullam eget felis eget nunc lobortis mattis. Sed vulputate mi
-                sit amet mauris commodo. Sem integer vitae justo eget magna
-                fermentum iaculis eu non.
+                {data.resource_description}
               </div>
             </div>
             <div style={{ borderTop: "solid 1px #D3D3D3", marginTop: "55px" }}>
@@ -244,7 +300,7 @@ function ResourceDetail() {
                     }}
                   >
                     <div className="bold-text">Category</div>
-                    <div className="detail-font">Computer Science</div>
+                    <div className="detail-font">{data.resource_props.category}</div>
                   </div>
                 </Col>
               </Row>
@@ -277,8 +333,8 @@ function ResourceDetail() {
             />
             <ModalResource
               show={showEditModal}
-              formBody={formBody} 
-              handleOnChangeFormBody={handleOnChangeFormBody} 
+              formBody={formBody}
+              handleOnChangeFormBody={handleOnChangeFormBody}
               handleClose={handleModalClose}
               handleSave={handleUpdateResource}
             />

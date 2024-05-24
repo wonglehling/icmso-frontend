@@ -11,16 +11,18 @@ import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
 import BellIcon from "@mui/icons-material/NotificationsOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-
 import ProfileIcon from "../../assets/icons/person-circle.svg";
 import "./index.css";
+import { useAuth } from '../../../context/userContext';
 
 export default function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
   const openProfile = Boolean(anchorEl);
   const navigate = useNavigate();
   const location = useLocation();
   const [currentPath, setCurrentPath] = useState("");
+  const { logout, cookies, user } = useAuth();
 
   const handleProfileClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -31,6 +33,16 @@ export default function Navbar() {
   const handleClickMemberProfile = () => {
     navigate("/profile-detail");
     handleProfileClose();
+  };
+  const handleClickLogout = () => {
+    logout()
+    handleProfileClose();
+    navigate('/login')
+  }
+  
+  const handleClickSearch = () => {
+    navigate("/search/"+searchQuery);
+    window.location.reload()
   };
 
   useEffect(() => {
@@ -62,10 +74,12 @@ export default function Navbar() {
             <InputBase
               sx={{ ml: 1, flex: 1, fontSize: "14px !important" }}
               placeholder="Search"
+              value={searchQuery}
+              onChange={(e)=> setSearchQuery(e.target.value)}
             />
             <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
             <IconButton color="primary" sx={{ p: "10px" }}>
-              <SearchIcon />
+              <SearchIcon onClick={handleClickSearch}/>
             </IconButton>
           </Paper>
           <IconButton color="primary" sx={{ p: "10px" }}>
@@ -96,7 +110,7 @@ export default function Navbar() {
             }}
           >
             <MenuItem onClick={handleClickMemberProfile}>Profile</MenuItem>
-            <MenuItem>Logout</MenuItem>
+            <MenuItem onClick={handleClickLogout}>Logout</MenuItem>
           </Menu>
         </Col>
       </Row>

@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 
-import Box from "@mui/material/Box";
+import { Box } from '@mui/material';
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
 import AppBar from "@mui/material/AppBar";
@@ -28,10 +28,10 @@ import useApiCall from "../../hooks/useApiCall";
 const drawerWidth = 240;
 
 export default function SideBar() {
-  const { data, loading, error, fetchData } = useApiCall("get", "/group");
+  const { data, loading, error, executeApi } = useApiCall("get", "/group", {self: true});
 
   React.useEffect(() => {
-    fetchData();
+    executeApi();
   }, []);
 
   const navigate = useNavigate();
@@ -62,6 +62,9 @@ export default function SideBar() {
         break;
       case "Projects":
         navigate("/project");
+        break;
+      case "NewProject":
+        navigate("/new-project");
         break;
       case "GroupDetail":
         navigate(`/group/${id}`);
@@ -128,11 +131,11 @@ export default function SideBar() {
           variant="contained"
           type="submit"
           className="mx-auto my-4"
-          onClick={() => handleClickNav("Upload")}
+          onClick={() => handleClickNav("NewProject")}
           sx={{ width: "10rem", height: "2.5rem" }}
         >
           <img src={`${PlusIcon}`} className="me-2" />
-          Upload
+          Project
         </Button>
         <List>
           {[

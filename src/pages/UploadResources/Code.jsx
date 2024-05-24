@@ -17,7 +17,7 @@ function Code() {
   const groupApi = useApiCall("get", "/group");
 
   useEffect(() => {
-    groupApi.fetchData();
+    groupApi.executeApi();
   }, []);
 
   const handleAccessibilityChange = (event) => {

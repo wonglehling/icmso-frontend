@@ -13,7 +13,9 @@ import GroupMemberDetail from "./pages/GroupMemberDetail";
 import ResourceDetail from "./pages/ResourceDetail";
 import ProfileDetails from "./pages/ProfileDetails";
 import DirectoryView from "./pages/Directory";
+import SearchResult from "./pages/SearchResult";
 import NewProject from "./pages/NewProject";
+import Projects from "./pages/Projects";
 import { UserContextProvider } from "../context/userContext";
 import { ProtectRoutes, UnprotectRoutes } from "./hooks/protectRoutes";
 
@@ -55,8 +57,11 @@ function App() {
                 <Route path="/favourite" element={<Favourite />} />
                 <Route path="/setting" element={<Setting />} />
                 <Route path="/upload" element={<UploadResource />} />
-                <Route path="/project" element={<NewProject />} />
-                <Route path="/directory" element={<DirectoryView />} />
+                <Route path="/new-project" element={<NewProject />} />
+                <Route path="/project/:project_id/:project_path" element={<DirectoryView />} />
+                <Route path="/project/:project_id" element={<DirectoryView />} />
+                <Route path="/search/:query" element={<SearchResult />} />
+                <Route path="/project" element={<Projects />} />
                 <Route
                   path="/group-member-detail/:id"
                   element={<GroupMemberDetail />}

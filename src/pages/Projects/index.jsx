@@ -7,6 +7,9 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import useApiCall from "../../hooks/useApiCall";
 import Button from "@mui/material/Button";
+import { Col, Container, Row } from "react-bootstrap";
+import ProjectCard from "../../components/ProjectCard";
+import { useNavigate } from "react-router-dom";
 
 const EMPTY_BODY_DATA = {
   project_name: '',
@@ -16,11 +19,13 @@ const EMPTY_BODY_DATA = {
 
 export default function NewProject() {
   const [bodyData, setBodyData] = useState(EMPTY_BODY_DATA);
+  const navigate = useNavigate()
   const groupApi = useApiCall("get", "/group");
+  const projectGetApi = useApiCall("get", "/project");
   const projectApi = useApiCall("post", "/project", {}, bodyData);
 
   useEffect(() => {
-    groupApi.executeApi();
+    projectGetApi.executeApi();
   }, []);
 
   const handleOnChange = (e) => {
@@ -45,58 +50,26 @@ export default function NewProject() {
     projectApi.executeApi()
   }
 
+  const handleClickDocDetail = (id, path) => {
+    navigate("/project/" + id + "/"+ path);
+  };
+
   return (
     <>
       <SideBar />
       <div style={{ paddingLeft: "210px", height: "100%" }}>
         <Navbar />
-        <TextField
-          required
-          id="ebook-title"
-          label="Project Name"
-          variant="outlined"
-          className="my-4"
-          onChange={handleOnChange}
-          name="project_name"
-          value={bodyData.project_name}
-        />
-        <TextField
-          required
-          id="ebook-title"
-          label="Project Description"
-          variant="outlined"
-          className="my-4"
-          sx={{ flexGrow: 1 }}
-          onChange={handleOnChange}
-          name="project_description"
-          value={bodyData.project_description}
-
-        />
-        {groupApi.data && (
-          <Autocomplete
-            multiple
-            limitTags={3}
-            id="multiple-group"
-            options={groupApi.data}
-            getOptionLabel={(option) => option.group_name}
-            defaultValue={[]}
-            renderInput={(params) => (
-              <TextField {...params} label="Access Group" />
-            )}
-            name="project_groups"
-            onChange={handleOnChangeGroupSelect}
-          />
-        )}
-        <Button
-          variant="contained"
-          type="submit"
-          className="mx-auto my-4"
-          sx={{ width: "10rem", height: "2.5rem" }}
-          onClick={handleCreateProject}
-        >
-          Create
-        </Button>
-
+        {projectGetApi.data &&
+          projectGetApi.data.map((doc, index) => {
+            return (
+              <Row >
+                <ProjectCard
+                  doc_info={doc}
+                  handleClickDoc={() => handleClickDocDetail(doc._id, doc.project_name)}
+                />
+              </Row>
+            );
+          })}
         <Chat />
       </div>
     </>

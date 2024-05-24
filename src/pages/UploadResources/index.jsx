@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import SideBar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
 
@@ -18,6 +18,7 @@ import useApiCall from "../../hooks/useApiCall";
 import axios from 'axios'; // Import Axios library
 import { useNavigate } from 'react-router-dom';
 import { toast } from "react-hot-toast";
+import Modal from "react-bootstrap/Modal";
 
 const RESOURCE_BODY = {
   // resource_info: {
@@ -27,6 +28,8 @@ const RESOURCE_BODY = {
   resource_file: null,
   resource_title: "",
   resource_description: "",
+  resource_project_id: "",
+  resource_project_path: "",
   // resource_type: "",
   // resource_props: {},
   // resource_group_id: [],
@@ -37,9 +40,9 @@ const RESOURCE_BODY = {
   // },
 };
 
-export default function UploadResource() {
+export default function UploadResource(props) {
   const [tabValue, setTabValue] = useState("1");
-  const [formBody, setFormBody] = useState(RESOURCE_BODY);
+  const [formBody, setFormBody] = useState({...RESOURCE_BODY, resource_project_id: props.resource_project_id, resource_project_path: props.resource_project_path});
   const navigate = useNavigate()
 
   const handleOnChangeFormBody = (e) => {
@@ -50,11 +53,17 @@ export default function UploadResource() {
       setFormBody({ ...formBody, [name]: value })
   }
 
+  useEffect(() => {
+    console.log(props.resource_project_path);
+  }, []);
+
   const handleOnCreateFormBody = () => {
     const formData = new FormData();
     formData.append("resource_title", formBody.resource_title);
     formData.append("resource_description", formBody.resource_description);
     formData.append("resource_file", formBody.resource_file);
+    formData.append("resource_project_id", props.resource_project_id);
+    formData.append("resource_project_path", props.resource_project_path);
     axios({
       method: 'post',
       url: '/resource',
@@ -83,42 +92,53 @@ export default function UploadResource() {
 
   return (
     <>
-      <SideBar />
-      <div style={{ paddingLeft: "210px" }}>
-        <Navbar />
-        <TabContext value={tabValue}>
-          <TabList onChange={handleTabChange} aria-label="lab API tabs example">
-            <Tab label="Article" value="1" />
-            <Tab label="Code" value="2" />
-            <Tab label="Dataset" value="3" />
-            <Tab label="eBook" value="4" />
-            <Tab label="Presentation" value="5" />
-            <Tab label="Report" value="6" />
-            <Tab label="Research Paper" value="7" />
-          </TabList>
-          <TabPanel value="1">
-            <Article formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
-          </TabPanel>
-          <TabPanel value="2">
-            <Code formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
-          </TabPanel>
-          <TabPanel value="3">
-            <Dataset formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
-          </TabPanel>
-          <TabPanel value="4">
-            <EBook formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
-          </TabPanel>
-          <TabPanel value="5">
-            <Presentation formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
-          </TabPanel>
-          <TabPanel value="6">
-            <Report formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
-          </TabPanel>
-          <TabPanel value="7">
-            <ResearchPaper formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
-          </TabPanel>
-        </TabContext>
-      </div>
+      <Modal
+        show={props.showUploadResourceModal}
+        onHide={()=>{console.log(props.resource_project_path);}}
+        dialogClassName="modal-90w"
+        aria-labelledby="example-custom-modal-styling-title"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-custom-modal-styling-title">
+            Upload Resource
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <TabContext value={tabValue}>
+            <TabList onChange={handleTabChange} aria-label="lab API tabs example">
+              <Tab label="Article" value="1" />
+              <Tab label="Code" value="2" />
+              <Tab label="Dataset" value="3" />
+              <Tab label="eBook" value="4" />
+              <Tab label="Presentation" value="5" />
+              <Tab label="Report" value="6" />
+              <Tab label="Research Paper" value="7" />
+            </TabList>
+            <TabPanel value="1">
+              <Article formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
+            </TabPanel>
+            <TabPanel value="2">
+              <Code formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
+            </TabPanel>
+            <TabPanel value="3">
+              <Dataset formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
+            </TabPanel>
+            <TabPanel value="4">
+              <EBook formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
+            </TabPanel>
+            <TabPanel value="5">
+              <Presentation formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
+            </TabPanel>
+            <TabPanel value="6">
+              <Report formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
+            </TabPanel>
+            <TabPanel value="7">
+              <ResearchPaper formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
+            </TabPanel>
+          </TabContext>
+        </Modal.Body>
+      </Modal>
+
     </>
   );
 }

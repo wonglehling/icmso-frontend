@@ -63,7 +63,8 @@ function createData(name, joinDate, role, researchInterests, Action, id) {
 
 const GROUP_BODY = {
   group_name: '',
-  group_description: ''
+  group_description: '',
+  new_member: {}
 }
 
 const GROUP_MEMBER_BODY = {
@@ -89,11 +90,11 @@ export default function Group() {
   const [allUser, setAllUser] = useState([]);
 
 
-  const { data, loading, error, fetchData } = useApiCall("get", "/group/" + id);
+  const { data, loading, error, executeApi } = useApiCall("get", "/group/" + id);
   const deleteApi = useApiCall("delete", "/group/" + id);
 
   useEffect(() => {
-    fetchData();
+    executeApi();
   }, [id]);
 
   const handleOnChangeFormBody = (e) => {
@@ -118,16 +119,16 @@ export default function Group() {
       data.group_members.forEach((member) => {
         newRows.push(
           createData(
-            member.group_member_id.user_first_name +
+            member.user_first_name +
             " " +
-            member.group_member_id.user_last_name,
+            member.user_last_name,
             formatDate(member.group_member_join_date),
             member.group_member_type,
             member.group_member_research_interests.map(
               (interest) => interest + ","
             ),
             "Edit Delete",
-            member.group_member_id._id
+            member.group_member_id
           )
         );
       });
@@ -140,6 +141,7 @@ export default function Group() {
     setShowAddModal(true);
   };
   const handleAddMember = () => {
+    handleEditGroup()
     console.log("member added successful");
   };
 
@@ -158,11 +160,26 @@ export default function Group() {
 
   const handleEditNewMemberDetails = (e) => {
     const {name, value} = e.target
+    setFormBody({ ...formBody, new_member: {...formBody.new_member, [name]: value} })
+    setSelectedMember({...selectedMember, [name]: value})
+  }
+
+  const handleExistingMemberDetails = (e, i) => {
+    const {name, value} = e.target
+    setFormBody({ ...formBody, group_members: formBody.group_members.map((member, index)=> {
+      if(index === i){
+        return {...formBody.group_members[index], [name]: value}
+      }else{
+        return member
+      }
+    })})
+    console.log(formBody);
     setSelectedMember({...selectedMember, [name]: value})
   }
 
   const handleEditModalClose = () => setShowEditModal(false);
-  const handleEditModalShow = () => {
+  const handleEditModalShow = (i) => {
+    setSelectedMemberIndex(i)
     setShowEditModal(true);
   };
   const handleEditMember = () => {
@@ -174,7 +191,7 @@ export default function Group() {
     setShowDeleteGroupModal(true);
   };
   const handleDeleteGroup = () => {
-    deleteApi.fetchData();
+    deleteApi.executeApi();
     if (!deleteApi.error) {
       toast.success("Group Deleted Successful");
       navigate("/home");
@@ -186,7 +203,9 @@ export default function Group() {
     setShowEditGroupModal(true);
   };
   const handleEditGroup = () => {
-    updateApi.fetchData()
+    console.log(formBody);
+    updateApi.executeApi()
+    handleEditGroupModalClose()
     toast.success("Group Updated Successful");
     window.location.reload()
   };
@@ -248,16 +267,6 @@ export default function Group() {
               >
                 <div className="group-name">Group Name: {data.group_name}</div>
                 {data.group_description}
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Faucibus scelerisque eleifend donec pretium. Lectus sit amet est
-                placerat in egestas erat. Interdum velit laoreet id donec.
-                Scelerisque fermentum dui faucibus in ornare quam viverra orci.
-                Amet commodo nulla facilisi nullam vehicula ipsum a. Ultrices mi
-                tempus imperdiet nulla. Lorem dolor sed viverra ipsum nunc
-                aliquet bibendum. Sit amet risus nullam eget felis eget nunc
-                lobortis mattis. Sed vulputate mi sit amet mauris commodo. Sem
-                integer vitae justo eget magna fermentum iaculis eu non.
               </div>
             </div>
             <TableContainer
@@ -314,7 +323,7 @@ export default function Group() {
                         <img
                           src={EditIcon}
                           className="mx-2"
-                          onClick={handleEditModalShow}
+                          onClick={() => handleEditModalShow(index)}
                         />
                         <img
                           src={DeleteIcon}
@@ -343,6 +352,7 @@ export default function Group() {
               show={showEditModal}
               handleClose={handleEditModalClose}
               handleEdit={handleEditMember}
+              handleOnChange={handleEditNewMemberDetails}
             />
             <GroupConfirmationModal
               show={showDeleteGroupModal}

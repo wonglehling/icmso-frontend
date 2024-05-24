@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import SideBar from "../components/Sidebar";
@@ -12,31 +12,55 @@ import "../styles/resource.css";
 
 export default function Resources() {
   const navigate = useNavigate();
-  const { data, loading, error, fetchData } = useApiCall("get", "/resource");
+  const [selectedDocId, setSelectedDocId] = useState(0);
+  const [clickFavAction, setClickFavAction] = useState('');
+  const { data, loading, error, executeApi } = useApiCall("get", "/resource");
+  const favApi = useApiCall("get", `/user/recommendation/${clickFavAction}/${selectedDocId}`);
 
   useEffect(() => {
-    fetchData();
+    executeApi();
   }, []);
 
   const handleClickDocDetail = (id) => {
     navigate("/resource-detail/" + id);
   };
+
+  useEffect(() => {
+    if(selectedDocId!==0 && clickFavAction!=='') favApi.executeApi()
+  }, [clickFavAction, selectedDocId ]);
+
   return (
     <div>
       <SideBar />
       <div style={{ paddingLeft: "210px" }}>
         <Navbar />
         <div className="resource-title">Recommendation</div>
-        <Row lg={4} md={3} xs={2}></Row>
-        <div className="resource-title">Recent Resources</div>
         <Row lg={4} md={3} xs={2}>
-          {data &&
-            data.map((doc, index) => {
+        {data &&
+            data?.recommended_resource?.map((doc, index) => {
               return (
                 <Col key={index}>
                   <DocumentCard
                     doc_info={doc}
                     handleClickDoc={() => handleClickDocDetail(doc._id)}
+                    setSelectedDocId={setSelectedDocId}
+                    setClickFavAction={setClickFavAction}
+                  />
+                </Col>
+              );
+            })}
+        </Row>
+        <div className="resource-title">Recent Resources</div>
+        <Row lg={4} md={3} xs={2}>
+          {data &&
+            data?.resource?.map((doc, index) => {
+              return (
+                <Col key={index}>
+                  <DocumentCard
+                    doc_info={doc}
+                    handleClickDoc={() => handleClickDocDetail(doc._id)}
+                    setSelectedDocId={setSelectedDocId}
+                    setClickFavAction={setClickFavAction}
                   />
                 </Col>
               );

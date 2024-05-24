@@ -21,8 +21,13 @@ export function UserContextProvider({children}){
             })
         }
     }, []);
+
+    const logout = () => {
+        ['icms_access_token'].forEach(obj => removeCookie(obj));
+        setUser(null)
+    }
     return (
-        <UserContext.Provider value={{user,setUser, cookies, setCookies}}>
+        <UserContext.Provider value={{user,setUser, cookies, setCookies, logout}}>
             {children}
         </UserContext.Provider>
     )

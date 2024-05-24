@@ -25,7 +25,7 @@ function ProfileDetails() {
   const [showEditModal, setShowEditModal] = useState(false);
   const [formBody, setFormBody] = useState(PROFILE_DATA);
   const updateApi = useApiCall("put", "/user", {}, formBody)
-  const { data, loading, error, fetchData } = useApiCall("get", "/user")
+  const { data, loading, error, executeApi } = useApiCall("get", "/user")
 
   const handleModalClose = () => setShowEditModal(false);
   const handleModalShow = () => {
@@ -39,17 +39,17 @@ function ProfileDetails() {
       setFormBody({ ...formBody, [name]: value })
   }
   const handleUpdateProfile = () => {
-    updateApi.fetchData()
+    updateApi.executeApi()
     console.log("profile update successful");
     window.location.reload()
   };
 
   useEffect(() => {
-    if (data) setFormBody(data[0])
+    if (data) setFormBody(data)
   }, [data]);
 
   useEffect(() => {
-    fetchData()
+    executeApi()
   }, []);
 
   return (
@@ -104,8 +104,8 @@ function ProfileDetails() {
               style={{ flexGrow: 2, fontSize: "12px", textAlign: "justify" }}
               className="ms-5"
             >
-              <div className="profile-name">{data[0].user_first_name} {data[0].user_last_name}</div>
-              {data[0].user_description} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              <div className="profile-name">{data.user_first_name} {data.user_last_name}</div>
+              {data.user_description} Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Faucibus
               scelerisque eleifend donec pretium. Lectus sit amet est placerat in
               egestas erat. Interdum velit laoreet id donec. Scelerisque fermentum
@@ -129,7 +129,7 @@ function ProfileDetails() {
                   }}
                 >
                   <div className="bold-text">Join Date</div>
-                  <div className="detail-font">{formatDate(data[0].createdAt)}</div>
+                  <div className="detail-font">{formatDate(data.createdAt)}</div>
                 </div>
               </Col>
               <Col>
@@ -142,7 +142,7 @@ function ProfileDetails() {
                   }}
                 >
                   <div className="bold-text">Gender</div>
-                  <div className="detail-font">{data[0].user_gender}</div>
+                  <div className="detail-font">{data.user_gender}</div>
                 </div>
               </Col>
             </Row>
@@ -172,7 +172,7 @@ function ProfileDetails() {
                   }}
                 >
                   <div className="bold-text">Phone Number</div>
-                  <div className="detail-font">{data[0].user_phone_number}</div>
+                  <div className="detail-font">{data.user_phone_number}</div>
                 </div>
               </Col>
             </Row>
@@ -189,7 +189,7 @@ function ProfileDetails() {
                   }}
                 >
                   <div className="bold-text">Address</div>
-                  <div className="detail-font">{data[0].user_address}</div>
+                  <div className="detail-font">{data.user_address}</div>
                 </div>
               </Col>
               <Col>

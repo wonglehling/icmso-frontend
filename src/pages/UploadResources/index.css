@@ -34,3 +34,7 @@
   text-align: center;
   transition: color .2s ease-in-out;
 }
+
+.modal-90w{
+  max-width: 90% !important;
+}

@@ -139,7 +139,7 @@ const top100Films = [
   { title: "Monty Python and the Holy Grail", year: 1975 },
 ];
 
-function ModalMember({ show, handleClose, handleAdd, handleOnChange, memberData }) {
+function ModalMember({ show, handleClose, handleAdd, handleOnChange, memberData={group_member_email: ""} }) {
   const [researchInterests, setResearchInterests] = useState("");
   const [memberRole, setMemberRole] = useState();
 
@@ -159,8 +159,11 @@ function ModalMember({ show, handleClose, handleAdd, handleOnChange, memberData 
       <Modal.Body>
         <TextField
           required
-          id="member-name"
-          label="Name"
+          value={memberData.group_member_email}
+          onChange={handleOnChange}
+          name="group_member_email"
+          id="group_member_email"
+          label="Email"
           variant="outlined"
           className="my-4 me-3"
           sx={{ flexGrow: 1, width:"50%" }}
@@ -169,26 +172,17 @@ function ModalMember({ show, handleClose, handleAdd, handleOnChange, memberData 
           <InputLabel id="member-role-label">Role</InputLabel>
           <Select
             labelId="member-role-label"
-            id="member-role"
-            value={memberRole}
+            id="group_member_type"
+            name="group_member_type"
+            value={memberData.group_member_type}
             label="Role"
-            onChange={handleMemberRoleChange}
+            onChange={handleOnChange}
           >
             <MenuItem value={"Group Admin"}>Group Admin</MenuItem>
             <MenuItem value={"Member"}>Member</MenuItem>
           </Select>
         </FormControl>
-        <TextField
-          required
-          fullWidth
-          value={memberData ? memberData.group_member_email : ''}
-          onChange={handleOnChange}
-          name="resource_title"
-          id="member-email"
-          label="Email"
-          variant="outlined"
-          className="mb-4"
-        />
+        
         <Autocomplete
           multiple
           limitTags={2}
