@@ -37,7 +37,7 @@ export default function Favourite() {
           <div className="resource-title">Recent Resources</div>
           <Row lg={4} md={3} xs={2}>
             {data &&
-              data.map((doc, index) => {
+              data.resource.map((doc, index) => {
                 return doc.is_favourite && (
                   <Col key={index}>
                     <DocumentCard

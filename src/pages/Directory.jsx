@@ -16,10 +16,10 @@ import FolderIcon from "@mui/icons-material/Folder";
 import { useNavigate, useParams, redirect } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Modal from "react-bootstrap/Modal";
+import TextField from "@mui/material/TextField";
 
 import "../styles/directory.css";
 import useApiCall from "../hooks/useApiCall";
-import { TextField } from "@mui/material";
 import UploadResource from "./UploadResources";
 
 const content1 = [
@@ -41,6 +41,11 @@ const EMPTY_BODY_DATA = {
   resource_type: "folder",
 }
 
+const EMPTY_COMMENT_BODY_DATA = {
+  comment_message: "",
+  comment_project_id: "",
+}
+
 function DirectoryView() {
   const { project_id, project_path } = useParams()
   const navigate = useNavigate()
@@ -52,9 +57,11 @@ function DirectoryView() {
   const [breadcrumbItem, setBreadcrumbItem] = useState([]);
   const [contents, setContents] = useState([]);
   const [bodyData, setBodyData] = useState(EMPTY_BODY_DATA);
+  const [commentBodyData, setCommentBodyData] = useState({ ...EMPTY_COMMENT_BODY_DATA, comment_project_id: project_id });
   const [resourcesGetApiQuery, setResourcesGetApiQuery] = useState({ resource_project_id: project_id, resource_project_path: currentPath });
 
   const projectGetApi = useApiCall('get', '/project/' + project_id)
+  const commentPostApi = useApiCall('post', '/comment', {}, commentBodyData)
   const resourcesGetApi = useApiCall('get', '/resource', resourcesGetApiQuery)
   const resourcesPostApi = useApiCall('post', '/resource', {}, bodyData)
 
@@ -67,6 +74,10 @@ function DirectoryView() {
     const path = '/' + allCurrent.join("/") + '/'
     setCurrentPath(path)
     setResourcesGetApiQuery({ ...resourcesGetApiQuery, resource_project_path: path })
+  }
+
+  const handleClickPostComment = () => {
+    commentPostApi.executeApi()
   }
 
   const handleClickCreateFolder = () => {
@@ -93,6 +104,10 @@ function DirectoryView() {
   const handleChangeNewContentName = (e) => {
     setBodyData({ ...bodyData, resource_title: e.target.value })
     setNewContentName(e.target.value)
+  }
+
+  const handleChangeCommentBodyData = (e) => {
+    setCommentBodyData({ ...commentBodyData, comment_message: e.target.value })
   }
 
   useEffect(() => {

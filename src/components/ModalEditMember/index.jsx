@@ -139,9 +139,31 @@ const top100Films = [
   { title: "Monty Python and the Holy Grail", year: 1975 },
 ];
 
-function ModalEditMember({ show, handleClose, handleEdit, handleOnChange, selectedIndex=0,memberData={group_member_email: ""} }) {
+function ModalEditMember({ show, handleClose, handleEdit, handleOnChange, selectedIndex = 0, memberData = { group_member_email: "" } }) {
   const [researchInterests, setResearchInterests] = useState("");
   const [memberRole, setMemberRole] = useState();
+
+  const handleOnChangeResearchInterestsSelect = (event, value, reason) => {
+    if (value && reason) {
+      const researchInterests = value.map(val => val.title)
+      const e = {
+        target: {
+          name: 'group_member_research_interests',
+          value: researchInterests
+        }
+      }
+      handleOnChange(e, selectedIndex)
+    }
+  }
+
+  function getSelectedItem(){
+    const item = top100Films.find((opt)=>{
+      if (opt.title == memberData.group_member_research_interests)
+        return opt;
+    })
+    console.log("here");
+    return item || {};
+  }
 
   const handleResearchInterestsChange = (event) => {
     setResearchInterests(event.target.value);
@@ -157,7 +179,7 @@ function ModalEditMember({ show, handleClose, handleEdit, handleOnChange, select
         <Modal.Title>Edit Member</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-      <TextField
+        <TextField
           required
           value={memberData.group_member_email}
           onChange={handleOnChange}
@@ -166,7 +188,7 @@ function ModalEditMember({ show, handleClose, handleEdit, handleOnChange, select
           label="Email"
           variant="outlined"
           className="my-4 me-3"
-          sx={{ flexGrow: 1, width:"50%" }}
+          sx={{ flexGrow: 1, width: "50%" }}
         />
         <FormControl className="my-4" sx={{ flexGrow: 1, width: "46%" }}>
           <InputLabel id="member-role-label">Role</InputLabel>
@@ -176,7 +198,7 @@ function ModalEditMember({ show, handleClose, handleEdit, handleOnChange, select
             name="group_member_type"
             value={memberData.group_member_type}
             label="Role"
-            onChange={()=> {handleOnChange(selectedIndex)}}
+            onChange={(e) => { handleOnChange(e, selectedIndex) }}
           >
             <MenuItem value={"Group Admin"}>Group Admin</MenuItem>
             <MenuItem value={"Member"}>Member</MenuItem>
@@ -185,10 +207,15 @@ function ModalEditMember({ show, handleClose, handleEdit, handleOnChange, select
         <Autocomplete
           multiple
           limitTags={2}
-          id="multiple-research-interest"
+          id="group_member_research_interests"
           options={top100Films}
           getOptionLabel={(option) => option.title}
-          defaultValue={[]}
+          defaultValue={memberData.group_member_research_interests || []}
+          value={memberData.group_member_research_interests?.map((interest) => {
+            return top100Films.find((opt) => opt.title === interest)
+          }) || []}
+          name="group_member_research_interests"
+          onChange={handleOnChangeResearchInterestsSelect}
           renderInput={(params) => (
             <TextField
               {...params}
