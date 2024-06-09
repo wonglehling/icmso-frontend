@@ -6,7 +6,7 @@ import ResourceConfirmationModal from "../components/ResourceConfirmationModal";
 import ModalResource from "../components/ModalResource";
 
 import CardMedia from "@mui/material/CardMedia";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import useApiCall from "../hooks/useApiCall";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
@@ -116,7 +116,7 @@ function ResourceDetail() {
       const duration = (end - start) / 1000; // Convert milliseconds to seconds
       setSecondsOpen(duration);
       if (duration > 0.5) {
-        activityReqBodyRef.current = {...activityReqBodyRef.current, duration: duration}
+        activityReqBodyRef.current = { ...activityReqBodyRef.current, duration: duration }
         console.log(`Component was open for ${duration} seconds, ${activityReqBody}`);
         activityApi.executeApi()
       }
@@ -135,7 +135,8 @@ function ResourceDetail() {
         "activity_to_project_id": data.resource_project_id
       }
       setActivityReqBody(
-        { ...activityReqBody, 
+        {
+          ...activityReqBody,
           "activity_to_resource_id": data._id,
           "activity_to_resource_category": data.resource_props.category,
           "activity_to_project_id": data.resource_project_id,
@@ -154,192 +155,194 @@ function ResourceDetail() {
       <SideBar />
       <div style={{ paddingLeft: "210px" }}>
         <Navbar />
-        {data && (
-          <div>
-            <Row>
-              <Col>
-                <div className="resource-detail-title">
-                  Document Title: {data.resource_title}
-                </div>
-              </Col>
-              <Col className="pd-icon">
-                <IconButton onClick={() => handleClickFavIcon(data._id, data.is_favourite)} aria-label="add to favorites" sx={data.is_favourite ? { backgroundColor: 'rgba(0, 0, 0, 0.04)', color: 'red', } : {}}>
-                  <FavoriteIcon sx={{ width: 16, height: 16 }} />
-                </IconButton>
-                <img
-                  src={EditIcon}
-                  className="me-3"
-                  onClick={handleModalShow}
-                />
-                <img src={DeleteIcon} onClick={handleDeleteModalShow} />
-              </Col>
-            </Row>
-            <div className="flex-container">
-              <div style={{ flexGrow: 1 }}>
-                <div
-                  style={{
-                    height: "160px",
-                    justifyContent: "left",
-                    display: "flex",
-                  }}
-                >
-                  <CardMedia
-                    sx={{
-                      display: "block",
-                      maxWidth: "194px",
-                      maxHeight: "160px",
-                      width: "auto",
-                      height: "auto",
-                      marginRight: "auto",
-                      textAlign: "left",
-                      marginLeft: "1rem",
-                    }}
-                    component="img"
-                    height="194"
-                    image={testImg}
+        <Container>
+          {data && (
+            <div>
+              <Row>
+                <Col>
+                  <div className="resource-detail-title">
+                    Document Title: {data.resource_title}
+                  </div>
+                </Col>
+                <Col className="pd-icon">
+                  <IconButton onClick={() => handleClickFavIcon(data._id, data.is_favourite)} aria-label="add to favorites" sx={data.is_favourite ? { backgroundColor: 'rgba(0, 0, 0, 0.04)', color: 'red', } : {}}>
+                    <FavoriteIcon sx={{ width: 16, height: 16 }} />
+                  </IconButton>
+                  <img
+                    src={EditIcon}
+                    className="me-3"
+                    onClick={handleModalShow}
                   />
+                  <img src={DeleteIcon} onClick={handleDeleteModalShow} />
+                </Col>
+              </Row>
+              <div className="flex-container">
+                <div style={{ flexGrow: 1 }}>
+                  <div
+                    style={{
+                      height: "160px",
+                      justifyContent: "left",
+                      display: "flex",
+                    }}
+                  >
+                    <CardMedia
+                      sx={{
+                        display: "block",
+                        maxWidth: "194px",
+                        maxHeight: "160px",
+                        width: "auto",
+                        height: "auto",
+                        marginRight: "auto",
+                        textAlign: "left",
+                        marginLeft: "1rem",
+                      }}
+                      component="img"
+                      height="194"
+                      image={testImg}
+                    />
+                  </div>
                 </div>
+                <div
+                  style={{ flexGrow: 2, fontSize: "12px", textAlign: "justify" }}
+                  className="ms-5"
+                >
+                  <div className="description-style">Description</div>
+                  {data.resource_description}
+                </div>
+              </div>
+              <div style={{ borderTop: "solid 1px #D3D3D3", marginTop: "55px" }}>
+                <Row>
+                  <Col>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        textAlign: "left",
+                        marginTop: "10px",
+                      }}
+                    >
+                      <div className="bold-text">Author(s)</div>
+                      <div className="detail-font">
+                        {data.resource_props.author}
+                      </div>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        textAlign: "left",
+                        marginTop: "10px",
+                      }}
+                    >
+                      <div className="bold-text">Publication Date</div>
+                      <div className="detail-font">
+                        {data.resource_props.publication_date}
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+              <div style={{ borderTop: "solid 1px #D3D3D3", marginTop: "10px" }}>
+                <Row>
+                  <Col>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        textAlign: "left",
+                        marginTop: "10px",
+                      }}
+                    >
+                      <div className="bold-text">Publisher</div>
+                      <div className="detail-font">
+                        {data.resource_uploader_id.user_first_name}{" "}
+                        {data.resource_uploader_id.user_last_name}
+                      </div>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        textAlign: "left",
+                        marginTop: "10px",
+                      }}
+                    >
+                      <div className="bold-text">Publication Type</div>
+                      <div className="detail-font">{data.resource_type}</div>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+              <div style={{ borderTop: "solid 1px #D3D3D3", marginTop: "10px" }}>
+                <Row>
+                  <Col>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        textAlign: "left",
+                        marginTop: "10px",
+                      }}
+                    >
+                      <div className="bold-text">Keywords</div>
+                      <div className="detail-font">AI, CE, IC, IP</div>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginTop: "10px",
+                        textAlign: "left",
+                      }}
+                    >
+                      <div className="bold-text">Category</div>
+                      <div className="detail-font">{data.resource_props.category}</div>
+                    </div>
+                  </Col>
+                </Row>
+              </div>
+              <div style={{ borderTop: "solid 1px #D3D3D3", marginTop: "10px" }}>
+                <Row>
+                  <Col>
+                    <div
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        marginTop: "10px",
+                        textAlign: "left",
+                      }}
+                    >
+                      <div className="bold-text">Version</div>
+                      <div className="detail-font">v1.0</div>
+                    </div>
+                  </Col>
+                </Row>
               </div>
               <div
-                style={{ flexGrow: 2, fontSize: "12px", textAlign: "justify" }}
-                className="ms-5"
-              >
-                <div className="description-style">Description</div>
-                {data.resource_description}
-              </div>
+                style={{ borderTop: "solid 1px #D3D3D3", marginTop: "10px" }}
+              />
+              <div className="description-style mt-5">Version History</div>{" "}
+              <ResourceConfirmationModal
+                show={showDeleteModal}
+                handleClose={handleDeleteModalClose}
+                handleDelete={handleDeleteResource}
+              />
+              <ModalResource
+                show={showEditModal}
+                formBody={formBody}
+                handleOnChangeFormBody={handleOnChangeFormBody}
+                handleClose={handleModalClose}
+                handleSave={handleUpdateResource}
+              />
             </div>
-            <div style={{ borderTop: "solid 1px #D3D3D3", marginTop: "55px" }}>
-              <Row>
-                <Col>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      textAlign: "left",
-                      marginTop: "10px",
-                    }}
-                  >
-                    <div className="bold-text">Author(s)</div>
-                    <div className="detail-font">
-                      {data.resource_props.author}
-                    </div>
-                  </div>
-                </Col>
-                <Col>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      textAlign: "left",
-                      marginTop: "10px",
-                    }}
-                  >
-                    <div className="bold-text">Publication Date</div>
-                    <div className="detail-font">
-                      {data.resource_props.publication_date}
-                    </div>
-                  </div>
-                </Col>
-              </Row>
-            </div>
-            <div style={{ borderTop: "solid 1px #D3D3D3", marginTop: "10px" }}>
-              <Row>
-                <Col>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      textAlign: "left",
-                      marginTop: "10px",
-                    }}
-                  >
-                    <div className="bold-text">Publisher</div>
-                    <div className="detail-font">
-                      {data.resource_uploader_id.user_first_name}{" "}
-                      {data.resource_uploader_id.user_last_name}
-                    </div>
-                  </div>
-                </Col>
-                <Col>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      textAlign: "left",
-                      marginTop: "10px",
-                    }}
-                  >
-                    <div className="bold-text">Publication Type</div>
-                    <div className="detail-font">{data.resource_type}</div>
-                  </div>
-                </Col>
-              </Row>
-            </div>
-            <div style={{ borderTop: "solid 1px #D3D3D3", marginTop: "10px" }}>
-              <Row>
-                <Col>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      textAlign: "left",
-                      marginTop: "10px",
-                    }}
-                  >
-                    <div className="bold-text">Keywords</div>
-                    <div className="detail-font">AI, CE, IC, IP</div>
-                  </div>
-                </Col>
-                <Col>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      marginTop: "10px",
-                      textAlign: "left",
-                    }}
-                  >
-                    <div className="bold-text">Category</div>
-                    <div className="detail-font">{data.resource_props.category}</div>
-                  </div>
-                </Col>
-              </Row>
-            </div>
-            <div style={{ borderTop: "solid 1px #D3D3D3", marginTop: "10px" }}>
-              <Row>
-                <Col>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      marginTop: "10px",
-                      textAlign: "left",
-                    }}
-                  >
-                    <div className="bold-text">Version</div>
-                    <div className="detail-font">v1.0</div>
-                  </div>
-                </Col>
-              </Row>
-            </div>
-            <div
-              style={{ borderTop: "solid 1px #D3D3D3", marginTop: "10px" }}
-            />
-            <div className="description-style mt-5">Version History</div>{" "}
-            <ResourceConfirmationModal
-              show={showDeleteModal}
-              handleClose={handleDeleteModalClose}
-              handleDelete={handleDeleteResource}
-            />
-            <ModalResource
-              show={showEditModal}
-              formBody={formBody}
-              handleOnChangeFormBody={handleOnChangeFormBody}
-              handleClose={handleModalClose}
-              handleSave={handleUpdateResource}
-            />
-          </div>
-        )}
+          )}
+        </Container>
       </div>
     </>
   );

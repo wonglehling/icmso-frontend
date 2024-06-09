@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
+import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 import SideBar from "../components/Sidebar";
@@ -25,29 +26,31 @@ export default function Favourite() {
   };
 
   useEffect(() => {
-    if(selectedDocId!==0 && clickFavAction!=='') favApi.executeApi()
-  }, [clickFavAction, selectedDocId ]);
+    if (selectedDocId !== 0 && clickFavAction !== '') favApi.executeApi()
+  }, [clickFavAction, selectedDocId]);
   return (
     <div>
       <SideBar />
       <div style={{ paddingLeft: "210px" }}>
         <Navbar />
-        <div className="resource-title">Recent Resources</div>
-        <Row lg={4} md={3} xs={2}>
-          {data &&
-            data.map((doc, index) => {
-              return doc.is_favourite && (
-                <Col key={index}>
-                  <DocumentCard
-                    doc_info={doc}
-                    handleClickDoc={() => handleClickDocDetail(doc._id)}
-                    setSelectedDocId={setSelectedDocId}
-                    setClickFavAction={setClickFavAction}
-                  />
-                </Col>
-              );
-            })}
-        </Row>
+        <Container>
+          <div className="resource-title">Recent Resources</div>
+          <Row lg={4} md={3} xs={2}>
+            {data &&
+              data.map((doc, index) => {
+                return doc.is_favourite && (
+                  <Col key={index}>
+                    <DocumentCard
+                      doc_info={doc}
+                      handleClickDoc={() => handleClickDocDetail(doc._id)}
+                      setSelectedDocId={setSelectedDocId}
+                      setClickFavAction={setClickFavAction}
+                    />
+                  </Col>
+                );
+              })}
+          </Row>
+        </Container>
       </div>
     </div>
   );

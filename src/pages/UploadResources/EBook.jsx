@@ -43,7 +43,6 @@ function EBook() {
               sx={{ flexGrow: 1 }}
             />
             <TextField
-              required
               id="ebook-authors"
               label="Author(s)"
               variant="outlined"
@@ -75,48 +74,9 @@ function EBook() {
             label="Abstract"
             variant="outlined"
           />
-          <TextField
-            required
-            fullWidth
-            id="ebook-keyword"
-            label="Keywords"
-            variant="outlined"
-            className="mt-4"
-          />
-          <FormControl fullWidth className="my-4">
-            <InputLabel id="ebook-accessibility-label">
-              Accessibility
-            </InputLabel>
-            <Select
-              labelId="ebook-accessibility-label"
-              id="ebook-accessibility"
-              value={accessibility}
-              label="Accessibility"
-              onChange={handleAccessibilityChange}
-            >
-              <MenuItem value={"Public"}>Public</MenuItem>
-              <MenuItem value={"Private"}>Private</MenuItem>
-            </Select>
-          </FormControl>
-          {groupApi.data && (
-            <Autocomplete
-              multiple
-              fullWidth
-              limitTags={3}
-              id="multiple-group"
-              options={groupApi.data}
-              getOptionLabel={(option) => option.group_name}
-              defaultValue={[]}
-              renderInput={(params) => (
-                <TextField {...params} label="Access Group" />
-              )}
-            />
-          )}
         </div>
         <div style={{ flexGrow: 1 }} className="mx-2 mt-4">
           <label for="images" class="drop-container" id="dropcontainer">
-            <span className="drop-title ">Drop files here</span>
-            or
             <input type="file" id="images" accept="image/*" required />
           </label>
         </div>
@@ -125,7 +85,7 @@ function EBook() {
         variant="contained"
         type="submit"
         className="mx-auto my-4"
-        sx={{ width: "10rem", height: "2.5rem" }}
+        sx={{ width: "10rem", height: "2.5rem", display: "block"}}
       >
         Upload
       </Button>

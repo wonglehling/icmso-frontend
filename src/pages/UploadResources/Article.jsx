@@ -4,11 +4,6 @@ import useApiCall from "../../hooks/useApiCall";
 import TextField from "@mui/material/TextField";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import Select from "@mui/material/Select";
-import FormControl from "@mui/material/FormControl";
-import Autocomplete from "@mui/material/Autocomplete";
 
 import "./index.css";
 
@@ -46,7 +41,6 @@ function Article({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
               sx={{ flexGrow: 1 }}
             />
             <TextField
-              required
               id="article-authors"
               label="Author(s)"
               variant="outlined"
@@ -72,50 +66,9 @@ function Article({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
             name="resource_description"
             variant="outlined"
           />
-          <TextField
-            required
-            fullWidth
-            id="article-keyword"
-            label="Keywords"
-            onChange={handleOnChangeFormBody}
-            name="resource_keyword"
-            variant="outlined"
-            className="mt-4"
-          />
-          <FormControl fullWidth className="my-4">
-            <InputLabel id="article-accessibility-label">
-              Accessibility
-            </InputLabel>
-            <Select
-              labelId="article-accessibility-label"
-              id="article-accessibility"
-              value={accessibility}
-              label="Accessibility"
-              onChange={handleAccessibilityChange}
-            >
-              <MenuItem value={"Public"}>Public</MenuItem>
-              <MenuItem value={"Private"}>Private</MenuItem>
-            </Select>
-          </FormControl>
-          {groupApi.data && (
-            <Autocomplete
-              multiple
-              fullWidth
-              limitTags={3}
-              id="multiple-group"
-              options={groupApi.data}
-              getOptionLabel={(option) => option.group_name}
-              defaultValue={[]}
-              renderInput={(params) => (
-                <TextField {...params} label="Access Group" />
-              )}
-            />
-          )}
         </div>
         <div style={{ flexGrow: 1 }} className="mx-2 mt-4">
           <label for="images" class="drop-container" id="dropcontainer">
-            <span className="drop-title ">Drop files here</span>
-            or
             <input
               type="file"
               id="files"
@@ -130,7 +83,7 @@ function Article({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
         variant="contained"
         type="submit"
         className="mx-auto my-4"
-        sx={{ width: "10rem", height: "2.5rem" }}
+        sx={{ width: "10rem", height: "2.5rem", display: "block"}}
         onClick={handleOnCreateFormBody}
       >
         Upload

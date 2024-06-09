@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 
 import SideBar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
-import Chat from "../../components/RealTimeChat";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import useApiCall from "../../hooks/useApiCall";
@@ -51,7 +50,7 @@ export default function NewProject() {
   }
 
   const handleClickDocDetail = (id, path) => {
-    navigate("/project/" + id + "/"+ path);
+    navigate("/project/" + id + "/" + path);
   };
 
   return (
@@ -59,18 +58,19 @@ export default function NewProject() {
       <SideBar />
       <div style={{ paddingLeft: "210px", height: "100%" }}>
         <Navbar />
-        {projectGetApi.data &&
-          projectGetApi.data.map((doc, index) => {
-            return (
-              <Row >
-                <ProjectCard
-                  doc_info={doc}
-                  handleClickDoc={() => handleClickDocDetail(doc._id, doc.project_name)}
-                />
-              </Row>
-            );
-          })}
-        <Chat />
+        <Container>
+          {projectGetApi.data &&
+            projectGetApi.data.map((doc, index) => {
+              return (
+                <Row >
+                  <ProjectCard
+                    doc_info={doc}
+                    handleClickDoc={() => handleClickDocDetail(doc._id, doc.project_name)}
+                  />
+                </Row>
+              );
+            })}
+        </Container>
       </div>
     </>
   );

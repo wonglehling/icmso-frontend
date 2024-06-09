@@ -1,8 +1,8 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 
 import SideBar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
-import Chat from "../components/RealTimeChat";
 
 export default function Home() {
   return (
@@ -10,8 +10,9 @@ export default function Home() {
       <SideBar />
       <div style={{ paddingLeft: "210px", height: '100%' }}>
         <Navbar />
-        Home page is coming soon
-        <Chat />
+        <Container>
+          Home page is coming soon
+        </Container>
       </div>
     </>
   );

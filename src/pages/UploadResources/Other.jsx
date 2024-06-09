@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import useApiCall from "../../hooks/useApiCall";
 
 import TextField from "@mui/material/TextField";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -12,7 +11,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 import "./index.css";
 
-function Report() {
+function Other() {
   const [accessibility, setAccessibility] = useState("");
   const [accessGroup, setAccessGroup] = useState("");
   const groupApi = useApiCall("get", "/group");
@@ -36,33 +35,18 @@ function Report() {
           <div className="flex-container">
             <TextField
               required
-              id="report-title"
+              id="other-title"
               label="Title"
               variant="outlined"
               className="my-4"
               sx={{ flexGrow: 1 }}
             />
             <TextField
-              id="report-authors"
+              id="other-authors"
               label="Author(s)"
               variant="outlined"
-              className="ms-2 my-4"
+              className="mx-2 my-4"
               sx={{ flexGrow: 1 }}
-            />
-          </div>
-          <div className="flex-container">
-            <DatePicker
-              id="report-publication-date"
-              label="Publication Date"
-              sx={{ flexGrow: 1 }}
-              className="me-2 mb-4"
-            />
-            <TextField
-              id="report-organization"
-              label="Organization"
-              variant="outlined"
-              className="mb-4"
-              sx={{ flexGrow: 1, width: "50%" }}
             />
           </div>
           <TextField
@@ -70,8 +54,8 @@ function Report() {
             fullWidth
             multiline
             rows={4}
-            id="report-abstract"
-            label="Abstract"
+            id="other-description"
+            label="Description"
             variant="outlined"
           />
         </div>
@@ -93,4 +77,4 @@ function Report() {
   );
 }
 
-export default Report;
+export default Other;

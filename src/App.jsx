@@ -7,7 +7,6 @@ import Home from "./pages/Home";
 import Resources from "./pages/Resources";
 import Group from "./pages/Group";
 import Favourite from "./pages/Favourite";
-import Setting from "./pages/Setting";
 import UploadResource from "./pages/UploadResources";
 import GroupMemberDetail from "./pages/GroupMemberDetail";
 import ResourceDetail from "./pages/ResourceDetail";
@@ -55,7 +54,6 @@ function App() {
                 <Route path="/resources" element={<Resources />} />
                 <Route path="/group/:id" element={<Group />} />
                 <Route path="/favourite" element={<Favourite />} />
-                <Route path="/setting" element={<Setting />} />
                 <Route path="/upload" element={<UploadResource />} />
                 <Route path="/new-project" element={<NewProject />} />
                 <Route path="/project/:project_id/:project_path" element={<DirectoryView />} />

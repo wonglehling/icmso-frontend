@@ -13,19 +13,48 @@ import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import {formatDate} from "../../utils/stringFormatter"
+import { formatDate } from "../../utils/stringFormatter"
 
-import testImg from "../../assets/test.jpeg";
+import CodeIcon from "../../assets/icons/file-earmark-code.svg";
+import ExcelIcon from "../../assets/icons/file-earmark-excel.svg";
+import ImgIcon from "../../assets/icons/file-earmark-image.svg";
+import PDFIcon from "../../assets/icons/file-earmark-pdf.svg";
+import SlideIcon from "../../assets/icons/file-earmark-slides.svg";
+import WordIcon from "../../assets/icons/file-earmark-word.svg";
+import ZipIcon from "../../assets/icons/file-earmark-zip.svg";
+import FileIcon from "../../assets/icons/file-earmark.svg";
 import "./index.css";
 
 export default function DocumentCard({ handleClickDoc, doc_info, setSelectedDocId, setClickFavAction }) {
   const handleClickFavIcon = (docId, isFav) => {
-    doc_info.is_favourite=!doc_info.is_favourite
+    doc_info.is_favourite = !doc_info.is_favourite
     setSelectedDocId(docId)
-    setClickFavAction(isFav? "remove": "add")
+    setClickFavAction(isFav ? "remove" : "add")
+  }
+  function getResourceTypeImg(fileName) {
+    //split string by '.' and get the last element
+    const fileType = fileName.split('.').pop();
+    switch (fileType) {
+      case 'pdf':
+        return PDFIcon;
+      case 'doc', 'docx':
+        return WordIcon;
+      case 'ppt', 'pptx':
+        return SlideIcon;
+      case 'xls', 'xlsx':
+        return ExcelIcon;
+      case 'jpg', 'jpeg', 'png':
+        return ImgIcon;
+      case 'zip', 'rar':
+        return ZipIcon;
+      case 'c', 'cpp', 'java', 'py', 'js', 'html', 'css', 'php', 'sql', 'sh', 'bat', 'jsx', 'tsx', 'ts', 'rb', 'go', 'swift', 'kt', 'dart', 'r', 'pl', 'cs', 'vb', 'scala', 'groovy', 'lua', 'perl', 'rust', 'h', 'm', 'mm', 'swift', 'kt', 'dart', 'r', 'pl', 'cs', 'vb', 'scala', 'groovy', 'lua', 'perl', 'rust', 'h', 'm', 'mm':
+        return CodeIcon;
+      default:
+        return FileIcon;
+    }
   }
   return (
-    <Card sx={{ maxWidth: 345 }} className="mb-4">
+    <Card sx={{ width: 200 }} className="mb-4">
       <div onClick={handleClickDoc}>
         <div className="user-name">
           <CardHeader
@@ -57,7 +86,7 @@ export default function DocumentCard({ handleClickDoc, doc_info, setSelectedDocI
             }}
             component="img"
             height="194"
-            image={testImg}
+            image={getResourceTypeImg(doc_info.resource_file_info?.resource_file_name)}
             alt="Paella dish"
           />
         </div>
@@ -68,11 +97,8 @@ export default function DocumentCard({ handleClickDoc, doc_info, setSelectedDocI
         </Typography>
       </CardContent> */}
       <CardActions disableSpacing sx={{ paddingTop: 0 }}>
-        <IconButton onClick={()=> handleClickFavIcon(doc_info._id, doc_info.is_favourite)} aria-label="add to favorites" sx={doc_info.is_favourite ? {backgroundColor: 'rgba(0, 0, 0, 0.04)', color: 'red', }: {}}>
+        <IconButton onClick={() => handleClickFavIcon(doc_info._id, doc_info.is_favourite)} aria-label="add to favorites" sx={doc_info.is_favourite ? { backgroundColor: 'rgba(0, 0, 0, 0.04)', color: 'red', } : {}}>
           <FavoriteIcon sx={{ width: 16, height: 16 }} />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon sx={{ width: 16, height: 16 }} />
         </IconButton>
       </CardActions>
     </Card>

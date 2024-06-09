@@ -22,7 +22,6 @@ import HomeIcon from "../../assets/icons/house.svg";
 import ResourcesIcon from "../../assets/icons/folder2.svg";
 import GroupIcon from "../../assets/icons/people.svg";
 import LoveIcon from "../../assets/icons/heart.svg";
-import SettingIcon from "../../assets/icons/gear.svg";
 import useApiCall from "../../hooks/useApiCall";
 
 const drawerWidth = 240;
@@ -54,9 +53,6 @@ export default function SideBar() {
       case "Favourite":
         navigate("/favourite");
         break;
-      case "Setting":
-        navigate("/setting");
-        break;
       case "Upload":
         navigate("/upload");
         break;
@@ -87,9 +83,6 @@ export default function SideBar() {
         break;
       case "Favourite":
         return <img src={LoveIcon} className="ms-2" />;
-        break;
-      case "Setting":
-        return <img src={SettingIcon} className="ms-2" />;
         break;
       default:
         break;
@@ -143,7 +136,6 @@ export default function SideBar() {
             "Resources",
             "Group",
             "Favourite",
-            "Setting",
             "Projects",
           ].map((text, index) => {
             return text === "Group" ? (

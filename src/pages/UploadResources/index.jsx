@@ -9,6 +9,7 @@ import ResearchPaper from "./ResearchPaper";
 import Article from "./Article";
 import Report from "./Report";
 import Presentation from "./Presentation";
+import Other from "./Other";
 
 import Tab from "@mui/material/Tab";
 import TabContext from "@mui/lab/TabContext";
@@ -42,7 +43,7 @@ const RESOURCE_BODY = {
 
 export default function UploadResource(props) {
   const [tabValue, setTabValue] = useState("1");
-  const [formBody, setFormBody] = useState({...RESOURCE_BODY, resource_project_id: props.resource_project_id, resource_project_path: props.resource_project_path});
+  const [formBody, setFormBody] = useState({ ...RESOURCE_BODY, resource_project_id: props.resource_project_id, resource_project_path: props.resource_project_path });
   const navigate = useNavigate()
 
   const handleOnChangeFormBody = (e) => {
@@ -94,8 +95,8 @@ export default function UploadResource(props) {
     <>
       <Modal
         show={props.showUploadResourceModal}
-        onHide={()=>{console.log(props.resource_project_path);}}
-        dialogClassName="modal-90w"
+        onHide={() => { props.setShowUploadResourceModal(false) }}
+        dialogClassName="modal-50w"
         aria-labelledby="example-custom-modal-styling-title"
       >
         <Modal.Header closeButton>
@@ -113,6 +114,7 @@ export default function UploadResource(props) {
               <Tab label="Presentation" value="5" />
               <Tab label="Report" value="6" />
               <Tab label="Research Paper" value="7" />
+              <Tab label="Other" value="8" />
             </TabList>
             <TabPanel value="1">
               <Article formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
@@ -134,6 +136,9 @@ export default function UploadResource(props) {
             </TabPanel>
             <TabPanel value="7">
               <ResearchPaper formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
+            </TabPanel>
+            <TabPanel value="8">
+              <Other formBody={formBody} handleOnChangeFormBody={handleOnChangeFormBody} handleOnCreateFormBody={handleOnCreateFormBody} />
             </TabPanel>
           </TabContext>
         </Modal.Body>

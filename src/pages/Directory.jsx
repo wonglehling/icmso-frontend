@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Container } from "react-bootstrap";
 
 import SideBar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
@@ -132,97 +133,98 @@ function DirectoryView() {
       <SideBar />
       <div style={{ paddingLeft: "210px" }}>
         <Navbar />
-        <div role="presentation">
-          <Breadcrumbs aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="/project">
-              Projects
-            </Link>
-            {projectGetApi.data &&
-              <Link
-                underline="hover"
-                color={currentPath.length === 1 ? "text.primary" : "inherit"}
-                onClick={() => handleClick(-1)}
-                aria-current="page"
-              >
-                {projectGetApi.data.project_name}
-              </Link>}
-            {currentPath.length > 1 && currentPath.split('/').filter(path => path !== "").map((item, index) => {
-              return (
+        <Container>
+          <div role="presentation">
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link underline="hover" color="inherit" href="/project">
+                Projects
+              </Link>
+              {projectGetApi.data &&
                 <Link
                   underline="hover"
-                  color={index === currentPath.split('/').filter(path => path !== "").length - 1 ? "text.primary" : "inherit"}
-                  onClick={() => handleClick(index)}
+                  color={currentPath.length === 1 ? "text.primary" : "inherit"}
+                  onClick={() => handleClick(-1)}
                   aria-current="page"
                 >
-                  {item}
-                </Link>)
-            })}
-          </Breadcrumbs>
-        </div>
-        <Button
-          variant="contained"
-          type="submit"
-          className="mx-auto my-4"
-          sx={{ width: "10rem", height: "2.5rem" }}
-          onClick={handleClickCreateFolder}
-        >
-          Create Folder
-        </Button>
-        <Button
-          variant="contained"
-          type="submit"
-          className="mx-auto my-4"
-          sx={{ width: "10rem", height: "2.5rem" }}
-          onClick={handleClickUploadFile}
-        >
-          Upload File
-        </Button>
-        <Box sx={{ flexGrow: 1, width: "100%", marginTop: '0.6rem' }}>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              {createNewFolder &&
-                <ListItem
-                  className="resource-item"
-                >
-                  <ListItemIcon>
-                    <FolderIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                    primary={<TextField
-                      required
-                      id="folder_name"
-                      label="Folder Name"
-                      variant="outlined"
-                      className="my-4"
-                      onChange={handleChangeNewContentName}
-                      name="folder_name"
-                      onBlur={handleCreateFolder}
-                      value={newContentName}
-                    />}
-                  />
-                </ListItem>
-              }
-              {contents.map((content) => {
+                  {projectGetApi.data.project_name}
+                </Link>}
+              {currentPath.length > 1 && currentPath.split('/').filter(path => path !== "").map((item, index) => {
                 return (
+                  <Link
+                    underline="hover"
+                    color={index === currentPath.split('/').filter(path => path !== "").length - 1 ? "text.primary" : "inherit"}
+                    onClick={() => handleClick(index)}
+                    aria-current="page"
+                  >
+                    {item}
+                  </Link>)
+              })}
+            </Breadcrumbs>
+          </div>
+          <Button
+            variant="contained"
+            type="submit"
+            className="mx-auto my-4"
+            sx={{ width: "10rem", height: "2.5rem" }}
+            onClick={handleClickCreateFolder}
+          >
+            Create Folder
+          </Button>
+          <Button
+            variant="contained"
+            className="mx-auto my-4"
+            sx={{ width: "10rem", height: "2.5rem" }}
+            onClick={handleClickUploadFile}
+          >
+            Upload File
+          </Button>
+          <Box sx={{ flexGrow: 1, width: "100%", marginTop: '0.6rem' }}>
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                {createNewFolder &&
                   <ListItem
-                    onClick={() => handleClickContent(content)}
                     className="resource-item"
                   >
                     <ListItemIcon>
-                      {content.resource_type === "folder" && <FolderIcon />}
+                      <FolderIcon />
                     </ListItemIcon>
                     <ListItemText
-                      primary={content.resource_title}
-                      secondary={content.createdAt}
+                      primary={<TextField
+                        required
+                        id="folder_name"
+                        label="Folder Name"
+                        variant="outlined"
+                        className="my-4"
+                        onChange={handleChangeNewContentName}
+                        name="folder_name"
+                        onBlur={handleCreateFolder}
+                        value={newContentName}
+                      />}
                     />
                   </ListItem>
-                );
-              })}
+                }
+                {contents?.resource?.map((content) => {
+                  return (
+                    <ListItem
+                      onClick={() => handleClickContent(content)}
+                      className="resource-item"
+                    >
+                      <ListItemIcon>
+                        {content.resource_type === "folder" && <FolderIcon />}
+                      </ListItemIcon>
+                      <ListItemText
+                        primary={content.resource_title}
+                        secondary={content.createdAt}
+                      />
+                    </ListItem>
+                  );
+                })}
+              </Grid>
             </Grid>
-          </Grid>
-        </Box>
+          </Box>
+        </Container>
       </div>
-      {projectGetApi.data && <UploadResource showUploadResourceModal={uploadNewFile} onHideUploadResourceModal={() => setUploadNewFile(false)} resource_project_path={currentPath} resource_project_id={projectGetApi.data._id} />}
+      {projectGetApi.data && <UploadResource setShowUploadResourceModal={setUploadNewFile} showUploadResourceModal={uploadNewFile} onHideUploadResourceModal={() => setUploadNewFile(false)} resource_project_path={currentPath} resource_project_id={projectGetApi.data._id} />}
     </div>
   );
 }

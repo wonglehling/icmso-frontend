@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Container } from "react-bootstrap";
 
 import SideBar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import DocumentCard from "../components/DocumentCard";
-import Chat from "../components/RealTimeChat";
 import { Row, Col } from "react-bootstrap";
 import useApiCall from "../hooks/useApiCall";
 
@@ -26,49 +26,49 @@ export default function Resources() {
   };
 
   useEffect(() => {
-    if(selectedDocId!==0 && clickFavAction!=='') favApi.executeApi()
-  }, [clickFavAction, selectedDocId ]);
+    if (selectedDocId !== 0 && clickFavAction !== '') favApi.executeApi()
+  }, [clickFavAction, selectedDocId]);
 
   return (
     <div>
       <SideBar />
       <div style={{ paddingLeft: "210px" }}>
         <Navbar />
-        <div className="resource-title">Recommendation</div>
-        <Row lg={4} md={3} xs={2}>
-        {data &&
-            data?.recommended_resource?.map((doc, index) => {
-              return (
-                <Col key={index}>
-                  <DocumentCard
-                    doc_info={doc}
-                    handleClickDoc={() => handleClickDocDetail(doc._id)}
-                    setSelectedDocId={setSelectedDocId}
-                    setClickFavAction={setClickFavAction}
-                  />
-                </Col>
-              );
-            })}
-        </Row>
-        <div className="resource-title">Recent Resources</div>
-        <Row lg={4} md={3} xs={2}>
-          {data &&
-            data?.resource?.map((doc, index) => {
-              return (
-                <Col key={index}>
-                  <DocumentCard
-                    doc_info={doc}
-                    handleClickDoc={() => handleClickDocDetail(doc._id)}
-                    setSelectedDocId={setSelectedDocId}
-                    setClickFavAction={setClickFavAction}
-                  />
-                </Col>
-              );
-            })}
-        </Row>
-      <Chat />
+        <Container>
+          <div className="resource-title">Recommendation</div>
+          <Row lg={6} md={5} xs={4}>
+            {data &&
+              data?.recommended_resource?.map((doc, index) => {
+                return (
+                  <Col key={index}>
+                    <DocumentCard
+                      doc_info={doc}
+                      handleClickDoc={() => handleClickDocDetail(doc._id)}
+                      setSelectedDocId={setSelectedDocId}
+                      setClickFavAction={setClickFavAction}
+                    />
+                  </Col>
+                );
+              })}
+          </Row>
+          <div className="resource-title">Recent Resources</div>
+          <Row lg={6} md={5} xs={4}>
+            {data &&
+              data?.resource?.map((doc, index) => {
+                return (
+                  <Col key={index}>
+                    <DocumentCard
+                      doc_info={doc}
+                      handleClickDoc={() => handleClickDocDetail(doc._id)}
+                      setSelectedDocId={setSelectedDocId}
+                      setClickFavAction={setClickFavAction}
+                    />
+                  </Col>
+                );
+              })}
+          </Row>
+          </Container>
       </div>
-
     </div>
   );
 }

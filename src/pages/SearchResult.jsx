@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SideBar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import DocumentCard from "../components/DocumentCard";
-import Chat from "../components/RealTimeChat";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import useApiCall from "../hooks/useApiCall";
 import { useParams } from "react-router-dom";
 import ProjectCard from "../components/ProjectCard";
@@ -42,10 +41,11 @@ export default function SearchResult() {
       <SideBar />
       <div style={{ paddingLeft: "210px" }}>
         <Navbar />
-        {data?.resources.length > 0 && <>
-          <div className="resource-title">Relevant Resources</div>
-          <Row lg={4} md={3} xs={2}>
-            {data?.resources?.map((doc, index) => {
+        <Container>
+          {data?.resources.length > 0 && <>
+            <div className="resource-title">Relevant Resources</div>
+            <Row lg={4} md={3} xs={2}>
+              {data?.resources?.map((doc, index) => {
                 return (
                   <Col key={index}>
                     <DocumentCard
@@ -57,13 +57,13 @@ export default function SearchResult() {
                   </Col>
                 );
               })}
-          </Row>
-        </>}
-        {data?.projects.length > 0 &&
-          <>
-            <div className="resource-title">Relevant Projects</div>
-            <Row >
-              {data?.projects?.map((doc, index) => {
+            </Row>
+          </>}
+          {data?.projects.length > 0 &&
+            <>
+              <div className="resource-title">Relevant Projects</div>
+              <Row >
+                {data?.projects?.map((doc, index) => {
                   return (
                     <Row >
                       <ProjectCard
@@ -73,9 +73,9 @@ export default function SearchResult() {
                     </Row>
                   );
                 })}
-            </Row></>}
+              </Row></>}
+        </Container>
 
-        <Chat />
       </div>
 
     </div>
