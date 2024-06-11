@@ -22,12 +22,13 @@ import HomeIcon from "../../assets/icons/house.svg";
 import ResourcesIcon from "../../assets/icons/folder2.svg";
 import GroupIcon from "../../assets/icons/people.svg";
 import LoveIcon from "../../assets/icons/heart.svg";
+import Logo from "../../../public/logo.svg";
 import useApiCall from "../../hooks/useApiCall";
 
 const drawerWidth = 240;
 
 export default function SideBar() {
-  const { data, loading, error, executeApi } = useApiCall("get", "/group", {self: true});
+  const { data, loading, error, executeApi } = useApiCall("get", "/group", { self: true });
 
   React.useEffect(() => {
     executeApi();
@@ -118,12 +119,11 @@ export default function SideBar() {
         variant="permanent"
         anchor="left"
       >
-        <Toolbar />
-        <Divider />
+        <img src={Logo} style={{ width: "10rem" }} className="mx-auto mt-2" />
         <Button
           variant="contained"
           type="submit"
-          className="mx-auto my-4"
+          className="mx-auto my-2"
           onClick={() => handleClickNav("NewProject")}
           sx={{ width: "10rem", height: "2.5rem" }}
         >
@@ -166,6 +166,16 @@ export default function SideBar() {
                   )}
                 </ListItem>
                 <Collapse in={openGroupCollapse} timeout="auto" unmountOnExit>
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    className="mx-auto my-2"
+                    // onClick={() => handleClickNav("NewProject")}
+                    sx={{ width: "10rem", height: "2.5rem", display: "block"}}
+                  >
+                    <img src={`${PlusIcon}`} className="me-2" />
+                    Group
+                  </Button>
                   <List component="div" disablePadding>
                     {data &&
                       data.map((group) => {

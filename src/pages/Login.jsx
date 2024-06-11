@@ -18,6 +18,7 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 import "../styles/login.css";
+import Logo from "../../public/logo.svg";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -83,7 +84,8 @@ export default function Login() {
         }}
       >
         <Paper elevation={3} className="px-5 mg-paper">
-          <div className="login-title">Login</div>
+          <img src={Logo} alt="logo" className="mx-auto mt-2" style={{ display: "block" }} />
+          <div className="login-title" style={{ textAlign: "center" }}>Login</div>
           <form onSubmit={loginUser}>
             <TextField
               required
@@ -130,7 +132,7 @@ export default function Login() {
               <Button
                 variant="contained"
                 type="submit"
-                className="mx-auto my-4"
+                className="mx-auto mb-3"
               >
                 Login
               </Button>
