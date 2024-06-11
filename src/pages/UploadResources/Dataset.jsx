@@ -11,7 +11,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 import "./index.css";
 
-function Dataset() {
+function Dataset({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
   const [accessibility, setAccessibility] = useState("");
   const [accessGroup, setAccessGroup] = useState("");
   const groupApi = useApiCall("get", "/group");
