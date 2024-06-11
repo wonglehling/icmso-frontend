@@ -204,7 +204,7 @@ export default function Home() {
                           </div>
                           <div>
                             <div style={{ fontSize: '0.8rem' }}>{feed.createdAt}</div>
-                            <div>{feed.feed_message} test1</div>
+                            <div>{feed.feed_message}</div>
                           </div>
                         </Stack>
                       </Paper>)

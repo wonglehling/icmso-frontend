@@ -350,7 +350,6 @@ function ResourceDetail() {
               <div
                 style={{ borderTop: "solid 1px #D3D3D3", marginTop: "10px" }}
               />
-              <div className="description-style mt-5">Version History</div>{" "}
               <ResourceConfirmationModal
                 show={showDeleteModal}
                 handleClose={handleDeleteModalClose}
@@ -374,7 +373,7 @@ function ResourceDetail() {
         >
           <Box sx={style}>
             {/* <iframe src="" frameborder="0"></iframe> */}
-            {data?.resource_file_info?.resource_file_url1 && <iframe style={{width: '100%', height: '500px'}} src={`https://docs.google.com/viewer?srcid=${data.resource_file_info.resource_file_url_id}&pid=explorer&efh=false&a=v&chrome=false&embedded=true`} frameborder="0"></iframe>}
+            {data?.resource_file_info?.resource_file_url1 && <iframe style={{ width: '100%', height: '500px' }} src={`https://docs.google.com/viewer?srcid=${data.resource_file_info.resource_file_url_id}&pid=explorer&efh=false&a=v&chrome=false&embedded=true`} frameborder="0"></iframe>}
           </Box>
         </Modal>
       </div>

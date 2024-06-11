@@ -34,7 +34,6 @@ export default function Favourite() {
       <div style={{ paddingLeft: "210px" }}>
         <Navbar />
         <Container>
-          <div className="resource-title">Recent Resources</div>
           <Row lg={6} md={5} xs={4}>
             {data &&
               data.resource.map((doc, index) => {

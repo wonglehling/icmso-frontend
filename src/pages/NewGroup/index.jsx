@@ -1,6 +1,8 @@
 import React from 'react';
 import { Container } from "react-bootstrap";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 import SideBar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
@@ -18,6 +20,7 @@ const EMPTY_BODY_DATA = {
 export default function NewGroup() {
   const [bodyData, setBodyData] = useState(EMPTY_BODY_DATA);
   const groupApi = useApiCall("post", "/group", {}, bodyData);
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   groupApi.executeApi();
@@ -44,6 +47,15 @@ export default function NewGroup() {
   const handleCreateGroup = () => {
     groupApi.executeApi()
   }
+
+  useEffect(() => {
+    if (groupApi.data) {
+      toast.success("New Group Created!");
+      console.log("oo", groupApi.data);
+      navigate("/group/" + groupApi.data.group._id);
+    }
+
+  }, [groupApi.data]);
 
   return (
     <>

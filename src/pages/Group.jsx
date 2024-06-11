@@ -255,42 +255,41 @@ export default function Group() {
                 </Col>
               </Row>
               <div className="flex-container">
-                <div style={{}}>
+                <div style={{ width: "100%" }}>
                   <div
                     style={{
-                      height: "160px",
-                      justifyContent: "left",
-                      display: "flex",
+                      justifyContent: "left"
                     }}
                   >
-                    {/* <CardMedia
-                      sx={{
-                        display: "block",
-                        maxWidth: "194px",
-                        maxHeight: "160px",
-                        width: "auto",
-                        height: "auto",
-                        marginRight: "auto",
-                        marginLeft: "1rem",
-                        textAlign: "left",
-                      }}
-                      component="img"
-                      height="194"
-                      // image={testImg}
-                      src="https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3JvdXB8ZW58MHx8MHx8fDA%3D"
-                    /> */}
+                    <Paper>
+                      <div style={{ padding: '1rem', marginTop: "0.5rem" }}>
+                        <div>
+                          <Row>
+                            <Col md={2}><span>Group Name: </span></Col>
+                            <Col md={10} style={{ fontWeight: 'bold' }}>{data.group_name}</Col>
+                          </Row>
+                          <Row style={{ marginTop: '1rem', marginBottom: '0.5rem' }}>
+                            <Col md={2}><span>Group Description: </span></Col>
+                            <Col md={10} style={{ fontWeight: 'bold' }}>{data.group_description}</Col>
+                          </Row>
+                        </div>
+                        <Row>
+                        </Row>
+                      </div>
+
+                    </Paper>
                   </div>
                 </div>
-                <div
+                {/* <div
                   style={{ flexGrow: 2, fontSize: "12px", textAlign: "justify" }}
                 >
                   <div className="group-name">Group Name: {data.group_name}</div>
                   {data.group_description}
-                </div>
+                </div> */}
               </div>
               <TableContainer
                 component={Paper}
-                className="mt-3"
+                className="mt-4"
                 sx={{ overflowX: "hidden" }}
               >
                 <Row>

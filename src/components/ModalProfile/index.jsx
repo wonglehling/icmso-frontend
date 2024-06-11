@@ -173,8 +173,6 @@ function ModalProfile({ show, handleClose, handleUpdate , handleOnChangeFormBody
       <Modal.Body>
         <div style={{ flexGrow: 1 }} className="mx-2 mt-3">
           <label for="images" class="image-container" id="imagecontainer">
-            <span className="image-title ">Drop photo here</span>
-            <span className="image-title2 ">or</span>
             <input
               type="file"
               id="images"
