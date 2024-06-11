@@ -15,6 +15,7 @@ import DirectoryView from "./pages/Directory";
 import SearchResult from "./pages/SearchResult";
 import NewProject from "./pages/NewProject";
 import Projects from "./pages/Projects";
+import NewGroup from "./pages/NewGroup";
 import { UserContextProvider } from "../context/userContext";
 import { ProtectRoutes, UnprotectRoutes } from "./hooks/protectRoutes";
 
@@ -60,6 +61,7 @@ function App() {
                 <Route path="/project/:project_id" element={<DirectoryView />} />
                 <Route path="/search/:query" element={<SearchResult />} />
                 <Route path="/project" element={<Projects />} />
+                <Route path="/new-group" element={<NewGroup />} />
                 <Route
                   path="/group-member-detail/:id"
                   element={<GroupMemberDetail />}

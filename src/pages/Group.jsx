@@ -255,7 +255,7 @@ export default function Group() {
                 </Col>
               </Row>
               <div className="flex-container">
-                <div style={{  }}>
+                <div style={{}}>
                   <div
                     style={{
                       height: "160px",
@@ -263,7 +263,7 @@ export default function Group() {
                       display: "flex",
                     }}
                   >
-                    <CardMedia
+                    {/* <CardMedia
                       sx={{
                         display: "block",
                         maxWidth: "194px",
@@ -278,12 +278,11 @@ export default function Group() {
                       height="194"
                       // image={testImg}
                       src="https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3JvdXB8ZW58MHx8MHx8fDA%3D"
-                    />
+                    /> */}
                   </div>
                 </div>
                 <div
                   style={{ flexGrow: 2, fontSize: "12px", textAlign: "justify" }}
-                  className="ms-5"
                 >
                   <div className="group-name">Group Name: {data.group_name}</div>
                   {data.group_description}
@@ -296,7 +295,7 @@ export default function Group() {
               >
                 <Row>
                   <Col>
-                    <div className="group-title">Group Members</div>
+                    <div className="group-title" style={{ paddingLeft: "1rem" }}>Group Members</div>
                   </Col>
                   <Col className="btn-add">
                     <Button
@@ -326,70 +325,70 @@ export default function Group() {
                         key={row.name}
                         sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                       >
-                      <TableCell component="th" scope="row">
-                        {row.name}
-                      </TableCell>
-                      <TableCell align="right">{row.joinDate}</TableCell>
-                      <TableCell align="right">{row.role}</TableCell>
-                      <TableCell align="right">
-                        {row.researchInterests}
-                      </TableCell>
-                      <TableCell align="right">
-                        <img
-                          src={ViewIcon}
-                          className="mx-2"
-                          onClick={() => handleClickGroupMember(row.id)}
-                        />
-                        <img
-                          src={EditIcon}
-                          className="mx-2"
-                          onClick={() => handleEditModalShow(index)}
-                        />
-                        <img
-                          src={DeleteIcon}
-                          className="mx-2"
-                          onClick={() => handleDeleteModalShow(index)}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <ModalMember
-              show={showAddModal}
-              memberData={selectedMember}
-              handleOnChange={handleEditNewMemberDetails}
-              handleClose={handleModalClose}
-              handleAdd={handleAddMember}
-            />
-            <ConfirmationModal
-              show={showDeleteModal}
-              handleClose={handleDeleteModalClose}
-              handleDelete={handleDeleteMember}
-            />
-            <ModalEditMember
-              memberData={selectedMember}
-              show={showEditModal}
-              selectedIndex={selectedMemberIndex}
-              handleClose={handleEditModalClose}
-              handleEdit={handleEditMember}
-              handleOnChange={handleExistingMemberDetails}
-            />
-            <GroupConfirmationModal
-              show={showDeleteGroupModal}
-              handleClose={handleDeleteGroupModalClose}
-              handleDelete={handleDeleteGroup}
-            />
-            <ModalEditGroup
-              show={showEditGroupModal}
-              formBody={formBody}
-              handleOnChangeFormBody={handleOnChangeFormBody}
-              handleClose={handleEditGroupModalClose}
-              handleSave={handleEditGroup}
-            />
-          </>
-        )}
+                        <TableCell component="th" scope="row">
+                          {row.name}
+                        </TableCell>
+                        <TableCell align="right">{row.joinDate}</TableCell>
+                        <TableCell align="right">{row.role}</TableCell>
+                        <TableCell align="right">
+                          {row.researchInterests}
+                        </TableCell>
+                        <TableCell align="right">
+                          <img
+                            src={ViewIcon}
+                            className="mx-2"
+                            onClick={() => handleClickGroupMember(row.id)}
+                          />
+                          <img
+                            src={EditIcon}
+                            className="mx-2"
+                            onClick={() => handleEditModalShow(index)}
+                          />
+                          <img
+                            src={DeleteIcon}
+                            className="mx-2"
+                            onClick={() => handleDeleteModalShow(index)}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+              <ModalMember
+                show={showAddModal}
+                memberData={selectedMember}
+                handleOnChange={handleEditNewMemberDetails}
+                handleClose={handleModalClose}
+                handleAdd={handleAddMember}
+              />
+              <ConfirmationModal
+                show={showDeleteModal}
+                handleClose={handleDeleteModalClose}
+                handleDelete={handleDeleteMember}
+              />
+              <ModalEditMember
+                memberData={selectedMember}
+                show={showEditModal}
+                selectedIndex={selectedMemberIndex}
+                handleClose={handleEditModalClose}
+                handleEdit={handleEditMember}
+                handleOnChange={handleExistingMemberDetails}
+              />
+              <GroupConfirmationModal
+                show={showDeleteGroupModal}
+                handleClose={handleDeleteGroupModalClose}
+                handleDelete={handleDeleteGroup}
+              />
+              <ModalEditGroup
+                show={showEditGroupModal}
+                formBody={formBody}
+                handleOnChangeFormBody={handleOnChangeFormBody}
+                handleClose={handleEditGroupModalClose}
+                handleSave={handleEditGroup}
+              />
+            </>
+          )}
         </Container>
       </div>
     </div>

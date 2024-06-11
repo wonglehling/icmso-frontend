@@ -15,17 +15,6 @@ function ModalEditGroup({ show, handleClose, handleSave, formBody, handleOnChang
       </Modal.Header>
       <Modal.Body>
         <div style={{ flexGrow: 1 }} className="mx-2 mt-3">
-          <label for="images" class="groups-container" id="imagecontainer">
-            <span className="groups-title ">Drop files here</span>
-            <span className="groups-title2 ">or</span>
-            <input
-              type="file"
-              id="images"
-              accept="image/*"
-              className="groups-title1"
-              required
-            />
-          </label>
         </div>
         <TextField
           required
@@ -36,7 +25,7 @@ function ModalEditGroup({ show, handleClose, handleSave, formBody, handleOnChang
           name="group_name"
           label="Group Name"
           variant="outlined"
-          className="my-3 me-3"
+          className="mb-4 me-3"
         />
         <TextField
           required

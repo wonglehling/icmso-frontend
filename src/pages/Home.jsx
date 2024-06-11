@@ -60,7 +60,7 @@ export default function Home() {
       <div style={{ paddingLeft: "210px", height: '100vh' }}>
         <Navbar />
         <Container>
-          <div className="group-title">System Statistics</div>
+          <div className="group-title" style={{ paddingLeft: 0 }}>System Statistics</div>
           {/* <Row>
             <Col md={7}>
               <Row style={{ background: 'yellow' }}>
@@ -175,7 +175,7 @@ export default function Home() {
                     })}
                 </Row>
               </Row>
-              <Row style={{ margin: '1rem 0' }}>
+              <Row style={{ paddingLeft: 0 }}>
                 <div className="group-title">Jump Right In</div>
                 <Row style={{}}>
                   {homeStatsGetAPI.data?.project.map((proj, index) => {
@@ -192,7 +192,7 @@ export default function Home() {
               </Row>
             </Col>
             <Col md={3}>
-              <div className="group-title">Recent Activities</div>
+              <div className="group-title" style={{ paddingLeft: 0 }}>Recent Activities</div>
               <Row style={{ height: '420px', marginBottom: '1rem', overflowY: 'auto', scrollbarWidth: 'thin', scrollbarColor: 'transparent transparent' }}>
                 {
                   homeStatsGetAPI.data?.feeds.map((feed, index) => {

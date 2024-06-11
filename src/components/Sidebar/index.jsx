@@ -22,6 +22,7 @@ import HomeIcon from "../../assets/icons/house.svg";
 import ResourcesIcon from "../../assets/icons/folder2.svg";
 import GroupIcon from "../../assets/icons/people.svg";
 import LoveIcon from "../../assets/icons/heart.svg";
+import ProjectIcon from "../../assets/icons/project.svg";
 import Logo from "../../../public/logo.svg";
 import useApiCall from "../../hooks/useApiCall";
 
@@ -66,6 +67,9 @@ export default function SideBar() {
       case "GroupDetail":
         navigate(`/group/${id}`);
         break;
+      case "NewGroup":
+        navigate("/new-group");
+        break;
       default:
         break;
     }
@@ -84,6 +88,9 @@ export default function SideBar() {
         break;
       case "Favourite":
         return <img src={LoveIcon} className="ms-2" />;
+        break;
+      case "Projects":
+        return <img src={ProjectIcon} className="ms-2" />;
         break;
       default:
         break;
@@ -170,7 +177,7 @@ export default function SideBar() {
                     variant="contained"
                     type="submit"
                     className="mx-auto my-2"
-                    // onClick={() => handleClickNav("NewProject")}
+                    onClick={() => handleClickNav("NewGroup")}
                     sx={{ width: "10rem", height: "2.5rem", display: "block"}}
                   >
                     <img src={`${PlusIcon}`} className="me-2" />
