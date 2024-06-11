@@ -64,7 +64,7 @@ export default function UploadResource(props) {
     formData.append("resource_title", formBody.resource_title);
     formData.append("resource_description", formBody.resource_description);
     formData.append("resource_file", formBody.resource_file);
-    formData.append("resource_type", RESOURCE_TYPE[tabValue]);
+    formData.append("resource_type", RESOURCE_TYPE[tabValue-1]);
     formData.append("resource_props", JSON.stringify(formBody));
     formData.append("resource_project_id", props.resource_project_id);
     formData.append("resource_project_path", props.resource_project_path);
@@ -80,6 +80,7 @@ export default function UploadResource(props) {
     })
       .then((response) => {
         toast.success("Resource uploaded");
+        window.location.reload();
       })
       .catch((error) => {
         if (error.response.status === 401) navigate('/login')

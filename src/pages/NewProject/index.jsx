@@ -7,6 +7,8 @@ import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import useApiCall from "../../hooks/useApiCall";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const EMPTY_BODY_DATA = {
   project_name: '',
@@ -15,6 +17,7 @@ const EMPTY_BODY_DATA = {
 }
 
 export default function NewProject() {
+  const navigate = useNavigate();
   const [bodyData, setBodyData] = useState(EMPTY_BODY_DATA);
   const groupApi = useApiCall("get", "/group");
   const projectApi = useApiCall("post", "/project", {}, bodyData);
@@ -26,7 +29,7 @@ export default function NewProject() {
   useEffect(() => {
     if (groupApi.data) {
       toast.success("New Project Created!");
-      navigate("/project/" + projectApi.data._id);
+      navigate("/project/" + projectApi.data.project._id);
     }
 
   }, [projectApi.data]);
