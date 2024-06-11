@@ -50,21 +50,19 @@ function Report() {
               sx={{ flexGrow: 1 }}
             />
           </div>
-          <div className="flex-container">
-            <DatePicker
-              id="report-publication-date"
-              label="Publication Date"
-              sx={{ flexGrow: 1 }}
-              className="me-2 mb-4"
-            />
-            <TextField
-              id="report-organization"
-              label="Organization"
-              variant="outlined"
-              className="mb-4"
-              sx={{ flexGrow: 1, width: "50%" }}
-            />
-          </div>
+          <DatePicker
+            id="report-publication-date"
+            label="Publication Date"
+            className="me-2 mb-4"
+            sx={{ width: "100%" }}
+          />
+          <TextField
+            fullWidth
+            id="report-organization"
+            label="Organization"
+            variant="outlined"
+            className="mb-4"
+          />
           <TextField
             required
             fullWidth
@@ -85,7 +83,7 @@ function Report() {
         variant="contained"
         type="submit"
         className="mx-auto my-4"
-        sx={{ width: "10rem", height: "2.5rem", display: "block"}}
+        sx={{ width: "10rem", height: "2.5rem", display: "block" }}
       >
         Upload
       </Button>

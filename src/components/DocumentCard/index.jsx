@@ -15,15 +15,8 @@ import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { formatDate } from "../../utils/stringFormatter"
 
-import CodeIcon from "../../assets/icons/file-earmark-code.svg";
-import ExcelIcon from "../../assets/icons/file-earmark-excel.svg";
-import ImgIcon from "../../assets/icons/file-earmark-image.svg";
-import PDFIcon from "../../assets/icons/file-earmark-pdf.svg";
-import SlideIcon from "../../assets/icons/file-earmark-slides.svg";
-import WordIcon from "../../assets/icons/file-earmark-word.svg";
-import ZipIcon from "../../assets/icons/file-earmark-zip.svg";
-import FileIcon from "../../assets/icons/file-earmark.svg";
 import "./index.css";
+import { iconFormatter } from "../../utils/iconFormatter";
 
 export default function DocumentCard({ handleClickDoc, doc_info, setSelectedDocId, setClickFavAction }) {
   const handleClickFavIcon = (docId, isFav) => {
@@ -54,39 +47,38 @@ export default function DocumentCard({ handleClickDoc, doc_info, setSelectedDocI
     }
   }
   return (
-    <Card sx={{ width: 200 }} className="mb-4">
+    <Card sx={{ width: "100%" }} className="mb-4">
       <div onClick={handleClickDoc}>
         <div className="user-name">
           <CardHeader
-            sx={{ padding: "8px" }}
+            sx={{ padding: "8px", width: "100%"}}
             avatar={
               <Avatar
                 sx={{ bgcolor: red[500], width: 24, height: 24 }}
                 aria-label="recipe"
               >
-                R
+                {doc_info && doc_info.resource_uploaded_by_user && doc_info.resource_uploaded_by_user.user_first_name && doc_info.resource_uploaded_by_user.user_first_name[0]}
               </Avatar>
             }
-            title={doc_info.resource_file_info.resource_file_name}
+            title={<span style={{whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: "ellipsis", width: '100%', display: 'block'}}>{doc_info.resource_file_info.resource_file_name}</span>}
             subheader={formatDate(doc_info.resource_file_info.resource_uploaded_at)}
           />
         </div>
         <div
-          style={{ height: "160px", justifyContent: "center", display: "flex" }}
+          style={{ height: "80px", justifyContent: "center", display: "flex" }}
         >
           <CardMedia
             sx={{
               display: "block",
-              maxWidth: "194px",
-              maxHeight: "160px",
-              width: "auto",
-              height: "auto",
+              width: "64px",
+              height: "64px",
               margin: "auto",
               marginRight: "auto",
+              filter: "invert(10%) sepia(50%) saturate(5621%) hue-rotate(233deg) brightness(92%) contrast(92%);"
             }}
             component="img"
-            height="194"
-            image={getResourceTypeImg(doc_info.resource_file_info?.resource_file_name)}
+            height="80"
+            image={iconFormatter(doc_info.resource_file_info?.resource_file_name)}
             alt="Paella dish"
           />
         </div>

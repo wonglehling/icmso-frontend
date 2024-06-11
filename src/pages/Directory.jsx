@@ -17,10 +17,21 @@ import { useNavigate, useParams, redirect } from "react-router-dom";
 import Button from "@mui/material/Button";
 import Modal from "react-bootstrap/Modal";
 import TextField from "@mui/material/TextField";
+import DirectoryViewTable from "../components/DirectoryViewTable";
+
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { iconFormatter } from '../utils/iconFormatter';
 
 import "../styles/directory.css";
 import useApiCall from "../hooks/useApiCall";
 import UploadResource from "./UploadResources";
+import XIcon from "../assets/icons/x.svg";
 
 const content1 = [
   { name: "Folder1", date: "1 day ago", type: "folder" },
@@ -71,9 +82,17 @@ function DirectoryView() {
 
   function handleClick(index) {
     const allCurrent = currentPath.split('/').filter(path => path !== "").slice(0, index + 1)
-    const path = '/' + allCurrent.join("/") + '/'
+    let path = '/' + allCurrent.join("/") + '/'
+    if (path === "//") {
+      path = "/"
+    }
     setCurrentPath(path)
     setResourcesGetApiQuery({ ...resourcesGetApiQuery, resource_project_path: path })
+  }
+
+  function handleCloseFolder() {
+    setNewContentName('Untitled1')
+    setCreateNewFolder(false)
   }
 
   const handleClickPostComment = () => {
@@ -91,11 +110,14 @@ function DirectoryView() {
   }
 
   const handleCreateFolder = () => {
+    setCreateNewFolder(false)
+    if (newContentName === "") {
+      setNewContentName('Untitled1')
+      return
+    }
     resourcesPostApi.executeApi()
 
-    setCreateNewFolder(false)
     setBodyData({ ...EMPTY_BODY_DATA })
-    setNewContentName('Untitled1')
     setTimeout(function () {
       resourcesGetApi.executeApi()
     }, 200);
@@ -160,6 +182,8 @@ function DirectoryView() {
                   color={currentPath.length === 1 ? "text.primary" : "inherit"}
                   onClick={() => handleClick(-1)}
                   aria-current="page"
+                  style={{ cursor: "pointer" }}
+
                 >
                   {projectGetApi.data.project_name}
                 </Link>}
@@ -170,29 +194,33 @@ function DirectoryView() {
                     color={index === currentPath.split('/').filter(path => path !== "").length - 1 ? "text.primary" : "inherit"}
                     onClick={() => handleClick(index)}
                     aria-current="page"
+                    style={{ cursor: "pointer" }}
                   >
                     {item}
                   </Link>)
               })}
             </Breadcrumbs>
           </div>
-          <Button
-            variant="contained"
-            type="submit"
-            className="mx-auto my-4"
-            sx={{ width: "10rem", height: "2.5rem" }}
-            onClick={handleClickCreateFolder}
-          >
-            Create Folder
-          </Button>
-          <Button
-            variant="contained"
-            className="mx-auto my-4"
-            sx={{ width: "10rem", height: "2.5rem" }}
-            onClick={handleClickUploadFile}
-          >
-            Upload File
-          </Button>
+          <div class="d-flex flex-row-reverse" style={{ gap: '1rem' }}>
+            <Button
+              variant="contained"
+              className="me-2 my-4"
+              sx={{ width: "10rem", height: "2.5rem" }}
+              onClick={handleClickUploadFile}
+            >
+              Upload File
+            </Button>
+            <Button
+              variant="contained"
+              type="submit"
+              className="ms-2 my-4"
+              sx={{ width: "10rem", height: "2.5rem" }}
+              onClick={handleClickCreateFolder}
+            >
+              Create Folder
+            </Button>
+
+          </div>
           <Box sx={{ flexGrow: 1, width: "100%", marginTop: '0.6rem' }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -204,39 +232,63 @@ function DirectoryView() {
                       <FolderIcon />
                     </ListItemIcon>
                     <ListItemText
-                      primary={<TextField
-                        required
-                        id="folder_name"
-                        label="Folder Name"
-                        variant="outlined"
-                        className="my-4"
-                        onChange={handleChangeNewContentName}
-                        name="folder_name"
-                        onBlur={handleCreateFolder}
-                        value={newContentName}
-                      />}
+                      primary={
+                        <>
+                          <TextField
+                            required
+                            id="folder_name"
+                            label="Folder Name"
+                            variant="outlined"
+                            className="my-4"
+                            onChange={handleChangeNewContentName}
+                            name="folder_name"
+                            onBlur={handleCreateFolder}
+                            value={newContentName}
+                            sx={{ width: '40%' }}
+                          />
+                          <img src={XIcon} style={{
+                            margin: '0',
+                            position: 'absolute',
+                            top: '50%',
+                            width: '2rem',
+                            height: '2rem',
+                            msTransform: 'translateY(-50%)',
+                            transform: 'translateY(-50%)'
+                          }} alt="close" onClick={handleCloseFolder} />
+                        </>}
                     />
                   </ListItem>
                 }
-                {contents?.resource?.map((content) => {
-                  return (
-                    <ListItem
-                      onClick={() => handleClickContent(content)}
-                      className="resource-item"
-                    >
-                      <ListItemIcon>
-                        {content.resource_type === "folder" && <FolderIcon />}
-                      </ListItemIcon>
-                      <ListItemText
-                        primary={content.resource_title}
-                        secondary={content.createdAt}
-                      />
-                    </ListItem>
-                  );
-                })}
+                {
+                  // contents.resource.map((content) => (
+                  //   <ListItem
+                  //     onClick={() => handleClickContent(content)}
+                  //     className="resource-item"
+                  //   >
+                  //     <ListItemIcon>
+                  //       {content.resource_type === "folder" && <FolderIcon />}
+                  //     </ListItemIcon>
+                  //     <ListItemText
+                  //       primary={content.resource_title}
+                  //       secondary={content.createdAt}
+                  //     />
+                  //   </ListItem>
+
+                  contents.resource && <DirectoryViewTable data={contents} handleOnClickContent={handleClickContent} />
+
+                  // ))
+                }
               </Grid>
             </Grid>
           </Box>
+          <Paper>
+            <div style={{padding: '1rem'}}>
+              <Row>
+                <Col md={2}><span>Project Name: </span></Col>
+                <Col md={10}></Col>
+                </Row>
+            </div>
+          </Paper>
         </Container>
       </div>
       {projectGetApi.data && <UploadResource setShowUploadResourceModal={setUploadNewFile} showUploadResourceModal={uploadNewFile} onHideUploadResourceModal={() => setUploadNewFile(false)} resource_project_path={currentPath} resource_project_id={projectGetApi.data._id} />}

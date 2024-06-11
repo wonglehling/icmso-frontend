@@ -44,7 +44,7 @@ export default function SearchResult() {
         <Container>
           {data?.resources.length > 0 && <>
             <div className="resource-title">Relevant Resources</div>
-            <Row lg={4} md={3} xs={2}>
+            <Row  lg={6} md={5} xs={4}>
               {data?.resources?.map((doc, index) => {
                 return (
                   <Col key={index}>

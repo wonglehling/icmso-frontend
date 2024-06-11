@@ -75,7 +75,7 @@ function ProfileDetails() {
               handleUpdate={handleUpdateProfile}
             />
             <div className="flex-container">
-              <div style={{ flexGrow: 1 }}>
+              <div style={{  }}>
                 <div
                   style={{
                     height: "160px",

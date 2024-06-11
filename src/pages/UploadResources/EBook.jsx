@@ -50,21 +50,19 @@ function EBook() {
               sx={{ flexGrow: 1 }}
             />
           </div>
-          <div className="flex-container">
-            <DatePicker
-              id="ebook-publication-date"
-              label="Publication Date"
-              sx={{ flexGrow: 1 }}
-              className="mb-4 me-2"
-            />
-            <TextField
-              id="ebook-publisher"
-              label="Publisher"
-              variant="outlined"
-              className="mb-4"
-              sx={{ flexGrow: 1, width: "50%" }}
-            />
-          </div>
+          <DatePicker
+            id="ebook-publication-date"
+            label="Publication Date"
+            className="mb-4 me-2"
+            sx={{ width: "100%" }}
+          />
+          <TextField
+            fullWidth
+            id="ebook-publisher"
+            label="Publisher"
+            variant="outlined"
+            className="mb-4"
+          />
           <TextField
             required
             fullWidth
@@ -85,7 +83,7 @@ function EBook() {
         variant="contained"
         type="submit"
         className="mx-auto my-4"
-        sx={{ width: "10rem", height: "2.5rem", display: "block"}}
+        sx={{ width: "10rem", height: "2.5rem", display: "block" }}
       >
         Upload
       </Button>

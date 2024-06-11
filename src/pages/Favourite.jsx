@@ -35,7 +35,7 @@ export default function Favourite() {
         <Navbar />
         <Container>
           <div className="resource-title">Recent Resources</div>
-          <Row lg={4} md={3} xs={2}>
+          <Row lg={6} md={5} xs={4}>
             {data &&
               data.resource.map((doc, index) => {
                 return doc.is_favourite && (

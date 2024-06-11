@@ -106,7 +106,7 @@ export default function UploadResource(props) {
         </Modal.Header>
         <Modal.Body>
           <TabContext value={tabValue}>
-            <TabList onChange={handleTabChange} aria-label="lab API tabs example">
+            <TabList onChange={handleTabChange} aria-label="lab API tabs example" variant="scrollable" scrollButtons="auto">
               <Tab label="Article" value="1" />
               <Tab label="Code" value="2" />
               <Tab label="Dataset" value="3" />

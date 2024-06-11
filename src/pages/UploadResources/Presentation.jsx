@@ -46,16 +46,16 @@ function Presentation() {
               id="presentation-presenter"
               label="Presenter(s)"
               variant="outlined"
-              className="mx-2 my-4"
+              className="ms-2 my-4"
               sx={{ flexGrow: 1 }}
-            />
-            <DatePicker
-              id="presentation-date"
-              label="Presentation Date"
-              sx={{ flexGrow: 1 }}
-              className="my-4"
             />
           </div>
+          <DatePicker
+            sx={{ width: "100%" }}
+            id="presentation-date"
+            label="Presentation Date"
+            className="mb-4"
+          />
           <TextField
             required
             fullWidth
@@ -76,7 +76,7 @@ function Presentation() {
         variant="contained"
         type="submit"
         className="mx-auto my-4"
-        sx={{ width: "10rem", height: "2.5rem", display: "block"}}
+        sx={{ width: "10rem", height: "2.5rem", display: "block" }}
       >
         Upload
       </Button>
