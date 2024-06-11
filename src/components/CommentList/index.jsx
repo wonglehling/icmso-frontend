@@ -13,7 +13,7 @@ import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { formatDate } from "../../utils/stringFormatter"
+import { formatDateTime } from "../../utils/stringFormatter"
 
 
 import testImg from "../../assets/test.jpeg";
@@ -37,7 +37,7 @@ export default function CommentList({ handleClickDoc = undefined, doc_info }) {
                 </Avatar>
               }
               title={<><span>{doc_info.comment_created_by_user_id.user_first_name + ' ' + doc_info.comment_created_by_user_id.user_last_name}</span></>}
-              subheader={formatDate(doc_info.createdAt)}
+              subheader={formatDateTime(doc_info.createdAt)}
             />
           </div>
           <div

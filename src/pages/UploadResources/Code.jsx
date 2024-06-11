@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 
 import "./index.css";
 
-function Code() {
+function Code({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
   const [accessibility, setAccessibility] = useState("");
   const [accessGroup, setAccessGroup] = useState("");
   const groupApi = useApiCall("get", "/group");
@@ -33,6 +33,9 @@ function Code() {
               id="code-title"
               label="Title"
               variant="outlined"
+              value={formBody.resource_title}
+              onChange={handleOnChangeFormBody}
+              name="resource_title"
               className="my-4"
               sx={{ flexGrow: 1 }}
             />
@@ -41,6 +44,9 @@ function Code() {
               label="Author(s)"
               variant="outlined"
               className="ms-2 my-4"
+              value={formBody.resource_author}
+              onChange={handleOnChangeFormBody}
+              name="resource_author"
               sx={{ flexGrow: 1 }}
             />
           </div>
@@ -51,6 +57,9 @@ function Code() {
             rows={4}
             id="code-description"
             label="Description"
+            value={formBody.resource_abstract}
+              onChange={handleOnChangeFormBody}
+              name="resource_abstract"
             variant="outlined"
           />
         </div>
@@ -65,6 +74,7 @@ function Code() {
         type="submit"
         className="mx-auto my-4"
         sx={{ width: "10rem", height: "2.5rem", display: "block"}}
+        onClick={handleOnCreateFormBody}
       >
         Upload
       </Button>

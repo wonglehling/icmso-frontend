@@ -27,6 +27,26 @@ function truncateString(str, num) {
   return str.slice(0, num) + '...'
 }
 
+// format into time and date
+function formatDateTime(dateString) {
+  const date = new Date(dateString);
+
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  const month = monthNames[date.getMonth()];
+  const day = date.getDate();
+  const year = date.getFullYear();
+  const hour = date.getHours()<10?'0'+date.getHours():date.getHours();
+  const minute = date.getMinutes()<10?'0'+date.getMinutes():date.getMinutes();
+
+  const formattedDateTime = `${month} ${day}, ${year} ${hour}:${minute}`;
+
+  return formattedDateTime;
+}
+
 export {
-  formatDate
+  formatDate, formatDateTime
 }

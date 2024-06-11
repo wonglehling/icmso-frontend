@@ -6,11 +6,23 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Button from "@mui/material/Button";
 
 import "./index.css";
+import dayjs from 'dayjs';
 
 function Article({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
   const [accessibility, setAccessibility] = useState("");
   const [accessGroup, setAccessGroup] = useState("");
   const groupApi = useApiCall("get", "/group");
+
+  const onChangeDatetime = (value) => {
+    const newDatetimeEvent = {
+      target: {
+        name: "resource_publication_date",
+        value: value.$d,
+        id: "resource_publication_date"
+      }
+    }
+    handleOnChangeFormBody(newDatetimeEvent)
+  }
 
   useEffect(() => {
     groupApi.executeApi();
@@ -45,6 +57,7 @@ function Article({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
               label="Author(s)"
               variant="outlined"
               className="ms-2 my-4"
+              name="resource_author"
               value={formBody.resource_author}
               onChange={handleOnChangeFormBody}
               sx={{ flexGrow: 1 }}
@@ -54,6 +67,9 @@ function Article({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
             sx={{ width: "100%" }}
             id="article-publication-date"
             label="Publication Date"
+            name="resource_publication_date"
+            value={formBody.resource_publication_date !== "" ? dayjs(formBody.resource_publication_date) : undefined}
+            onChange={(value) => { onChangeDatetime(value) }}
             className="mb-4"
           />
           <TextField

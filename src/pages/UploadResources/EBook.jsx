@@ -9,13 +9,25 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Autocomplete from "@mui/material/Autocomplete";
+import dayjs from 'dayjs';
 
 import "./index.css";
 
-function EBook() {
+function EBook({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
   const [accessibility, setAccessibility] = useState("");
   const [accessGroup, setAccessGroup] = useState("");
   const groupApi = useApiCall("get", "/group");
+
+  const onChangeDatetime = (value) => {
+    const newDatetimeEvent = {
+      target: {
+        name: "resource_publication_date",
+        value: value.$d,
+        id: "resource_publication_date"
+      }
+    }
+    handleOnChangeFormBody(newDatetimeEvent)
+  }
 
   useEffect(() => {
     groupApi.executeApi();
@@ -39,6 +51,9 @@ function EBook() {
               id="ebook-title"
               label="Title"
               variant="outlined"
+              value={formBody.resource_title}
+              onChange={handleOnChangeFormBody}
+              name="resource_title"
               className="my-4"
               sx={{ flexGrow: 1 }}
             />
@@ -46,6 +61,9 @@ function EBook() {
               id="ebook-authors"
               label="Author(s)"
               variant="outlined"
+              value={formBody.resource_author}
+              onChange={handleOnChangeFormBody}
+              name="resource_author"
               className="ms-2 my-4"
               sx={{ flexGrow: 1 }}
             />
@@ -55,11 +73,17 @@ function EBook() {
             label="Publication Date"
             className="mb-4 me-2"
             sx={{ width: "100%" }}
+            name="resource_publication_date"
+            value={formBody.resource_publication_date !== "" ? dayjs(formBody.resource_publication_date) : undefined}
+            onChange={(value) => { onChangeDatetime(value) }}
           />
           <TextField
             fullWidth
             id="ebook-publisher"
             label="Publisher"
+            value={formBody.resource_publisher}
+              onChange={handleOnChangeFormBody}
+              name="resource_publisher"
             variant="outlined"
             className="mb-4"
           />
@@ -70,6 +94,9 @@ function EBook() {
             rows={4}
             id="ebook-abstract"
             label="Abstract"
+            value={formBody.resource_abstract}
+              onChange={handleOnChangeFormBody}
+              name="resource_abstract"
             variant="outlined"
           />
         </div>
@@ -84,6 +111,7 @@ function EBook() {
         type="submit"
         className="mx-auto my-4"
         sx={{ width: "10rem", height: "2.5rem", display: "block" }}
+        onClick={handleOnCreateFormBody}
       >
         Upload
       </Button>

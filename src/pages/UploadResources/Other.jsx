@@ -11,7 +11,7 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 import "./index.css";
 
-function Other() {
+function Other({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
   const [accessibility, setAccessibility] = useState("");
   const [accessGroup, setAccessGroup] = useState("");
   const groupApi = useApiCall("get", "/group");
@@ -38,6 +38,9 @@ function Other() {
               id="other-title"
               label="Title"
               variant="outlined"
+              value={formBody.resource_title}
+              onChange={handleOnChangeFormBody}
+              name="resource_title"
               className="my-4"
               sx={{ flexGrow: 1 }}
             />
@@ -46,6 +49,9 @@ function Other() {
               label="Author(s)"
               variant="outlined"
               className="ms-2 my-4"
+              value={formBody.resource_author}
+              onChange={handleOnChangeFormBody}
+              name="resource_author"
               sx={{ flexGrow: 1 }}
             />
           </div>
@@ -57,6 +63,9 @@ function Other() {
             id="other-description"
             label="Description"
             variant="outlined"
+            value={formBody.resource_abstract}
+              onChange={handleOnChangeFormBody}
+              name="resource_abstract"
           />
         </div>
         <div style={{ flexGrow: 1 }} className="mx-2 mt-4">
@@ -70,6 +79,7 @@ function Other() {
         type="submit"
         className="mx-auto my-4"
         sx={{ width: "10rem", height: "2.5rem", display: "block"}}
+        onClick={handleOnCreateFormBody}
       >
         Upload
       </Button>

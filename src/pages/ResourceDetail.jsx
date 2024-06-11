@@ -20,6 +20,22 @@ import testImg from "../assets/test.jpeg";
 import EditIcon from "../assets/icons/pen.svg";
 import DeleteIcon from "../assets/icons/trash3.svg";
 import "../styles/resourceDetail.css";
+import { iconFormatter } from '../utils/iconFormatter';
+import {formatDate} from '../utils/stringFormatter';
+
+const CATEGORY_MAP = [
+  {key: "cs.LG", value: "Machine Learning"},
+  {key: "cs.CV", value: "Computer Vision and Pattern Recognition"},
+  {key: "cs.AI", value: "Artificial Intelligence"},
+  {key: "cs.CL", value: "Computation and Language"},
+  {key: "cs.IT", value: "Information Theory"},
+  {key: "cs.CR", value: "Cryptography and Security"},
+  {key: "cs.RO", value: "Robotics"},
+  {key: "cs.SY", value: "Systems and Control"},
+  {key: "cs.DS", value: "Data Structures and Algorithms"},
+  {key: "cs.NI", value: "Networking and Internet Architecture"},
+
+]
 
 const RESOURCE_BODY = {
   // resource_info: {
@@ -99,6 +115,7 @@ function ResourceDetail() {
       navigate("/resources");
     }
   };
+
   const handleUpdateResource = () => {
     updateApi.executeApi()
     toast.success("Resource Updated Successful");
@@ -210,17 +227,18 @@ function ResourceDetail() {
                     <CardMedia
                       sx={{
                         display: "block",
-                        maxWidth: "194px",
-                        maxHeight: "160px",
+                        maxWidth: "120px",
+                        maxHeight: "120px",
                         width: "auto",
                         height: "auto",
                         marginRight: "auto",
+                        marginTop: "2.5rem",
                         textAlign: "left",
                         marginLeft: "1rem",
                       }}
                       component="img"
-                      height="194"
-                      image={testImg}
+                      height="120"
+                      image={iconFormatter(data.resource_file_info.resource_file_name)}
                       onClick={handleOnClickDoc}
                     />
                   </div>
@@ -246,7 +264,7 @@ function ResourceDetail() {
                     >
                       <div className="bold-text">Author(s)</div>
                       <div className="detail-font">
-                        {data.resource_props.author}
+                        {data.resource_props.resource_author ? data.resource_props.resource_author : 'N/A'}
                       </div>
                     </div>
                   </Col>
@@ -261,7 +279,7 @@ function ResourceDetail() {
                     >
                       <div className="bold-text">Publication Date</div>
                       <div className="detail-font">
-                        {data.resource_props.publication_date}
+                        {data.resource_props.resource_publication_date? formatDate(data.resource_props.resource_publication_date) : 'N/A'}
                       </div>
                     </div>
                   </Col>
@@ -280,8 +298,7 @@ function ResourceDetail() {
                     >
                       <div className="bold-text">Publisher</div>
                       <div className="detail-font">
-                        {data.resource_uploader_id.user_first_name}{" "}
-                        {data.resource_uploader_id.user_last_name}
+                        {data.resource_props.resource_publisher? data.resource_props.resource_publisher : 'N/A'}
                       </div>
                     </div>
                   </Col>
@@ -312,7 +329,11 @@ function ResourceDetail() {
                       }}
                     >
                       <div className="bold-text">Keywords</div>
-                      <div className="detail-font">AI, CE, IC, IP</div>
+                      <div className="detail-font">
+                      {data.resource_props.keywords? data.resource_props.keywords.map((keyword)=> {
+                        return keyword + ", "
+                      }) : 'N/A'}
+                      </div>
                     </div>
                   </Col>
                   <Col>
@@ -325,7 +346,9 @@ function ResourceDetail() {
                       }}
                     >
                       <div className="bold-text">Category</div>
-                      <div className="detail-font">{data.resource_props.category}</div>
+                      <div className="detail-font">
+                      {CATEGORY_MAP.filter((category) => category.key === data.resource_props.category)[0].value}
+                      </div>
                     </div>
                   </Col>
                 </Row>

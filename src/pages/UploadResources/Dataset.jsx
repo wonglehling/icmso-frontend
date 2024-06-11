@@ -40,6 +40,9 @@ function Dataset() {
               variant="outlined"
               className="my-4"
               sx={{ flexGrow: 1 }}
+              value={formBody.resource_title}
+              onChange={handleOnChangeFormBody}
+              name="resource_title"
             />
             <TextField
               id="dataset-source"
@@ -47,6 +50,9 @@ function Dataset() {
               variant="outlined"
               className="ms-2 my-4"
               sx={{ flexGrow: 1 }}
+              value={formBody.resource_source}
+              onChange={handleOnChangeFormBody}
+              name="resource_source"
             />
           </div>
           <TextField
@@ -57,6 +63,9 @@ function Dataset() {
             id="dataset-description"
             label="Description"
             variant="outlined"
+            value={formBody.resource_abstract}
+              onChange={handleOnChangeFormBody}
+              name="resource_abstract"
           />
         </div>
         <div style={{ flexGrow: 1 }} className="mx-2 mt-4">
@@ -70,6 +79,7 @@ function Dataset() {
         type="submit"
         className="mx-auto my-4"
         sx={{ width: "10rem", height: "2.5rem", display: "block"}}
+        onClick={handleOnCreateFormBody}
       >
         Upload
       </Button>

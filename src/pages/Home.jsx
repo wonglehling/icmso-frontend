@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import Paper from '@mui/material/Paper';
 import { iconFormatter } from '../utils/iconFormatter';
 import ProjectCard from "../components/ProjectCard";
+import {formatDateTime} from '../utils/stringFormatter';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -203,7 +204,7 @@ export default function Home() {
                             <img src={iconFormatter("", `${feed.feed_type}-${feed.feed_activity}`)} alt="" width="24" height={24} style={{ marginRight: "0.5rem", ...getCorrectFilter(feed.feed_activity) }} />
                           </div>
                           <div>
-                            <div style={{ fontSize: '0.8rem' }}>{feed.createdAt}</div>
+                            <div style={{ fontSize: '0.8rem' }}>{formatDateTime(feed.createdAt)}</div>
                             <div>{feed.feed_message}</div>
                           </div>
                         </Stack>
