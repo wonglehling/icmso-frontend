@@ -92,8 +92,13 @@ function ResearchPaper({ formBody, handleOnChangeFormBody, handleOnCreateFormBod
         </div>
         <div style={{ flexGrow: 1 }} className="mx-2 mt-4">
           <label for="images" class="drop-container" id="dropcontainer">
-            <input type="file" id="images" accept="image/*" required />
-          </label>
+<input
+              type="file"
+              id="files"
+              name="resource_file"
+              onChange={handleOnChangeFormBody}
+              required
+            />          </label>
         </div>
       </div>
       <Button

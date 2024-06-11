@@ -23,6 +23,14 @@ export default function NewProject() {
     groupApi.executeApi();
   }, []);
 
+  useEffect(() => {
+    if (groupApi.data) {
+      toast.success("New Project Created!");
+      navigate("/project/" + projectApi.data._id);
+    }
+
+  }, [projectApi.data]);
+
   const handleOnChange = (e) => {
     const { name, value } = e.target
     setBodyData({ ...bodyData, [name]: value })

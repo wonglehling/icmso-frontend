@@ -82,8 +82,8 @@ function EBook({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
             id="ebook-publisher"
             label="Publisher"
             value={formBody.resource_publisher}
-              onChange={handleOnChangeFormBody}
-              name="resource_publisher"
+            onChange={handleOnChangeFormBody}
+            name="resource_publisher"
             variant="outlined"
             className="mb-4"
           />
@@ -95,15 +95,20 @@ function EBook({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
             id="ebook-abstract"
             label="Abstract"
             value={formBody.resource_abstract}
-              onChange={handleOnChangeFormBody}
-              name="resource_abstract"
+            onChange={handleOnChangeFormBody}
+            name="resource_abstract"
             variant="outlined"
           />
         </div>
         <div style={{ flexGrow: 1 }} className="mx-2 mt-4">
           <label for="images" class="drop-container" id="dropcontainer">
-            <input type="file" id="images" accept="image/*" required />
-          </label>
+            <input
+              type="file"
+              id="files"
+              name="resource_file"
+              onChange={handleOnChangeFormBody}
+              required
+            />          </label>
         </div>
       </div>
       <Button
