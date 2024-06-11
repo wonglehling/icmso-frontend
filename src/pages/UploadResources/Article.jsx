@@ -45,6 +45,8 @@ function Article({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
               label="Author(s)"
               variant="outlined"
               className="ms-2 my-4"
+              value={formBody.resource_author}
+              onChange={handleOnChangeFormBody}
               sx={{ flexGrow: 1 }}
             />
           </div>

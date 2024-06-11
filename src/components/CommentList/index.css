@@ -1,0 +1,16 @@
+.user-name {
+  text-align: left;
+}
+
+.user-name .MuiCardHeader-title{
+  font-size: 0.65rem;
+}
+
+.user-name .MuiCardHeader-subheader{
+  font-size: 0.5rem;
+}
+
+.MuiCardContent-root .MuiTypography-body2{
+  font-size: 0.65rem;
+  text-align: left;
+}

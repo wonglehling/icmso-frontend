@@ -27,10 +27,10 @@ export default function ProjectCard({ handleClickDoc, doc_info }) {
             sx={{ padding: "8px" }}
             avatar={
               <Avatar
-                sx={{ bgcolor: red[500], width: 24, height: 24 }}
+                sx={{ bgcolor: '#1c277e', width: 24, height: 24 }}
                 aria-label="recipe"
               >
-                R
+                {doc_info && doc_info.project_created_by_user_id && doc_info.project_created_by_user_id.user_first_name && doc_info.project_created_by_user_id.user_first_name[0]}
               </Avatar>
             }
             title={<><span>{doc_info.project_created_by_user_id.user_first_name + ' ' + doc_info.project_created_by_user_id.user_last_name +' / '}</span> <span style={{fontSize: '1rem'}}>{doc_info.project_name}</span></>}

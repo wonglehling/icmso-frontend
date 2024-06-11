@@ -4,6 +4,9 @@ import SideBar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
 import ResourceConfirmationModal from "../components/ResourceConfirmationModal";
 import ModalResource from "../components/ModalResource";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
 
 import CardMedia from "@mui/material/CardMedia";
 import { Row, Col, Container } from "react-bootstrap";
@@ -36,6 +39,18 @@ const RESOURCE_BODY = {
   // },
 };
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 1000,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
 function ResourceDetail() {
   const navigate = useNavigate();
   let { id } = useParams();
@@ -46,6 +61,7 @@ function ResourceDetail() {
   const [secondsOpen, setSecondsOpen] = useState(0);
   const [selectedDocId, setSelectedDocId] = useState(0);
   const [clickFavAction, setClickFavAction] = useState('');
+  const [openDocModal, setOpenDocModal] = useState(false);
   const [activityReqBody, setActivityReqBody] = useState({
     duration: 0,
     "activity_to_resource_id": "",
@@ -56,8 +72,6 @@ function ResourceDetail() {
 
   const favApi = useApiCall("get", `/user/recommendation/${clickFavAction}/${selectedDocId}`);
   const activityApi = useApiCall("post", `/activity`, {}, activityReqBodyRef);
-
-
   const { data, loading, error, executeApi } = useApiCall(
     "get",
     "/resource/" + id
@@ -70,6 +84,10 @@ function ResourceDetail() {
   const handleModalShow = () => {
     setShowEditModal(true);
   };
+
+  const handleOpenDocModal = () => setOpenDocModal(true);
+  const handleCloseDocModal = () => setOpenDocModal(false);
+
   const handleDeleteModalClose = () => setShowDeleteModal(false);
   const handleDeleteModalShow = () => {
     setShowDeleteModal(true);
@@ -124,6 +142,10 @@ function ResourceDetail() {
 
   }, []);
 
+  const handleOnClickDoc = () => {
+    handleOpenDocModal();
+  }
+
 
   useEffect(() => {
     setFormBody(data)
@@ -177,7 +199,7 @@ function ResourceDetail() {
                 </Col>
               </Row>
               <div className="flex-container">
-                <div style={{  }}>
+                <div style={{}}>
                   <div
                     style={{
                       height: "160px",
@@ -199,6 +221,7 @@ function ResourceDetail() {
                       component="img"
                       height="194"
                       image={testImg}
+                      onClick={handleOnClickDoc}
                     />
                   </div>
                 </div>
@@ -343,6 +366,17 @@ function ResourceDetail() {
             </div>
           )}
         </Container>
+        <Modal
+          open={openDocModal}
+          onClose={handleCloseDocModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            {/* <iframe src="" frameborder="0"></iframe> */}
+            {data?.resource_file_info?.resource_file_url1 && <iframe style={{width: '100%', height: '500px'}} src={`https://docs.google.com/viewer?srcid=${data.resource_file_info.resource_file_url_id}&pid=explorer&efh=false&a=v&chrome=false&embedded=true`} frameborder="0"></iframe>}
+          </Box>
+        </Modal>
       </div>
     </>
   );

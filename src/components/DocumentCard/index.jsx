@@ -54,7 +54,7 @@ export default function DocumentCard({ handleClickDoc, doc_info, setSelectedDocI
             sx={{ padding: "8px", width: "100%"}}
             avatar={
               <Avatar
-                sx={{ bgcolor: red[500], width: 24, height: 24 }}
+                sx={{ bgcolor: '#1c277e', width: 24, height: 24 }}
                 aria-label="recipe"
               >
                 {doc_info && doc_info.resource_uploaded_by_user && doc_info.resource_uploaded_by_user.user_first_name && doc_info.resource_uploaded_by_user.user_first_name[0]}

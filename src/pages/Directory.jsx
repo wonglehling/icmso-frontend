@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 
 import SideBar from "../components/Sidebar";
 import Navbar from "../components/Navbar";
@@ -12,6 +12,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Grid from "@mui/material/Grid";
+import Input from "@mui/material/Input";
 import FolderIcon from "@mui/icons-material/Folder";
 import { useNavigate, useParams, redirect } from "react-router-dom";
 import Button from "@mui/material/Button";
@@ -32,6 +33,7 @@ import "../styles/directory.css";
 import useApiCall from "../hooks/useApiCall";
 import UploadResource from "./UploadResources";
 import XIcon from "../assets/icons/x.svg";
+import CommentList from "../components/CommentList";
 
 const content1 = [
   { name: "Folder1", date: "1 day ago", type: "folder" },
@@ -95,8 +97,9 @@ function DirectoryView() {
     setCreateNewFolder(false)
   }
 
-  const handleClickPostComment = () => {
+  const handleClickPostComment = (e) => {
     commentPostApi.executeApi()
+    window.location.reload()
   }
 
   const handleClickCreateFolder = () => {
@@ -149,7 +152,7 @@ function DirectoryView() {
     if (resourcesGetApi.data) {
       setContents(resourcesGetApi.data)
     }
-  }, [projectGetApi.data, resourcesGetApi.data, resourcesPostApi.loading]);
+  }, [projectGetApi.data, resourcesGetApi.data, resourcesPostApi.loading, commentPostApi.loading]);
 
   function handleClickContent(resource) {
     if (resource.resource_type === "folder") {
@@ -282,12 +285,45 @@ function DirectoryView() {
             </Grid>
           </Box>
           <Paper>
-            <div style={{padding: '1rem'}}>
-              <Row>
-                <Col md={2}><span>Project Name: </span></Col>
-                <Col md={10}></Col>
+            <div style={{ padding: '1rem', marginTop: '1rem' }}>
+
+              {projectGetApi.data && <>
+                <div>
+                  <Row>
+                    <Col md={2}><span>Project Name: </span></Col>
+                    <Col md={10} style={{ fontWeight: 'bold' }}>{projectGetApi.data.project_name}</Col>
+                  </Row>
+                  <Row style={{ marginTop: '1rem', marginBottom: '1rem' }}>
+                    <Col md={2}><span>Project Description: </span></Col>
+                    <Col md={10} style={{ fontWeight: 'bold' }}>{projectGetApi.data.project_description}</Col>
+                  </Row>
+                </div>
+                <Row style={{ marginBottom: '1rem' }}>
+                  <Col md={2}><span>Comments: </span></Col>
+                  <Col md={10} style={{ fontWeight: 'bold' }}>
+                    <Input sx={{ width: '80%', marginRight: '1rem' }} placeholder="Leave a Comment" 
+                  onChange={handleChangeCommentBodyData}
+                  value={commentBodyData.comment_message}
+                  inputProps={{ 'aria-label': 'description' }} /><Button
+                    variant="outlined"
+                    className="me-2 my-4"
+                    sx={{ width: "10rem", height: "2.5rem" }}
+                    onClick={handleClickPostComment}
+                  >
+                    Post Comment
+                  </Button>
+                  </Col>
                 </Row>
+                { projectGetApi.data.comments && projectGetApi.data.comments.map((comment) => {
+                  return <CommentList doc_info={comment}/>
+                })}
+              </>}
+              {/*  */}
+              <Row>
+
+              </Row>
             </div>
+
           </Paper>
         </Container>
       </div>
