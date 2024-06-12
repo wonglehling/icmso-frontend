@@ -25,10 +25,13 @@ import LoveIcon from "../../assets/icons/heart.svg";
 import ProjectIcon from "../../assets/icons/project.svg";
 import Logo from "../../../public/logo.svg";
 import useApiCall from "../../hooks/useApiCall";
+import { useAuth } from "../../../context/userContext";
 
 const drawerWidth = 240;
 
 export default function SideBar() {
+  const { user } = useAuth();
+
   const { data, loading, error, executeApi } = useApiCall("get", "/group", { self: true });
 
   React.useEffect(() => {
@@ -70,6 +73,9 @@ export default function SideBar() {
       case "NewGroup":
         navigate("/new-group");
         break;
+      case "User":
+        navigate("/user");
+        break;
       default:
         break;
     }
@@ -91,6 +97,9 @@ export default function SideBar() {
         break;
       case "Projects":
         return <img src={ProjectIcon} className="ms-2" />;
+        break;
+      case "User":
+        return <img src={GroupIcon} className="ms-2" />;
         break;
       default:
         break;
@@ -173,16 +182,16 @@ export default function SideBar() {
                   )}
                 </ListItem>
                 <Collapse in={openGroupCollapse} timeout="auto" unmountOnExit>
-                  <Button
+                  {user && user.user_type && user.user_type === "admin" && <Button
                     variant="contained"
                     type="submit"
                     className="mx-auto my-2"
                     onClick={() => handleClickNav("NewGroup")}
-                    sx={{ width: "10rem", height: "2.5rem", display: "block"}}
+                    sx={{ width: "10rem", height: "2.5rem", display: "block" }}
                   >
                     <img src={`${PlusIcon}`} className="me-2" />
                     Group
-                  </Button>
+                  </Button>}
                   <List component="div" disablePadding>
                     {data &&
                       data.map((group) => {
@@ -220,6 +229,16 @@ export default function SideBar() {
               </ListItem>
             );
           })}
+          {user && user.user_type && user.user_type === "admin" && <ListItem
+            key={'User'}
+            disablePadding
+            onClick={() => handleClickNav('User')}
+          >
+            <ListItemButton>
+              <ListItemIcon>{showCorrectIcon('User')}</ListItemIcon>
+              <ListItemText primary={'User'} />
+            </ListItemButton>
+          </ListItem>}
         </List>
       </Drawer>
     </Box>

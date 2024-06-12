@@ -25,6 +25,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
+import User from "./pages/User";
 
 axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.withCredentials = true;
@@ -62,6 +63,7 @@ function App() {
                 <Route path="/search/:query" element={<SearchResult />} />
                 <Route path="/project" element={<Projects />} />
                 <Route path="/new-group" element={<NewGroup />} />
+                <Route path="/user" element={<User />} />
                 <Route
                   path="/group-member-detail/:id"
                   element={<GroupMemberDetail />}

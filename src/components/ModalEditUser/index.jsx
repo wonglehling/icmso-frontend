@@ -9,23 +9,16 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import Autocomplete from "@mui/material/Autocomplete";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
-
-
-import "./index.css";
-
-
 
 // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
 const top100Films = [
-  { title: "The Shawshank Redemption", year: 1993 },
+  { title: "The Shawshank Redemption", year: 1994 },
   { title: "The Godfather", year: 1972 },
-  { title: "The Godfather: Part II", year: 1973 },
+  { title: "The Godfather: Part II", year: 1974 },
   { title: "The Dark Knight", year: 2008 },
   { title: "12 Angry Men", year: 1957 },
   { title: "Schindler's List", year: 1993 },
-  { title: "Pulp Fiction", year: 1993 },
+  { title: "Pulp Fiction", year: 1994 },
   {
     title: "The Lord of the Rings: The Return of the King",
     year: 2003,
@@ -40,7 +33,7 @@ const top100Films = [
     title: "Star Wars: Episode V - The Empire Strikes Back",
     year: 1980,
   },
-  { title: "Forrest Gump", year: 1993 },
+  { title: "Forrest Gump", year: 1994 },
   { title: "Inception", year: 2010 },
   {
     title: "The Lord of the Rings: The Two Towers",
@@ -49,7 +42,7 @@ const top100Films = [
   { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
   { title: "Goodfellas", year: 1990 },
   { title: "The Matrix", year: 1999 },
-  { title: "Seven Samurai", year: 1953 },
+  { title: "Seven Samurai", year: 1954 },
   {
     title: "Star Wars: Episode IV - A New Hope",
     year: 1977,
@@ -60,38 +53,38 @@ const top100Films = [
   { title: "It's a Wonderful Life", year: 1946 },
   { title: "Life Is Beautiful", year: 1997 },
   { title: "The Usual Suspects", year: 1995 },
-  { title: "Léon: The Professional", year: 1993 },
+  { title: "Léon: The Professional", year: 1994 },
   { title: "Spirited Away", year: 2001 },
   { title: "Saving Private Ryan", year: 1998 },
   { title: "Once Upon a Time in the West", year: 1968 },
   { title: "American History X", year: 1998 },
-  { title: "Interstellar", year: 2013 },
-  { title: "Casablanca", year: 1932 },
+  { title: "Interstellar", year: 2014 },
+  { title: "Casablanca", year: 1942 },
   { title: "City Lights", year: 1931 },
   { title: "Psycho", year: 1960 },
   { title: "The Green Mile", year: 1999 },
   { title: "The Intouchables", year: 2011 },
-  { title: "Modern Times", year: 1946 },
+  { title: "Modern Times", year: 1936 },
   { title: "Raiders of the Lost Ark", year: 1981 },
-  { title: "Rear Window", year: 1953 },
+  { title: "Rear Window", year: 1954 },
   { title: "The Pianist", year: 2002 },
   { title: "The Departed", year: 2006 },
   { title: "Terminator 2: Judgment Day", year: 1991 },
   { title: "Back to the Future", year: 1985 },
-  { title: "Whiplash", year: 2013 },
+  { title: "Whiplash", year: 2014 },
   { title: "Gladiator", year: 2000 },
   { title: "Memento", year: 2000 },
   { title: "The Prestige", year: 2006 },
-  { title: "The Lion King", year: 1993 },
+  { title: "The Lion King", year: 1994 },
   { title: "Apocalypse Now", year: 1979 },
   { title: "Alien", year: 1979 },
   { title: "Sunset Boulevard", year: 1950 },
   {
     title:
       "Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb",
-    year: 1963,
+    year: 1964,
   },
-  { title: "The Great Dictator", year: 1930 },
+  { title: "The Great Dictator", year: 1940 },
   { title: "Cinema Paradiso", year: 1988 },
   { title: "The Lives of Others", year: 2006 },
   { title: "Grave of the Fireflies", year: 1988 },
@@ -104,10 +97,10 @@ const top100Films = [
   { title: "Princess Mononoke", year: 1997 },
   { title: "Aliens", year: 1986 },
   { title: "Oldboy", year: 2003 },
-  { title: "Once Upon a Time in America", year: 1983 },
+  { title: "Once Upon a Time in America", year: 1984 },
   { title: "Witness for the Prosecution", year: 1957 },
   { title: "Das Boot", year: 1981 },
-  { title: "Citizen Kane", year: 1931 },
+  { title: "Citizen Kane", year: 1941 },
   { title: "North by Northwest", year: 1959 },
   { title: "Vertigo", year: 1958 },
   {
@@ -123,12 +116,12 @@ const top100Films = [
   { title: "Like Stars on Earth", year: 2007 },
   { title: "Taxi Driver", year: 1976 },
   { title: "Lawrence of Arabia", year: 1962 },
-  { title: "Double Indemnity", year: 1933 },
+  { title: "Double Indemnity", year: 1944 },
   {
     title: "Eternal Sunshine of the Spotless Mind",
-    year: 2003,
+    year: 2004,
   },
-  { title: "Amadeus", year: 1983 },
+  { title: "Amadeus", year: 1984 },
   { title: "To Kill a Mockingbird", year: 1962 },
   { title: "Toy Story 3", year: 2010 },
   { title: "Logan", year: 2017 },
@@ -138,7 +131,7 @@ const top100Films = [
   { title: "2001: A Space Odyssey", year: 1968 },
   { title: "Singin' in the Rain", year: 1952 },
   { title: "Toy Story", year: 1995 },
-  { title: "Bicycle Thieves", year: 1938 },
+  { title: "Bicycle Thieves", year: 1948 },
   { title: "The Kid", year: 1921 },
   { title: "Inglourious Basterds", year: 2009 },
   { title: "Snatch", year: 2000 },
@@ -146,132 +139,97 @@ const top100Films = [
   { title: "Monty Python and the Holy Grail", year: 1975 },
 ];
 
-function ModalProfile({ show, handleClose, handleUpdate , handleOnChangeFormBody, formBody}) {
+function ModalEditMember({ show, handleClose, handleEdit, handleOnChange, selectedIndex = 0, memberData = { user_email: "" } }) {
   const [researchInterests, setResearchInterests] = useState("");
-  const [profileGender, setprofileGender] = useState();
+  const [memberRole, setMemberRole] = useState();
+
+  const handleOnChangeResearchInterestsSelect = (event, value, reason) => {
+    if (value && reason) {
+      const researchInterests = value.map(val => val.title)
+      const e = {
+        target: {
+          name: 'user_research_interests',
+          value: researchInterests
+        }
+      }
+      handleOnChange(e, selectedIndex)
+    }
+  }
+
+  function getSelectedItem(){
+    const item = top100Films.find((opt)=>{
+      if (opt.title == memberData.user_research_interests)
+        return opt;
+    })
+    console.log("here");
+    return item || {};
+  }
 
   const handleResearchInterestsChange = (event) => {
     setResearchInterests(event.target.value);
   };
 
-  const handleprofileGenderChange = (event) => {
-    const e = {
-      target: {
-        name: "user_gender",
-        value: event.target.value
-      }
-    }
-    handleOnChangeFormBody(e)
-    setprofileGender(event.target.value);
+  const handleMemberRoleChange = (event) => {
+    setMemberRole(event.target.value);
   };
 
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit Profile</Modal.Title>
+        <Modal.Title>Edit Member</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <TextField
           required
-          id="profile-name"
-          label="Name"
+          value={memberData.user_email}
+          onChange={handleOnChange}
+          name="user_email"
+          id="user_email"
+          label="Email"
           variant="outlined"
-          value={formBody ? formBody.user_first_name : ''}
-          onChange={handleOnChangeFormBody}
-          name="user_first_name"
-
-          className="my-3 me-3"
+          className="my-4 me-3"
           sx={{ flexGrow: 1, width: "50%" }}
         />
-        <FormControl
-          required
-          className="my-3"
-          sx={{ flexGrow: 1, width: "46%" }}
-        >
-          <InputLabel id="profile-gender-label">Gender</InputLabel>
+        <FormControl className="my-4" sx={{ flexGrow: 1, width: "46%" }}>
+          <InputLabel id="member-role-label">Role</InputLabel>
           <Select
-            labelId="profile-gender-label"
-            id="profile-gender"
-            value={profileGender}
-            label="Gender"
-            onChange={handleprofileGenderChange}
+            labelId="member-role-label"
+            id="user_type"
+            name="user_type"
+            value={memberData.user_type}
+            label="Role"
+            onChange={(e) => { handleOnChange(e, selectedIndex) }}
           >
-            <MenuItem value={"Male"}>Male</MenuItem>
-            <MenuItem value={"Female"}>Female</MenuItem>
+            <MenuItem value={"admin"}>Admin</MenuItem>
+            <MenuItem value={"system admin"}>System Admin</MenuItem>
+            <MenuItem value={"user"}>User</MenuItem>
           </Select>
         </FormControl>
-        {/* <DatePicker
-          id="profile-join-date"
-          label="Join Date"
-          sx={{ flexGrow: 1, width: "50%" }}
-          className="mb-3 me-3"
-        />
-        <TextField
-          required
-          id="profile-age"
-          label="Age"
-          variant="outlined"
-          className="mb-3"
-          sx={{ flexGrow: 1, width: "46%" }}
-        /> */}
-        <TextField
-          required
-          fullWidth
-          id="profile-phone-number"
-          label="Phone Number"
-          variant="outlined"
-          value={formBody ? formBody.user_phone_number : ''}
-          onChange={handleOnChangeFormBody}
-          name="user_phone_number"
-
-          className="mb-3"
-        />
-        <TextField
-          required
-          fullWidth
-          id="profile-address"
-          value={formBody ? formBody.user_address : ''}
-          onChange={handleOnChangeFormBody}
-          name="user_address"
-
-          label="Address"
-          variant="outlined"
-          className="mb-3"
-        />
-        <TextField
-          required
-          fullWidth
-          multiline
-          value={formBody ? formBody.user_description : ''}
-          onChange={handleOnChangeFormBody}
-          name="user_description"
-
-          rows={2}
-          id="profile-description"
-          label="Description"
-          variant="outlined"
-          className="mb-3"
-        />
-        {/* <Autocomplete
+        <Autocomplete
           multiple
           limitTags={2}
-          id="multiple-research-interest"
+          id="user_research_interests"
           options={top100Films}
           getOptionLabel={(option) => option.title}
-          defaultValue={[]}
+          defaultValue={memberData.user_research_interests || []}
+          value={memberData.user_research_interests?.map((interest) => {
+            return top100Films.find((opt) => opt.title === interest)
+          }) || []}
+          name="user_research_interests"
+          onChange={handleOnChangeResearchInterestsSelect}
           renderInput={(params) => (
             <TextField
               {...params}
               label="Research Interests"
             />
           )}
-        /> */}
+        />
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleUpdate}>
+        <Button variant="primary" onClick={handleEdit}>
           Save Changes
         </Button>
       </Modal.Footer>
@@ -279,4 +237,4 @@ function ModalProfile({ show, handleClose, handleUpdate , handleOnChangeFormBody
   );
 }
 
-export default ModalProfile;
+export default ModalEditMember;

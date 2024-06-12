@@ -193,37 +193,9 @@ function ProfileDetails() {
                     <div className="detail-font">{data.user_address}</div>
                   </div>
                 </Col>
-                <Col>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      marginTop: "10px",
-                      textAlign: "left",
-                    }}
-                  >
-                    <div className="bold-text">Your Group</div>
-                    <div className="detail-font">Group 1, Group 2</div>
-                  </div>
-                </Col>
               </Row>
             </div>
             <div style={{ borderTop: "solid 1px #D3D3D3", marginTop: "10px" }}>
-              <Row>
-                <Col>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      marginTop: "10px",
-                      textAlign: "left",
-                    }}
-                  >
-                    <div className="bold-text">Research Interests</div>
-                    <div className="detail-font">NLP, IP, CS, IT</div>
-                  </div>
-                </Col>
-              </Row>
             </div>
           </Container>
         </div>

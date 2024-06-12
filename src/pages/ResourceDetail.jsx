@@ -34,7 +34,6 @@ const CATEGORY_MAP = [
   {key: "cs.SY", value: "Systems and Control"},
   {key: "cs.DS", value: "Data Structures and Algorithms"},
   {key: "cs.NI", value: "Networking and Internet Architecture"},
-
 ]
 
 const RESOURCE_BODY = {

@@ -73,7 +73,10 @@ export default function SearchResult() {
                     </Row>
                   );
                 })}
-              </Row></>}
+              </Row>
+            </>
+          }
+          {data?.resources.length === 0 && data?.projects.length === 0 && <div className="resource-title" style={{color: 'grey', textAlign: 'center', marginTop: "10rem"}}>No results found</div>}
         </Container>
 
       </div>

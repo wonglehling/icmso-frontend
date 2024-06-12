@@ -52,8 +52,8 @@ function GroupMemberDetail() {
                       component="img"
                       height="194"
                       // image={testImg}
-                      src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    />
+                      src="https://t4.ftcdn.net/jpg/06/35/83/71/360_F_635837151_QaS3vQk9cP4iWX1fTOXVac11kVWvfVDl.jpg"
+                      />
                   </div>
                 </div>
                 <div
@@ -145,39 +145,9 @@ function GroupMemberDetail() {
                       <div className="detail-font">{data.user_address}</div>
                     </div>
                   </Col>
-                  <Col>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginTop: "10px",
-                        textAlign: "left",
-                      }}
-                    >
-                      <div className="bold-text">Same Group</div>
-                      <div className="detail-font">Group 1, Group 2</div>
-                    </div>
-                  </Col>
                 </Row>
               </div>
               <div style={{ borderTop: "solid 1px #D3D3D3", marginTop: "10px" }}>
-                <Row>
-                  <Col>
-                    <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "column",
-                        marginTop: "10px",
-                        textAlign: "left",
-                      }}
-                    >
-                      <div className="bold-text">Research Interests</div>
-                      <div className="detail-font">
-                        {data.user_research_interests}
-                      </div>
-                    </div>
-                  </Col>
-                </Row>
               </div>
             </>
           )}
