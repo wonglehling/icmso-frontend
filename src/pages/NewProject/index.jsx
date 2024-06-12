@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
+import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 import SideBar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
@@ -21,6 +23,7 @@ export default function NewProject() {
   const [bodyData, setBodyData] = useState(EMPTY_BODY_DATA);
   const groupApi = useApiCall("get", "/group");
   const projectApi = useApiCall("post", "/project", {}, bodyData);
+  const navigate = useNavigate();
 
   useEffect(() => {
     groupApi.executeApi();
