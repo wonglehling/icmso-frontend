@@ -57,9 +57,9 @@ function Code({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
             rows={4}
             id="code-description"
             label="Description"
-            value={formBody.resource_abstract}
+            value={formBody.resource_description}
               onChange={handleOnChangeFormBody}
-              name="resource_abstract"
+              name="resource_description"
             variant="outlined"
           />
         </div>

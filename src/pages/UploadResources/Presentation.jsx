@@ -85,9 +85,9 @@ function Presentation({ formBody, handleOnChangeFormBody, handleOnCreateFormBody
             id="presentation-description"
             label="Description"
             variant="outlined"
-            value={formBody.resource_abstract}
+            value={formBody.resource_description}
               onChange={handleOnChangeFormBody}
-              name="resource_abstract"
+              name="resource_description"
           />
         </div>
         <div style={{ flexGrow: 1 }} className="mx-2 mt-4">

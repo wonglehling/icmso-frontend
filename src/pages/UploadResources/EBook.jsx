@@ -94,9 +94,9 @@ function EBook({ formBody, handleOnChangeFormBody, handleOnCreateFormBody }) {
             rows={4}
             id="ebook-abstract"
             label="Abstract"
-            value={formBody.resource_abstract}
+            value={formBody.resource_description}
             onChange={handleOnChangeFormBody}
-            name="resource_abstract"
+            name="resource_description"
             variant="outlined"
           />
         </div>

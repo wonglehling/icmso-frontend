@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { toast } from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
 
 import SideBar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
@@ -10,7 +9,6 @@ import Autocomplete from "@mui/material/Autocomplete";
 import useApiCall from "../../hooks/useApiCall";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-hot-toast";
 
 const EMPTY_BODY_DATA = {
   project_name: '',
@@ -23,7 +21,6 @@ export default function NewProject() {
   const [bodyData, setBodyData] = useState(EMPTY_BODY_DATA);
   const groupApi = useApiCall("get", "/group");
   const projectApi = useApiCall("post", "/project", {}, bodyData);
-  const navigate = useNavigate();
 
   useEffect(() => {
     groupApi.executeApi();

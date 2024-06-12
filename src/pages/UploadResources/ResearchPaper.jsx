@@ -82,9 +82,9 @@ function ResearchPaper({ formBody, handleOnChangeFormBody, handleOnCreateFormBod
             fullWidth
             multiline
             rows={4}
-            value={formBody.resource_abstract}
+            value={formBody.resource_description}
             onChange={handleOnChangeFormBody}
-            name="resource_abstract"
+            name="resource_description"
             id="research-paper-abstract"
             label="Abstract"
             variant="outlined"
